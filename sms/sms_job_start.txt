@@ -1,0 +1,1 @@
+sudo python3 manage.py shell < sms/start_job.py

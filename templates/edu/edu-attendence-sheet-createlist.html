@@ -1,0 +1,155 @@
+{% extends 'appauth/appauth-home.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load edu_custom_tags%}
+{% block title %}
+All Students Attendancesheet | {{ application_title }}
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card card-fluid">
+			<div class="card-body">
+				<div>
+					
+						<div class="form-group">
+							<div class="card">
+								<div class="card-body">
+									<div class="form-row">
+										<div class="form-group col-md-10 mb-0">
+											<h3 class="card-title text-center"> All Students Attendance Sheet</h3>
+										</div>
+									</div>
+									<div>
+                                    
+										{% csrf_token %}
+										<div class="form-row">
+											<div class="form-group col-md-3 mb-0">
+												<label>Academic Year</label>
+												<select id="academic_yearl" class="form-control" onchange="">
+													<option value="">-----</option>
+													{% for year in years %}
+														<option value="{{year.pk}}">{{year.academic_year}}</option>
+													{% endfor %}
+												</select>
+											</div> 
+
+                      <div class="form-group col-md-3 mb-0">
+												<label>Month Name</label>
+												
+												<select id="month_list" class="form-control" onchange="">
+													<option value="">-----</option>
+													<option value="1">January</option>
+													<option value="2">February</option>
+													<option value="3">March</option>
+													<option value="4">April</option>
+													<option value="5">May</option>
+													<option value="6">June</option>
+													<option value="7">July</option>
+													<option value="8">August</option>
+													<option value="9">September</option>
+													<option value="10">October</option>
+													<option value="11">November</option>
+													<option value="12">December</option>
+												</select>
+											</div> 
+											
+
+                      <div class="form-group col-md-3 mb-0">
+												<label>Class</label>
+												<select id="class_names" class="form-control" onchange="">
+													<option value="">-----</option>
+													{% for class in ssss %}
+														<option value="{{class.class_id}}">{{class.class_name}}</option>
+													{% endfor %}
+												</select>
+											</div>
+
+                      <div class="form-group col-md-3 mb-0">
+												<label>Class Group</label>
+												<select id="group_list" class="form-control" onchange="">
+													<option value="">-----</option>
+													
+												</select>
+											</div>
+
+                      <div class="form-group col-md-3 mb-0">
+												<label>Section</label>
+												<select id="section_name" class="form-control" onchange="">
+													<option value="">-----</option>
+													{% for section in ttt %}
+														<option value="{{section.section_id}}">{{section.section_name}}</option>
+													{% endfor %}
+												</select>
+											</div>   
+
+                      <div class="form-group col-md-3 mb-0">
+												<label>Subject</label>
+												<select id="subject_list" class="form-control" onchange="">
+													<option value="">-----</option>
+													{% for subject in subjects %}
+														<option value="{{subject.subject_id}}">{{subject.subject_name}}</option>
+													{% endfor %}
+												</select>
+											</div>
+                                          
+										</div>
+										<br><br>
+										<button type="button" id="btnAddRecord" class="btn btn-primary" onclick="attendence_sheet()">Create Attendance Sheet</button>
+										<button type="button" id="btnSearch" class="btn btn-primary" onclick="filtering_alldata()">Search Attendance Sheet</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					
+				</div>
+			</div>
+		</div>
+
+	
+		<div class="app">
+
+			<div class="card card-fluid">
+				<div class="card-body" id="table-list">
+					
+				</div>
+			</div>
+			
+		</div>
+		
+        <div class="modal fade" id="edit_model" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			</div>
+		</div>
+
+</div>
+
+
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="edit_model" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			</div>
+		</div>
+	</div>
+
+	{% endblock body %}
+
+	{% block js %}
+	<script src="{% static 'assets/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/dataTables.responsive.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/responsive.bootstrap4.min.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/dataTables.bootstrap.js' %}"></script>
+	<script src="{% static 'assets/javascript/jspdf.min.js' %}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.3/html2canvas.min.js" integrity="sha512-adgfzougYIGhG3Tpb47fZLuMwaULLJQdujqOeWFoGc7vwFvBrFkhaPkJPId5swgdr122mghL/ysQk4oiabmRCQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="{% static 'assets/javascript/pages/edu/edu-student-attendence.js' %}"></script>
+	{% endblock %}
+</div>

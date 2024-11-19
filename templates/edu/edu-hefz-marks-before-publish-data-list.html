@@ -1,0 +1,103 @@
+{% extends 'appauth/appauth-report-base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+Student Result List | {{ application_title }}
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+<div class="row">
+    <div class="col-4 offset-4 text-center">
+                    <h5>{{institute.academic_name}}</h5>
+                    {% if institute.text_one %}
+                    <p style="line-height: 3px;">{{institute.text_one}}</p>
+                    {% endif %}
+                    {% if institute.text_two %}
+                    <p style="line-height: 3px;">{{institute.text_two}}</p>
+                    {% endif %}
+                    {% if institute.text_three %}
+                    <p style="line-height: 3px;">{{institute.text_three}}</p>
+                    {% endif %}
+                    {% if institute.text_four %}
+                    <p style="line-height: 3px;">{{institute.text_four}}</p>
+                    {% endif %}
+                    {% if institute.text_five %}
+                    <p style="line-height: 3px;">{{institute.text_five}}</p>
+                    {% endif %}
+                    <h6>{{term}} Result</h6>
+                   <p style="line-height: 3px;">Class: {{class_name}}</p>
+                </div>
+                <hr>
+                <div class="col-12">
+                    <table style="margin:auto ;">
+                        <tr>
+                            <th rowspan="2" style="padding:2px 3px;">Roll</th>
+                            <th rowspan="2" style="padding:2px">ID</th>
+                            <th rowspan="2" style="padding:2px">Name</th>
+                            {% for student in students_results %}
+                            {% if forloop.counter == 1 %}
+                            {% for subject in subjects_name %}
+                                    <th {% if forloop.counter|divisibleby:2 %} style="text-align:center; background-color: #CCC;"  {% else %} style="text-align:center;" {% endif %} colspan="2">{{subject}}</th>
+                            {% endfor %}
+                            {% endif %}
+                            {% endfor %}
+                            <th rowspan="2">Total</th>
+                            <th rowspan="2">Obtain</th>
+                            <th rowspan="2">GPA</th>
+                            <th rowspan="2">LG</th>
+                            <th rowspan="2">Position</th>
+                        </tr>
+                        <tr style="text-align: center ;">
+                            {% for student in students_results %}
+                            {% if forloop.counter == 1 %}
+                            {% for sub in subjects %}
+                            {% for subject in subject_results %}
+                                {% if subject.student_roll == student.student_roll and sub.subject_id == subject.subject_id %}
+                                    <!-- <td>Total</td> -->
+                                    <td {% if forloop.counter|divisibleby:2 %} style="text-align:center; background-color: #CCC;"  {% else %} style="text-align:center;" {% endif %}>Ob</td>
+                                    <td {% if forloop.counter|divisibleby:2 %} style="text-align:center; background-color: #CCC;"  {% else %} style="text-align:center;" {% endif %}>GPA</td>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                            {% endif %}
+                            {% endfor %}
+                        </tr>
+                        
+                        {% for student in students_results %}
+                        <tr {% if forloop.counter|divisibleby:2 %} style="text-align: centre; background-color: #eee;" {% else %} style="text-align: centre;" {% endif %}>
+                            <th style="padding:2px 3px;">{{student.student_roll__class_roll}}</th>
+                            <th style="padding:2px ;">{{student.student_roll}}</th>
+                            <th style="padding:2px ; width:180px">{{student.student_roll__student_name}}</th>
+                            {% for sub in subjects %}
+                                {% for subject in subject_results %}
+                                    {% if subject.student_roll == student.student_roll and sub.subject_id == subject.subject_id %}
+                                    {% for sub_name in subjects_name %}
+                                    {% if sub_name == subject.subject_id__sort_name %}
+                                    <!-- <td style="min-width: 25px; padding-left: 2px; padding-right: 2px; text-align: center;">{{subject.total|floatformat:0 }}</td> -->
+                                        <td {% if forloop.counter|divisibleby:2 %} style="text-align:center; background-color: #CCC; padding: 0 2px;"  {% else %} style="text-align:center; padding: 0 2px;" {% endif %}>{{subject.obtain|floatformat:0}}</td>
+                                        <td {% if forloop.counter|divisibleby:2 %} style="text-align:center; background-color: #CCC; padding: 0 2px;"  {% else %} style="text-align:center; padding: 0 2px;" {% endif %}>{{subject.gpa}}</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                        
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                            <td style="min-width: 25px; padding-left: 2px; padding-right: 2px; text-align: center;">{{student.total|floatformat:0}}</td>
+                            <td style="min-width: 25px; padding-left: 2px; padding-right: 2px; text-align: center;">{{student.obtain|floatformat:0}}</td>
+                            <td style="min-width: 25px; padding-left: 2px; padding-right: 2px; text-align: center;">{{student.gpa}}</td>
+                            <td style="min-width: 25px; padding-left: 2px; padding-right: 2px; text-align: center;">{{student.lg}}</td>
+                            <td style="min-width: 25px; padding-left: 2px; padding-right: 2px; text-align: center;">
+                                {{student.position}}{% if student.position == 1 %}st{% elif student.position == 2 %}nd{% elif student.position == 3 %}rd{% elif student.position == 0 %}{% else %}th{% endif %} 
+                            </td>
+                        </tr>
+                        
+                        {% endfor %}
+                        
+                    </table>
+                    <div style="padding: 5px 30px ;"> {{students_results}}</div>
+                </div>
+</div>
+</div>
+{% endblock body %}

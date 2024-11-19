@@ -1,0 +1,166 @@
+{% load static %}
+{% load mathfilters %}
+{% load edu_custom_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'assets/stylesheets/report-bootstrap.min.css' %}">
+
+    <title>{{header_title}}</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+    <div class="row text-center">
+      <div class="col-12">
+        <h1 id="institute_name">{{institute}}</h1>
+        <p id="address" style="line-height:1px">{{institute.academic_address}}</p>
+        <h5 id="exam_title">{{header_title}}</h5>
+        <p id="id_class_id" data-class_id="{{class_info.class_id}}" style="line-height:1px">Class: {{class_info.class_name}}</p>
+        <button class="btn btn-danger float-end d-print-none" type="button" onclick="save_and_publish()">Save & Publish</button>
+        <button class="btn btn-dark float-end d-print-none mx-1" type="button" onclick="gen_pdf()">Download</button>
+        <button class="btn btn-info float-end d-print-none mx-1" type="button" onclick="page_print()">Print</button>
+      </div>
+    </div>
+
+
+    
+		{% for result in total_mark%}
+    <table class="table table-sm student" data-id="{{result.student_roll}}" style="font-size:.8rem;">
+		<tr style="font-weight: bold; background-color:#eee">
+			<td id="student_name{{result.student_roll}}">
+			Name: {{result.student_roll__student_name}} - 
+				{{result.student_roll}} 
+			</td>
+			<td>Grand Total Marks: {{result.final_obtain_marks}}</td>
+			<td>Grand GPA: {{result.final_gpa}}</td>
+			<td>Grand LG: {{result.final_grade}}</td>
+			<td>Merit Position: {{result.position}}<sup>{% if result.position == 1 %}st{% elif result.position == 2 %}nd{% elif result.position == 3 %}rd{% else %}th{% endif %}</sup></td>
+		</tr>
+		
+    <tr>
+			<td colspan="5">
+        <table style="width:100%;">
+          <tr>
+            <!--Single Term Result Table-->
+          {% for term_id in result.shearch%}
+          {% with forloop.counter as first_loop_counter %}
+          
+              <td>
+                <table style="width:100%" class="table table-sm table-bordered">
+                  <tr>
+                    <th style="text-align:center;" {% if forloop.counter == 1%} colspan="{{result.term_exam_colspan|add:1}}" {% else %} colspan="{{result.term_exam_colspan}}" {% endif %}>
+                      {% for term in result.term_list%}{% if term.id == term_id.term_id%} {{term.term_name}} {% endif %}{% endfor %}
+                      {% with term_id|get_student_term_final as term_final %}
+                      | GPA: {{term_final.term_final.grade_point_average}}
+                      | LG: {{term_final.term_final.result_grade}}
+                      {% endwith %}
+                    </th>
+                  </tr>
+                  <tr style="font-weight: bold;">
+                    {% if forloop.counter == 1%}
+                      <th>Subjects</th>
+                    {% endif %}
+                    {% for exam_name in result.exam_names %}
+                      <td class="text-center">{{exam_name.exam_id__exam_name}}</td>
+                    {% endfor %}
+                    <td class="text-center">Total Marks</td>
+                    <td class="text-center">GPA</td>
+                    <td class="text-center">LG</td>
+                  </tr>
+                  {% with term_id|get_student_term_exam_mark as exam_data %}
+                  {% for subject in result.subjects %}
+                    <tr>
+                      {% if first_loop_counter == 1 %}
+                      <td style="font-weight: bold;">{{subject.subject_id__subject_name}}</td>
+                      {% endif %}
+
+                      {% for exam_name in result.exam_names %}
+                      {% for exam in exam_data.exam_list%}
+                        {% if subject.subject_id == exam.subject_id.subject_id%}
+                            {% if exam.exam_id.exam_name == exam_name.exam_id__exam_name%}
+                            <td>
+                              {{exam.obtain_marks}}/{{exam.total_exam_marks|stringformat:".0f"}}
+                            </td>
+                            {% endif %}
+                          {% endif %}
+                      {% endfor %}
+                      {% endfor %}
+                      
+                      {% for subject_mark in exam_data.subject_marks%}
+                      {% if subject.subject_id == subject_mark.subject_id%}
+                      <td>{{subject_mark.ob_mark}}/{{subject_mark.total_mark|stringformat:".0f" }}</td>
+                      <td>{{subject_mark.subject_gpa}}</td>
+                      <td>{{subject_mark.subject_lg}}</td>
+                      {% endif %}
+                     {% endfor%}
+                    </tr>
+                  {% endfor %}
+                  {% endwith %}
+                </table>
+              </td>
+              {% endwith %}
+            {% endfor %}
+              <!--Tota side Table Start-->
+            <td>
+              <table class="table table-sm table-bordered">
+                <tr>
+                <th colspan="3" class="text-center">Total</th>
+                </tr>
+                <tr>
+                  <th class="text-center">Marks</th>
+                  <th class="text-center">GPA</th>
+                  <th class="text-center">LG</th>
+                </tr>
+                {% for mark in result|get_merge_subject_marks%}
+                <tr>
+                  <td>{{mark.ob_mark}}/{{mark.total_mark|stringformat:".0f"}}</td>
+                  <td>{{mark.subject_gpa}}</td>
+                  <td>{{mark.subject_lg}}</td>
+                </tr>
+                {% endfor %}
+              </table>
+            </td>
+            <!--Tota side Table End-->
+          </tr>
+        </table>
+			</td>
+      
+		</tr>
+	</table>
+		{% endfor %}
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="page_create" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Page Create</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h1 class="text-center" style="color:#FF0000" id="page_create_count">0</h1>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="{% static 'assets/javascript/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/javascript/html2canvas.min.js' %}"></script>
+    <script src="{% static 'assets/javascript/moment.js' %}"></script>
+    <script src="{% static 'assets/javascript/jspdf.min.js' %}"></script>
+    <script src="{% static 'assets/javascript/sweetalert2.js' %}"></script>
+    <script src="{% static 'assets/javascript/pages/edu/edu-result-marge-view.js' %}"></script>
+
+    
+  </body>
+</html>

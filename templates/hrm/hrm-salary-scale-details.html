@@ -1,0 +1,94 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<div class="modal-header"> </div>
+{% csrf_token %}
+<div class="container">
+	<h4 align="center">Update {{title}}  Information</h4>
+	<div class="card">
+		<div class="card-body">
+			<div>
+				<form method="post" id="edit_form" data-url="{% url 'hrm-employee-salary-scale-details-insert' id %}" class="update-form">
+					{% csrf_token %}
+					<div class="form-row">
+						<!-- <div class="form-group col-md-4 mb-0">
+							{{ form.salscale_id|as_crispy_field }}
+						</div>  -->
+						
+						<input type='hidden' id='id_salscale_id' name='salscale_id' value={{id}} readonly>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.salsdtlcale_name|as_crispy_field }}
+						</div> 
+						<div class="form-group col-md-3 mb-0">
+							{{ form.salary_amount|as_crispy_field }}
+						</div> 
+						<div class="form-group col-md-3 mb-0">
+							{{ form.deduction_pct|as_crispy_field }}
+						</div> 
+						<div class="form-group col-md-3 mb-0">
+							{{ form.total_deduction|as_crispy_field }}
+						</div> 
+						<div class="form-group col-md-3 mb-0">
+							{{ form.effective_date|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.comments|as_crispy_field }}
+						</div> 
+				
+					</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger btn-default pull-right" data-dismiss="modal">Close</button>
+				<button type="submit" id="btnSubmit" class="btn btn-primary">Add</button>
+			</div>
+			</form>
+			<div>
+			</div>
+		</div>
+	</div>
+	<div class="app">
+		<div class="card card-fluid">
+			<div class="card-body">
+				<table class="table dt-responsive nowrap w-100">
+					<thead>
+						<tr>
+							<th>Name </th>
+							<th> Salary Amount </th>
+							<th> Deduction % </th>
+							<th> Total Deduction </th>
+							<th> Effective Date </th>
+							<th> Comments </th>
+							<th> Action</th>
+						</tr>
+					</thead>
+					{% for item in salary_scale_details_list %}
+					<tr>
+						<td>{{item.salsdtlcale_name}} </td>
+						<td> {{item.salary_amount}} </td>
+						<td> {{item.deduction_pct}} </td>
+						<td> {{item.total_deduction}} </td>
+						<td> {{item.effective_date}} </td>
+						<td> {{item.comments}} </td>
+						<td> <button type="button" class="btn btn-sm btn-info" onclick="salary_scale_details_edit_modal('{{item.salsdtlcale_id}}')">Edit</button> 
+							<button type="button" class="btn btn-success btn-sm" onclick="show_bonus_form('{{item.salsdtlcale_id}}')">Bonus</button> 
+						</td>
+					</tr>
+					{% endfor %}
+					<tfoot>
+						<tr>
+							<th>Name </th>
+							<th> Salary Amount </th>
+							<th> Deduction % </th>
+							<th> Total Deduction </th>
+							<th> Effective Date </th>
+							<th> Comments </th>
+							<th> Action</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="{% static 'assets/javascript/pages/common-submit-editdata.js' %}"></script>

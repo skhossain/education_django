@@ -1,0 +1,107 @@
+{% extends 'appauth/appauth-home.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+Manage ApplicationSetting | {{ application_title }}
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card card-fluid">
+			<div class="card-body">
+				<div>
+					<form method="post" id="tran_table_data" action="{% url 'edu-application-setting-insert' %}" 
+						class="update-form" enctype="multipart/form-data">
+						<div class="form-group">
+							<div class="card">
+								<div class="card-body">
+									<div class="form-row">
+										<div class="form-group col-md-10 mb-0">
+											<h3 class="card-title"> Manage Application Settings </h3>
+										</div>
+									</div>
+									<div>
+										{% csrf_token %}
+										<div class="form-row" id="ap_input_form">
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.academic_code|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.academic_name|as_crispy_field }}
+											</div>
+											<div class="form-group col-md-3 mb-0">
+												{{ form.eiin_number|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.academic_address|as_crispy_field }}
+											</div>
+											<div class="form-group col-md-3 mb-0">
+												{{ form.academic_mobile_1|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.academic_mobile_2|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.academic_email|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.academic_website|as_crispy_field }}
+											</div>
+											{% if ap_setting.academic_logo %}
+											<div class="form-group col-12 mb-0" id="ap_banner">
+												<button type="button" class="btn btn-danger" onclick="show_logo_input()">Update Logo</button>
+												<br>
+												<br>
+												<img src="{{ap_setting.academic_logo.url}}" style="width:250px;">
+											</div>
+											{% else %}
+											
+                                            <div class="form-group col-md-3 mb-0">
+												<label>Logo</label>
+												<input type="file" name="academic_logo" class="form-control">
+											</div>
+											{% endif %}
+											{% if ap_setting.web_header_banner %}
+											<div class="form-group col-12 mb-0" id="ap_logo">
+												<button type="button" class="btn btn-danger" onclick="show_banner_input()">Update Banner</button>
+												<br>
+												<br>
+												<img src="{{ap_setting.web_header_banner.url}}" style="width:250px;">
+											</div>
+											{% else %}
+											
+											<div class="form-group col-md-3 mb-0">
+												<label>Website Banner</label>
+												<input type="file" name="web_header_banner" class="form-control">
+											</div>
+											{% endif %}
+										</div>
+										<br>
+										
+										<button type="submit" id="btnAddRecord" class="btn btn-primary">Save</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="app">
+
+		</div>
+	</div>
+
+	{% endblock body %}
+
+	{% block js %}
+	<script src="{% static 'assets/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/dataTables.responsive.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/responsive.bootstrap4.min.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/dataTables.bootstrap.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/edu/edu-application-setting-createlist.js' %}"></script>
+	{% endblock %}
+</div>

@@ -1,0 +1,30 @@
+<table class="table table-striped"> 
+<tr>
+	<th>SL</th>
+	<th>Roll</th>
+	<th>Name</th>
+	<th>Subjects</th>
+	<th>Actions</th>
+</tr>
+{% for s in data %}
+	<tr>
+		<td>{{forloop.counter}}</td>
+		<td>{{s.student_roll}}</td>
+		<td>{{s.student_name}}</td>
+		<td>
+			{% for sub in s.subjects %}
+				{{sub.subject_name}}
+				{% if not forloop.last %}
+				,
+				{% endif %}
+			{% endfor %}
+		</td>
+		<td>
+			<button type="button" class="btn btn-danger" onclick='editChoice("{{s.student_roll}}")'>
+			Edit
+			</button>
+		</td>
+
+	</tr>
+{% endfor %}
+</table>

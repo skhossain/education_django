@@ -1,0 +1,64 @@
+{% load static %}
+<div class="widget pb-5">
+    <div class="rs-image">
+        <img src="{{principal_info.profile_image.url}}" alt="principal image" class="block mx-auto">
+    </div>
+    <h5 class="widget-title px-2" style="margin-top: 5px; margin-bottom: 5px; font-weight: bold; font-size: 21px;">
+        <span>{{principal_info.designation_id}}</span>
+    </h5>
+    <h6 class="my-2 font-bold text-md px-2">
+        {{principal_info}}</h6>
+    <p class="text-sm px-2">
+        {%for edu in principal_info.eme_employee_id.all%}
+        {{edu.degree_name}}-{{edu.board_name}}-({{edu.result_grate}}) {%if not forloop.last %},{%endif%}
+        {%endfor%}
+    </p>
+</div>
+
+<div class="board-inner py-2 shadow-lg mb-5">
+    <h5 class="widget-title title-dots small" style="background-color: #59CE28;">
+        <span style="font-weight: bold; color: #59CE28;">নোটিশ বোর্ড</span>
+    </h5>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        {% for label in edu_lavels%}
+        <li class="nav-item" role="presentation">
+            <button class="nav-link {% if forloop.counter == 1%} active {%endif%}" id="tab-{{label.id}}"
+                data-bs-toggle="tab" data-bs-target="#content-{{label.id}}" type="button" role="tab"
+                aria-controls="content-{{label.id}}" aria-selected="true">{{label.lavel_name}}</button>
+        </li>
+
+        {%endfor%}
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        {% for label in edu_lavels%}
+        <div class="tab-pane fade {% if forloop.counter == 1%} show active {%endif%}" id="content-{{label.id}}"
+            role="tabpanel" aria-labelledby="tab-{{label.id}}">
+            <div style="height:350px;overflow: hidden; position: relative;">
+                <marquee class="h-full" behavior direction="up" onmouseover="this.stop();" onmouseout="this.start();">
+                    {%for notice in notices%}
+                    {%if notice.types == 0 and notice.education_lavel.id == label.id%}
+                    <div class="row my-1">
+                        <div class="col-3 bg-green-900 text-center">
+                            <ul>
+                                <li class="font-16 text-white font-weight-600 border-bottom">
+                                    {{notice.app_data_time|date:'d'}}</li>
+                                <li class="font-16 text-white text-uppercase">{{notice.app_data_time|date:'b'}}</li>
+                                <li class="font-16 text-white text-uppercase">{{notice.app_data_time|date:'Y'}}</li>
+                            </ul>
+                        </div>
+                        <div class="col-9">
+                            <h4 class="entry-title text-white text-uppercase pt-5 m-0 mt-5">
+                                <a href="/media/{{notice.pdf_file}}" target="_blank">{{notice.notic_title}}</a>
+                            </h4>
+                        </div>
+                    </div>
+                    {%endif%}
+                    {%endfor%}
+                </marquee>
+            </div>
+        </div>
+
+        {%endfor%}
+    </div>
+</div>

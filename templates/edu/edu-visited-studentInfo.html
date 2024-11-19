@@ -1,0 +1,176 @@
+{% extends 'appauth/appauth-home.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Visited Student Information | {{ application_title }}
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card card-fluid">
+			<div class="card-body">
+				<div>
+					<form method="post" id="tran_table_data" data-url="{% url 'edu-visited-studentInfo-insert' %}" 
+						class="update-form">
+						<div class="form-group">
+							<div class="card">
+								<div class="card-body">
+									<div class="form-row">
+										<div class="form-group col-md-10 mb-0 text-center">
+											<h3 class="card-title"> Visited Student's Information </h3>
+										</div>
+									</div>
+									<div>
+										{% csrf_token %}
+										<div class="form-row">
+											<div class="form-group col-md-3 mb-0">
+												{{ form.student_name|as_crispy_field }}
+											</div>
+											<div class="form-group col-md-3 mb-0">
+												{{ form.class_id|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.class_group_id|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.student_father_name|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.father_phone_number|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.student_mother_name|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.mother_phone_number|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.student_marital_status|as_crispy_field }}
+											</div>
+                                              <div class="form-group col-md-3 mb-0">
+												{{ form.student_present_address|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.student_permanent_address|as_crispy_field }}
+											</div>
+                                              <div class="form-group col-md-3 mb-0">
+												{{ form.student_phone|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.student_email|as_crispy_field }}
+											</div>
+                                              <div class="form-group col-md-3 mb-0">
+												{{ form.current_institute|as_crispy_field }}
+											</div>
+                                           
+										</div>
+										<hr>
+										<div>
+											<h5>Obtained Certificate</h5>
+											<div id="Edu-qualification">
+												<input type="hidden" name="edu_count" value="1" id="id_edu_count">
+												<div class="form-row">
+													<div class="form-group col-md-2 mb-0">
+														<label>Degree Name</label>
+														<select name="degree1" class="form-control edu_degree_list"
+															id="id_edu_degree_list"></select>
+													</div>
+													<div class="form-group col-md-2 mb-0">
+														<label>Board Name</label>
+														<input type="text" name="board1" placeholder="Dhaka"
+															class="form-control">
+													</div>
+													<div class="form-group col-md-1 mb-0">
+														<label>Point</label>
+														<input type="number" name="point1" placeholder="5.00"
+															class="form-control">
+													</div>
+													<div class="form-group col-md-1 mb-0">
+														<label>Grade</label>
+														<input type="text" name="grate1" placeholder="A+" class="form-control">
+													</div>
+													<div class="form-group col-md-2 mb-0">
+														<label>Passing Year</label>
+														<input type="text" name="year1" placeholder="2018" class="form-control">
+													</div>
+													<div class="form-group col-md-4 mb-0">
+														<label>Institute Name</label>
+														<div class="d-flex">
+															<select name="institute1" class="form-control edu_degree_list institute_name"
+																id="id_institute_list1"></select>
+															<button class="btn btn-dark" data-value="1" style="margin: 0px 5px;" type="button" onclick="show_blank_form(this)"><i class="fas fa-plus"></i></button>	
+														</div>
+													</div>
+												</div>
+											</div>
+											<button type="button" class="ml-auto btn btn-dark my-2" id="addnewEdu">Add More
+												+</button>
+										</div>
+										<button type="button" id="btnAddRecord" class="btn btn-primary">Add Information</button>
+										<button type="button" id="btnSearch" class="btn btn-info pull-right"> Search Information</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="app">
+
+			<div class="card card-fluid">
+				<div class="card-body">
+					<table id="dt-table-list" class="table dt-responsive nowrap w-100">
+						<thead>
+							<tr>
+								<th> Student's Name </th>
+                                <th> Intended Class </th>
+                                <th> Group Name </th>
+                                <th> Present Address</th>
+                                <th> Student's Mobile No.</th>
+                                <th> Action</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th> Student's Name </th>
+                                <th> Intended Class </th>
+                                <th> Group Name </th>
+                                <th> Present Address</th>
+                                <th> Student's Mobile No.</th>
+                                <th> Action</th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="edit_model" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="view_model" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			</div>
+		</div>
+	</div>
+
+	{% endblock body %}
+
+	{% block js %}
+	<script src="{% static 'assets/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/dataTables.responsive.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/responsive.bootstrap4.min.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/dataTables.bootstrap.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/edu/edu-visited-studentInfo.js' %}"></script>
+	{% endblock %}
+</div>

@@ -1,0 +1,23 @@
+
+<table class="table">
+    <tr>
+    <th>Student ID</th>
+    <th><input class="form-check-input" type="checkbox" value="" id="student_name" onclick="allselect(this)">
+        <label class="form-check-label" for="student_name">
+            Student Name
+        </label>
+    </th>
+    <th>Meal Quantity</th>
+    </tr>
+    {% for student in meal_student %}
+    <tr>
+        <td>{{ student.student_roll.student_roll }}</td>
+        <td><input type="checkbox" value="{{student.student_roll.student_roll}}" name="student_roll" class="custom-control-input student" id="roll{{student.student_roll.student_roll}}" onchange="check_single_student(this)">
+            <label class="custom-control-label" for="roll{{student.student_roll.student_roll}}">{{student.student_roll.student_name}}</label>
+        </td>
+        <td style="width:150px"><input type="number" min="1" value="1"  name="eat_is{{student.student_roll.student_roll}}" class="form-control" onchange="meal_number_change(this)"></td>
+    </tr>
+    
+    {% endfor %}
+</table>
+

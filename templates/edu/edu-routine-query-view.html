@@ -1,0 +1,171 @@
+{% load edu_custom_tags %}
+<!--Teacher Routine-->
+{% if routine_view == '1' %}
+<div id="print_div">
+    <input type="hidden" id="print_title" value="{{title_name}}">
+<div class="card">
+    <div class="card-header">
+        <h5 class="text-center">Class Routine for {{title_name}}</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped table-hover table-bordered">
+            <tr>
+                <th>Day/Time</th>
+                {% for t in periods %}
+                <th class="text-center">{{t.start_time | time:'H:i A'}}-{{t.end_time | time:'H:i A'}}</th>
+                {% endfor %}
+            </tr>
+            {% for d in days %}
+                <tr>
+                    <td>{{d | get_week_name}}</td>
+                    {% for t in periods %}
+                        <td class="text-center">
+                            {% for r in routines %}
+                                {% if d == r.day and t.start_time == r.start_time and t.end_time == r.end_time %}
+                                    {{r.class_id}}-{{r.room_id}}<br>
+                                    {{r.subject_id}} {% if r.subject_id.subject_code %}-{{r.subject_id.subject_code}}{% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            
+        </table>
+    </div>
+</div>
+</div>
+{% endif %}
+
+<!--Class Routine-->
+{% if routine_view == '2' %}
+<div id="print_div">
+<input type="hidden" id="print_title" value="{{title_name}}">
+{% for section in sections %}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="text-center">Routine for Class {{title_name}}-{{section.section_name}}</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped table-hover table-bordered">
+            <tr>
+                <th>Day/Time</th>
+                {% for t in periods %}
+                <th class="text-center">{{t.start_time | time:'H:i A'}}-{{t.end_time | time:'H:i A'}}</th>
+                {% endfor %}
+            </tr>
+            {% for d in days %}
+                <tr>
+                    <td>{{d | get_week_name}}</td>
+                    {% for t in periods %}
+                        <td class="text-center routine-cell">
+                            {% for r in routines %}
+                                {% if d == r.day and t.start_time == r.start_time and t.end_time == r.end_time and section.section_id == r.section_id %}
+                                    {{r.subject_id}} {% if r.subject_id.subject_code %}-{{r.subject_id.subject_code}}{% endif %} <br>
+                                    Room No-{{r.room_id}}<br>
+                                    {{r.teacher_id}}
+                                    {% if r.class_group_id %}
+                                        <br>{{r.class_group_id}}
+                                        <hr class="divider">
+                                    {% endif %}
+                                    <!-- class_group_id -->
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            
+        </table>
+    </div>
+</div>
+{% endfor %}
+{% if not sections %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="text-center">Routine for Class {{title_name}}</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped table-hover table-bordered">
+            <tr>
+                <th>Day/Time</th>
+                {% for t in periods %}
+                <th class="text-center">{{t.start_time | time:'H:i A'}}-{{t.end_time | time:'H:i A'}}</th>
+                {% endfor %}
+            </tr>
+            {% for d in days %}
+                <tr>
+                    <td>{{d | get_week_name}}</td>
+                    {% for t in periods %}
+                        <td class="text-center routine-cell">
+                            {% for r in routines %}
+                                {% if d == r.day and t.start_time == r.start_time and t.end_time == r.end_time %}
+                                    {{r.subject_id}} {% if r.subject_id.subject_code %}-{{r.subject_id.subject_code}}{% endif %} <br>
+                                    Room No-{{r.room_id}}<br>
+                                    {{r.teacher_id}}
+                                    {% if r.class_group_id %}
+                                        <br>{{r.class_group_id}}
+                                        <hr class="divider">
+                                    {% endif %}
+                                    <!-- class_group_id -->
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            
+        </table>
+    </div>
+</div>
+{% endif %}
+</div>
+{% endif %}
+
+<!--Class Routine-->
+{% if routine_view == '3' %}
+<div id="print_div">
+    <input type="hidden" id="print_title" value="Daily Routine">
+{% for day in search_days %}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="text-center">Class routine for {{day | get_week_name }}</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped table-hover table-bordered">
+            <tr>
+                <th>Class/Time</th>
+                {% for t in periods %}
+                <th class="text-center">{{t.start_time | time:'H:i A'}}-{{t.end_time | time:'H:i A'}}</th>
+                {% endfor %}
+            </tr>
+            {% for c in classs %}
+                <tr>
+                    <td>{{c.class_name}}</td>
+                    {% for t in periods %}
+                        <td class="text-center routine-cell">
+                            {% for r in routines %}
+                                {% if day|add:"0" == r.day and t.start_time == r.start_time and t.end_time == r.end_time and c.class_id == r.class_id.class_id %}
+                                    {{r.subject_id}} {% if r.subject_id.subject_code %}-{{r.subject_id.subject_code}}{% endif %} <br>
+                                    Room No-{{r.room_id}}<br>
+                                    {{r.teacher_id}}
+                                    {% if r.class_group_id %}
+                                        <br>{{r.class_group_id}}
+                                    {% endif %}
+                                    <hr class="divider">
+                                    <!-- class_group_id -->
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            
+        </table>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+<button type="button" class="btn btn-info my-2 float-right" onclick="print_div('print_div')">Print</button>

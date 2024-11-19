@@ -1,0 +1,108 @@
+{% extends 'appauth/appauth-home.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load edu_custom_tags%}
+{% block title %}
+Transportation Student Form | {{ application_title }}
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card card-fluid">
+			<div class="card-body">
+				<div>
+					<form method="post" id="tran_table_data" data-url="{% url 'transport-student-attendance-insert' %}" 
+						class="update-form">
+						<div class="form-group">
+							<div class="card">
+								<div class="card-body">
+									<div class="form-row">
+										<div class="form-group col-md-10 mb-0">
+											<h3 class="card-title text-center"> Transportation Students Attendance</h3>
+										</div>
+									</div>
+									<div>
+                                    
+										{% csrf_token %}
+										<div class="form-row">
+											<div class="form-group col-md-3 mb-0">
+											    {{ form.academic_year|as_crispy_field }}
+											</div>
+                        					<div class="form-group col-md-3 mb-0">
+												{{ form.class_id|as_crispy_field }}
+											</div>
+                        					
+                        					<div class="form-group col-md-3 mb-0">
+												{{ form.road_map_id|as_crispy_field }}
+											</div>
+											
+											<div class="form-group col-md-3 mb-0">
+												{{ form.trans_status|as_crispy_field }}
+											</div>
+											
+										</div>
+										<br><br>
+										<button type="button" class="btn btn-info" onclick="student_list()">Start</button>
+									</div>
+									<div id="data-div"></div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	
+		<div class="app">
+
+			<div class="card card-fluid">
+				<div class="card-body row">
+					<div class="col-md-12">
+						<table class="table" id="location-list">
+						</table>
+					</div>
+					<div class="col-md-12">
+						<table class="table" id="student-list">
+						
+						</table>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+        <div class="modal fade" id="edit_model" role="dialog">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+				</div>
+			</div>
+
+		</div>
+
+
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="edit_model" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			</div>
+		</div>
+	</div>
+
+	{% endblock body %}
+
+	{% block js %}
+	<script src="{% static 'assets/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/dataTables.responsive.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/responsive.bootstrap4.min.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/dataTables.bootstrap.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/transport/transport-student-attendance.js' %}"></script>
+	{% endblock %}
+</div>

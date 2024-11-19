@@ -1,0 +1,77 @@
+{% extends 'appauth/appauth-report-print-layout.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Testimonial | {{ application_title }}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'assets/stylesheets/testiminial.css' %}">
+{% endblock %}
+{% block body %}
+<div id="testimonial">
+	<div class="header text-center">
+	<h3 class="text-center" style="position: relative; display: inline-block; margin: 10px auto">
+		{% if header.logo %}
+		<img src="/media/{{header.logo}}" id="logo" style="width: 100px; height: 100px; position: absolute;left: -115px;">
+		{% endif %}
+		{{header}}
+	</h3>
+	{% for address in addare_array %}
+	<p class="text-center" style="line-height: 1.8px;">{{address}}</p>
+	{% endfor %}
+	</div>
+	<div class="row mt-5 pt-3">
+		<div class="col"><b>Ref. No: </b>{{testimonial.testmonial_id}}</div>
+		<div class="col text-center"><h5>Testimonial</h5></div>
+		<div class="col text-end"><b>Date: </b>{{testimonial.app_data_time|date:"d-F-Y"}}</div>
+		<div class="col-12 mt-3">
+			<p style="text-align: justify;">This is to cirtify that <strong class="bold-italic">{{testimonial.student_roll.student_name|upper}}</strong> son/dauther of
+				<span class="bold-italic">{{testimonial.student_roll.student_father_name|upper}}</span> and <strong class="bold-italic">{{testimonial.student_roll.student_mother_name|upper}}</strong> Village/Town-
+				<strong class="bold-italic">{{testimonial.student_roll.student_permanent_address}}</strong> Dist- <strong class="bold-italic">{{testimonial.student_roll.per_district_id}}</strong> passed the
+				<b class="bold-italic">{{testimonial.cert_name_id}}</b> examination in <strong class="bold-italic"> {{testimonial.academic_year}}</strong> from this school under the
+				<b class="bold-italic">{{testimonial.education_board_id}}</b> bearing
+				{% if testimonial.board_roll %} Roll No.
+				<strong class="bold-italic">{{testimonial.board_roll}}</strong>
+				{% endif %}
+				{% if testimonial.board_reg %} 
+				and Registration No. <strong class="bold-italic">{{testimonial.board_reg}}</strong> 
+				{% endif %}
+				obtained grade point average <strong class="bold-italic">{{testimonial.grade_point}}</strong> (<strong class="bold-italic">{{testimonial.grade_name}}</strong>)
+				{% if testimonial.group_name %}
+				in <strong class="bold-italic"> {{testimonial.group_name}}</strong> 
+				{% endif %}
+				His/her date of birth is <strong class="bold-italic">{{testimonial.student_roll.student_date_of_birth|date:"d F Y"}}</strong>.</p>
+
+				<br>
+				<br>
+				<p>To the best of my knowledge he did not take part in any activities subversive of the state or discipline.His/her
+					conduct and character are good.</p>
+				<p>I wish him/her every success in life.</p>
+		</div>
+	</div>
+	<div style="position: absolute; bottom: 10px;">
+		<p><b>Composed by:  </b>{{composer_name}}</p>
+		<p><b>Date: </b> <span id="tody"></span><script>
+			var date = new Date();
+			var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+			var currentDate =  date.getDate() + "-" + (monthNames[date.getMonth()]) + "-" + date.getFullYear();
+			document.getElementById('tody').innerText= currentDate;
+		</script></p>
+	</div>
+	<div style="position: absolute; bottom: 10px; right:10px">
+		<p style="width: 40mm; border-top: .5mm solid #333"></p>
+		<p></p>
+		<p>Principal/Head Master</p>
+		
+	</div>
+	<div class="backagroung_image">
+		<img src="/media/{{header.logo}}">
+	</div>
+</div>
+
+{% block js %}
+<script src="{% static 'assets/javascript/pages/edu/edu-student-testimonial.js' %}"></script>
+<script src="{% static 'assets/javascript/pages/common-parameter-details.js' %}"></script>
+{% endblock %}
+{% endblock body %}

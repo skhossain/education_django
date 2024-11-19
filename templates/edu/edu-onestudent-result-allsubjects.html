@@ -1,0 +1,199 @@
+<div class="container">
+  <div class="card">
+    <div class="card-body" id="print-student-result">
+      <input type="hidden" id="print_title" value="Result Information-" />
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 text-center">
+            <p
+              style="font-size: 1.5rem; font-weight: bold; line-height: 0.2rem"
+            >
+              {{institute.academic_name}}
+            </p>
+            <p style="line-height: 0.2rem">{{institute.academic_address}}</p>
+            <p style="line-height: 0.2rem">
+              {% with subject_marks|first as subject_mark %} 
+              {% with subject_mark.result|first as single_mark %}
+              {{single_mark.term_id}} {% endwith %} {% endwith %}
+            </p>
+            <p
+              style="font-size: 1.2rem; font-weight: bold; line-height: 0.2rem"
+            >
+              <u>Marks Sheet</u>
+            </p>
+          </div>
+
+          <div class="col-md-9">
+            <div class="row">
+              {% with subject_marks|first as subject_mark %}
+              <!--for brack-->
+              {% with subject_mark.result|first as single_mark %}
+              <div class="col-12">
+                <p style="line-height: 0.2rem">
+                  <strong>Student Name :</strong>
+                  {{single_mark.student_roll.student_name}}
+                </p>
+                <p style="line-height: 0.2rem">
+                  <strong>Class Name :</strong>
+                  {{single_mark.class_id}}
+                </p>
+                {% if single_mark.class_group_id %}
+                <p style="line-height: 0.2rem">
+                  <strong>Class Name :</strong>
+                  {{single_mark.class_id}}
+                </p>
+                {% endif %}
+                <p style="line-height: 0.2rem">
+                  <strong>Father's Name :</strong>
+                  {{single_mark.student_roll.student_father_name}}
+                </p>
+                <p style="line-height: 0.2rem">
+                  <strong>Mother's Name :</strong>
+                  {{single_mark.student_roll.student_mother_name}}
+                </p>
+                <p style="line-height: 0.2rem">
+                  <strong>Dath of Birth :</strong>
+                  {{single_mark.student_roll.student_date_of_birth}}
+                </p>
+              </div>
+              <div class="col-12">
+                <strong>Merit Position :</strong>
+                {{m_position}}{% if m_position == '1' %}<!-- for brack-->
+                st{% elif m_position == '2' %} nd{% elif m_position == '3' %}
+                rd{% elif m_position == 'Fail' %}{% else %}th{% endif %}
+              </div>
+
+              {% endwith %} {% endwith %}
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <table border="1px"
+              class="table table-sm table-bordered"
+              style="font-size: 0.7rem"
+            >
+              {% for table in grade_table %}
+              <tr>
+                <td style="padding: 5px">
+                  {{table.highest_mark | floatformat:"0"}}-
+                  <!--for brack-->
+                  {{table.lowest_mark | floatformat:"0"}}
+                </td>
+                <td style="padding: 5px">{{table.grade_name}}</td>
+                <td style="padding: 5px">{{table.result_gpa}}</td>
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+        <table
+          class="table table-bordered table-sm"
+          style="font-size: 0.8rem; text-align: center"
+        >
+          <tr>
+            <th>SL. No.</th>
+            <th>Subject Name</th>
+
+            <th>GPA</th>
+
+            <th>GRADE NAME</th>
+            <th>Total Marks</th>
+            <th>Total Obtain Marks</th>
+            <!-- <th>Final GPA</th>
+            <th>Final Grade</th> -->
+          </tr>
+          {% for mark_list in mark %}
+          <tr>
+            <td class="align-middle">{{forloop.counter}}</td>
+            <td class="align-middle">
+              <p>{{mark_list.subject_name}}</p>
+               {% for subject in subject_marks %}
+              {% if subject.subject_id == mark_list.subject_id  %}
+              {% if subject.result|length > 1 %}
+              <table
+                class="table table-sm"
+                style="font-size: 0.6rem; text-align: center"
+              >
+              <tr>
+              {% for sm in subject.result %} 
+              {% if sm.exam_id.exam_name == 'None' %}
+                    
+                    {% elif sm.exam_id.exam_name == 'Null' %}
+                    
+                    {% elif sm.exam_id.exam_name == 'Nthing' %}
+                    
+                    {% else %} 
+                    <td>
+                    {{sm.exam_id.exam_name}} <br />
+                    {{sm.total_exam_marks}}
+                    </td>
+                    {% endif %}
+              <td>{{sm.obtain_marks}}</td>
+              <td>{{sm.result_grade}}</td>
+              {% endfor %}
+                </tr>
+              </table>
+              {% endif %}
+               {% endif %}
+                {% endfor %}
+            </td>                  
+
+            <td class="align-middle">{{mark_list.result_gpa}}</td>
+            <td class="align-middle">{{mark_list.grade_name}}</td>
+            <td class="align-middle">{{ mark_list.total_marks }}</td>
+            <td class="align-middle">{{mark_list.total_obtain_marks}}</td>
+            <!-- {% if mark_list.row_span %}
+            <td class="align-middle" rowspan="{{ mark_list.item_count }}">
+              {{ mark_list.final_result_gpa }}
+            </td>
+            <td class="align-middle" rowspan="{{ mark_list.item_count }}">
+              {{ mark_list.final_grade_name }}
+            </td>
+            {% endif %} -->
+          </tr>
+          {% if forloop.last %}
+          <tr style="border-top: #333 2px solid;font-weight: 800;">
+            <td colspan="2"><b>Total</b></td>
+            <td>{{ mark_list.final_result_gpa }}</td>
+            <td>{{ mark_list.final_grade_name }}</td>
+            <td>{{total_mark}}</td>
+            <td>{{total_obtain_mark}}</td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+        </table>
+      </div>
+      <div class="row pt-5 mt-5 px-4">
+          <div class="col-6">
+
+            <h6 style="border-top:#333 1px solid; display:inline-block">Principal</h6>
+          </div>
+          <div class="col-6 text-right">
+
+            <h6 style="border-top:#333 1px solid; display:inline-block">Class Teacher</h6>
+          </div>
+        
+      </div>
+    </div>
+
+
+    <div class="card-footer">
+      <div class="ml-auto">
+        <button
+          type="button"
+          class="btn btn-info my-1 mr-3 mt-5 mb-5"
+          onclick="print_div('print-student-result')"
+        >
+          Print
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger my-1 mr-3 mt-5 mb-5"
+          onclick="modal_close('edit_model')"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+{% extends 'appauth/appauth-home.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+{%if title %}
+SMS Application Setting | {{ application_title }}
+{%else%}
+No title found | {{ application_title }}
+{%endif%}
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card card-fluid">
+            <div class="card-body">
+                <div>
+                    <form method="post" id="tran_table_data" data-url="{% url '' %}"
+                        class="update-form">
+                        <div class="form-group">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-row">
+                                        <div class="form-item col-md-10 mb-0">
+                                            <h3 class="card-title">Sms Settings</h3>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        {% csrf_token %}
+                                        <div class="form-row">
+                                            <div class="form-item col-md-3 mb-0">
+                                                {{ form.messaging_auth_url|as_crispy_field }}
+                                            </div>
+                                            <div class="form-item col-md-3 mb-0">
+                                                {{ form.messaging_url|as_crispy_field }}
+                                            </div>
+                                            <div class="form-item col-md-3 mb-0">
+                                                {{ form.messaging_username|as_crispy_field }}
+                                            </div>
+                                            <div class="form-item col-md-3 mb-0">
+                                                {{ form.messaging_password|as_crispy_field }}
+                                            </div>
+                                            <div class="form-item col-md-3 mb-0">
+                                                {{ form.total_message_limit|as_crispy_field }}
+                                            </div>
+                                            <div class="form-item col-md-3 mb-0">
+                                                {{ form.is_messaging_on|as_crispy_field }}
+                                            </div>
+                                            <div class="form-item col-md-3 mb-0">
+                                                {{ form.total_message_sent|as_crispy_field }}
+                                            </div>
+                                            <div class="form-item col-md-3 mb-0">
+                                                {{ form.senderid|as_crispy_field }}
+                                            </div>
+                                            <div class="form-item col-md-3 mb-0">
+                                                {{ form.api_key|as_crispy_field }}
+                                            </div>
+                                            <div class="form-item col-md-3 mb-0">
+                                                {{ form.is_headers_require|as_crispy_field }}
+                                            </div>
+                                            <div class="form-item col-md-3 mb-0">
+                                                {{ form.messaging_error|as_crispy_field }}
+                                            </div>
+
+                                        </div>
+                                        <button type="button" class="btn btn-primary btn-sm" onclick="saved_data()">Save</button>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    {% endblock body %}
+
+    {% block js %}
+    <script src="{% static 'assets/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/datatables/extensions/responsive/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/datatables/extensions/responsive/responsive.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'assets/javascript/pages/dataTables.bootstrap.js' %}"></script>
+    <script src="{% static 'assets/javascript/pages/common-parameter-details.js' %}"></script>
+
+
+    <script src="{% static 'assets/javascript/pages/sms/sms-application-setting.js' %}"></script>
+
+    {% endblock %}
+    </body>

@@ -1,0 +1,63 @@
+<div class="form-row" id="save_data">
+    <div class="form-group col-md-6 mb-0">
+        <div class="form-row  header p-1">
+            <div class="form-group col-md-6 mb-0 header">
+               <div class="custom-control custom-checkbox">
+                    <input type="checkbox" value="1" class="custom-control-input" id="roll" onclick="allselect(this)">
+                    <label class="custom-control-label" for="roll">Student Name</label>
+                </div>
+            </div>
+            
+            <div class="form-group col-md-6 mb-0 header">
+                Student Roll
+            </div>
+        </div>
+        {% for student in students %}
+        
+            <div class="form-row studentb">
+                <div class="form-group col-md-6 mb-0">
+                <div class="custom-control custom-checkbox">
+                        <input type="checkbox" value="{{student.student_roll}}" name="name{{ forloop.counter }}" class="custom-control-input student" id="roll{{student.student_roll}}">
+                        <label class="custom-control-label" for="roll{{student.student_roll}}">{{student.student_name}}</label>
+                    </div>
+                </div>
+                    
+                    <div class="form-group col-md-6 mb-0">
+                        {{student.student_roll}}
+                    </div>
+            </div>
+        {% endfor %}
+    </div>
+
+        <div class="form-group col-md-6 mb-0">
+            <div class="form-row header" style="padding:1.5px">
+                <div class="form-group col-md-10 mb-0 header">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" value="1" class="custom-control-input" id="subject" onclick="all_sub_select(this)">
+                        <label class="custom-control-label" for="subject">Subject Name</label>
+                    </div>
+                    
+                </div>
+                <div class="form-group col-md-2 mb-0 header">                  
+                    <button type="button" class="btn btn-info btn-sm" onclick="save_choices_subject()">Save</button>
+                </div>
+            </div>
+
+            {% for subject_list in subjects %}
+        <div class="border">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input subject" type="checkbox" id="sub{{subject_list.subject_id}}" value="{{subject_list.subject_id}}" name="subject{{ forloop.counter }}">
+                <label class="form-check-label"  for="sub{{subject_list.subject_id}}">{{subject_list.subject_name}}</label>
+            </div>
+              {% if subject_list.category_id and subject_list.category_id.category_name == 'Optional' %}
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="is_main{{subject_list.subject_id}}" value="1" name="is_main{{ forloop.counter }}">
+                <label class="form-check-label"  for="is_main{{subject_list.subject_id}}">Is Main</label>
+            </div>
+              {% endif %}
+        </div>
+        {% endfor %}
+        </div> 
+        
+    </div>
+</div>

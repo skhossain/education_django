@@ -1,0 +1,52 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<div class="card">
+    <div class="card-header">
+        <h5>Select subject for student</h5>
+    </div>
+    <div class="card-body">
+        <h4>{{student.student_name}}</h4>
+        <div>
+            <hr>
+            <strong>Academic Year :</strong><span> {{student.academic_year}}</span> | 
+            <strong>Class :</strong><span> {{student.class_id}}</span> | 
+            <strong>Student ID :</strong><span> {{student.student_roll}}</span>
+        </div>
+        <hr>
+        <div class="row subject-list">
+            <input type="hidden" id="total_subject" value="{{subjects.count}}">
+            {% for sub in subjects %}
+            <div class="col-md-6">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input class_subject" type="checkbox" value="{{sub.subject_id}}" name="subject{{forloop.counter}}" 
+                    {% for cs in student.cho_student_roll.all %} 
+                        {% ifequal sub.subject_id cs.subject_id.subject_id %} checked {% endifequal %} 
+                    {% endfor %} 
+                    id="subject{{sub.subject_id}}">
+                    <label class="form-check-label" for="subject{{sub.subject_id}}">
+                        {{sub.subject_name}}
+                    </label>
+                </div>
+                {% if sub.category_id and sub.category_id.category_name == 'Optional' %}
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="is_main{{sub.subject_id}}" value="1" 
+                        {% for cs in student.cho_student_roll.all %} 
+                         {% if sub.subject_id == cs.subject_id.subject_id and cs.category_id.category_name == 'Main' %} checked {% endif %} 
+                        {% endfor %}
+                    >
+                        <label class="form-check-label"  for="is_main{{sub.subject_id}}">Is Main
+                        
+                        </label>
+                    </div>
+              {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="w-100 p-2 text-right">
+            <button type="button" class="btn btn-secondary" onClick="modal_close('edit_model')">Close</button>
+            <button class="btn btn-primary" type="button" onClick='update_choice("{{student.student_roll}}")'>Save Change</button>
+        </div>
+    </div>
+</div>

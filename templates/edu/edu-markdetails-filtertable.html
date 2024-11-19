@@ -1,0 +1,27 @@
+{% load edu_custom_tags %}
+<input type="hidden" value="{{ students_rolls }}" id="get_student_rolls">
+<table class="table">
+    <tr>
+        <th>Roll</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Total&nbsp;Mark</th>
+        <th class="text-center">Input All Exam Mark</th>
+        <th>GPA</th>
+        <th>Grade</th>
+    </tr>
+    {% for student in students %}
+        <tr>
+            <td>{{student.student_roll.class_roll}}</td>
+            <td>{{ student.student_roll.student_roll }}</td>
+            <td>{{ student.student_roll.student_name }}</td>
+            <td><span class="total_mark">{{student.total_exam_marks}}</span></td>
+            <td id="show_exam_inroll{{student.student_roll.student_roll}}" data-roll="{{student.student_roll.student_roll}}"></td>
+            <td><span id="grade_point_inroll{{student.student_roll.student_roll}}" >{{student.grade_point_average}}</span></td>
+
+            <td><span id="grade_inroll{{student.student_roll.student_roll}}">{{student.result_grade}}</span>
+            </td>
+            
+        </tr>
+    {% endfor %}
+</table>

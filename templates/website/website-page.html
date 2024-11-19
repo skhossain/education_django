@@ -1,0 +1,42 @@
+{% extends 'website/website-layout.html' %}
+{% load static %}
+{% block title_block %} 
+{{academic_info.academic_name|default:""}} |
+{%for homedata in home%}
+{{homedata.title}}
+{%endfor%}
+{%endblock%}
+{% block css_block %}
+{% endblock %}
+
+{% block header_block %}
+{% include "website/website-hader.html" %}
+{% endblock %}
+{% block navbar_block %}
+{% include "website/website-navbar.html" %}
+{% endblock %}
+{% block body_block %}
+<div>
+    <div class="col-md-12 text-left shadow-md border mb-5"
+        style="background-color: #DBECFD; padding-left: 0px; padding-right: 10px; font-family: SolaimanLipi !important;text-align: justify !important;">
+        {%for homedata in home%}
+        <h2 class="pb-4 border-b text-blue-100 bg-blue-700 rounded px-4">{{homedata.title}}</h2>
+        <div class="px-4 pb-10">
+            {{ homedata.content|safe }}
+        </div>
+        {%endfor%}
+    </div>
+
+</div>
+
+{% endblock %}
+{% block right_sidebar_block %}
+{% include "website/website-sidebar-right.html" %}
+<div>
+    {% include "website/website-form-download.html" %}
+</div>
+{% endblock %}
+
+{% block footer_block %}
+{% include "website/website-footer.html" %}
+{% endblock %}

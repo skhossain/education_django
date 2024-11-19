@@ -1,0 +1,645 @@
+{% extends 'appauth/appauth-home.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+Editing StudentInformation | {{ application_title }}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'assets/javascript/cropper/cropper.min.css' %}">
+{% endblock %}
+{% block body %}
+
+<div class="modal-header"> </div>
+{% csrf_token %}
+<div class="container">
+	<h4 align="center">Update Student Information</h4>
+	<div class="section-block">
+		<div id="stepper2" class="bs-stepper">
+			<div class="card">
+				<div class="card-header">
+					<div class="steps steps-" role="tablist">
+						<ul>
+							<li class="step" data-target="#test-edit-l-1">
+								<a href="#" class="step-trigger" tabindex="-1"><span
+										class="step-indicator step-indicator-icon"><i
+											class="oi oi-account-login"></i></span> <span
+										class="d-none d-sm-inline">Primary</span></a>
+							</li>
+							<li class="step" data-target="#test-edit-l-2">
+								<a href="#" class="step-trigger" tabindex="-1"><span
+										class="step-indicator step-indicator-icon"><i class="oi oi-person"></i></span>
+									<span class="d-none d-sm-inline">Personal</span></a>
+							</li>
+							<li class="step" data-target="#test-edit-l-3">
+								<a href="#" class="step-trigger" tabindex="-1"><span
+										class="step-indicator step-indicator-icon"><i
+											class="oi oi-credit-card"></i></span> <span
+										class="d-none d-sm-inline">Education</span></a>
+							</li>
+							<li class="step" data-target="#test-edit-l-4">
+								<a href="#" class="step-trigger" tabindex="-1"><span
+										class="step-indicator step-indicator-icon"><i class="oi oi-check"></i></span>
+									<span class="d-none d-sm-inline">Legal Guardian</span></a>
+							</li>
+							<li class="step" data-target="#test-edit-l-5">
+								<a href="#" class="step-trigger" tabindex="-1"><span
+										class="step-indicator step-indicator-icon"><i class="oi oi-check"></i></span>
+									<span class="d-none d-sm-inline">Local Contact</span></a>
+							</li>
+							<li class="step" data-target="#test-edit-l-6">
+								<a href="#" class="step-trigger" tabindex="-1"><span
+										class="step-indicator step-indicator-icon"><i class="oi oi-check"></i></span>
+									<span class="d-none d-sm-inline">Confirm</span></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="card-body">
+					<form method="post" id="edit_form" data-url="{% url 'edu-studentinfo-list-edit' id %}"
+						name="stepperForm" class="update-form p-lg-4 p-sm-3 p-0">
+						<div id="test-edit-l-1" class="content dstepper-none fade">
+							<fieldset>
+								<legend>Provide Primary Data</legend>
+								<div class="form-row">
+									{% if is_head_office_user %}
+										<div class="form-group col-md-3 mb-0">
+											<label>Branch Name</label>
+											<select id='id_branch_code' name='branch_code' class="form-control">
+												<option value="">---------</option>
+												{% for branch in branchs %}
+													<option value="{{branch.branch_code}}" {% if student.branch_code == branch.branch_code %} selected {% endif %}>{{branch.branch_code}}-{{branch.branch_name}}</option>
+												{% endfor %}
+											</select>
+										</div>
+										
+										{% else %}
+										<input type='hidden' id='id_branch_code' name='branch_code' value={{ global_branch_code }} readonly>
+										{% endif %}
+									<div class="form-group col-md-3 mb-0">
+										{{ form.academic_year|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_joining_date|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_type|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_name|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_nick_name|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.class_roll|as_crispy_field }}
+									</div>
+									
+									<div class="form-group col-md-3 mb-0">
+										{{ form.session_id|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.class_id|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										<label>Class Group Name</label>
+										<select class="form-control" name="class_group_id" id="id_class_group_id">
+											<option value="{{student.class_group_id}}">{{student.class_group_id.class_group_name}}</option>
+										</select>
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.shift_id|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.section_id|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.catagory_id|as_crispy_field }}
+									</div>
+
+									<div class="form-group col-md-3 mb-0 ">
+										<div class="d-flex">
+											{{ form.last_institute_id|as_crispy_field }}
+											<button class="btn btn-dark" data-value="0" style="margin: 28px 5px;"
+												type="button" onclick="show_blank_editform(this)"><i
+													class="fas fa-plus"></i></button>
+										</div>
+									</div>
+
+									<div class="form-group col-md-3 mb-0">
+										{{ form.tc_number |as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.tc_date |as_crispy_field }}
+									</div>
+										<div class="form-group col-md-3 mb-0">
+										{{ form.student_phone|as_crispy_field }}
+									</div>
+									
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_email|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_date_of_birth|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_status|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_comments|as_crispy_field }}
+									</div>
+								</div>
+								<hr color="#346cb0">
+
+								<div class="row">
+									<div class="form-group col-md-6 mb-0">
+										<legend>Present Address</legend>
+										<div class="form-group col-md mb-0">
+											{{ form.pre_division_id|as_crispy_field }}
+										</div>
+										<div class="form-group col-md mb-0">
+											{{ form.pre_district_id|as_crispy_field }}
+										</div>
+										<div class="form-group col-md mb-0">
+											{{ form.pre_upozila_id|as_crispy_field }}
+										</div>
+										<div class="form-group col-md mb-0">
+											{{ form.student_present_address|as_crispy_field }}
+										</div>
+									</div>
+									<div class="form-group col-md-6 mb-0 div_permanent_address">
+										<legend>Permanent Address</legend>
+										<div class="same_as" onclick="addressFunction()">
+											{{ form.same_as|as_crispy_field }}
+										</div>
+										<div class="form-group col-md mb-0">
+											{{ form.per_division_id|as_crispy_field }}
+										</div>
+										<div class="form-group col-md mb-0">
+											{{ form.per_district_id|as_crispy_field }}
+										</div>
+										<div class="form-group col-md mb-0">
+											{{ form.per_upozila_id|as_crispy_field }}
+										</div>
+										<div class="form-group col-md mb-0">
+											{{ form.student_permanent_address|as_crispy_field }}
+										</div>
+									</div>
+								</div>
+
+								<hr class="mt-5">
+								<!-- .d-flex -->
+								<div class="d-flex">
+									<!-- <p> Already have an account? Please <a href="#">Signin</a>. </p> -->
+									<button type="button" class="next btn btn-primary ml-auto"
+										data-validate="fieldsetedit01">Next step</button>
+								</div><!-- /.d-flex -->
+							</fieldset><!-- /fieldset -->
+						</div><!-- /.content -->
+						<!-- .content -->
+						<div id="test-edit-l-2" class="content dstepper-none fade">
+							<!-- fieldset -->
+							<fieldset>
+								<legend>Personal Information</legend> <!-- .row -->
+								<div class="form-row">
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_blood_group|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_gender|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_religion|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_marital_status|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_national_id|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_birth_cert|as_crispy_field }}
+									</div>
+									{% comment %} <div class="form-group col-md-4 mb-0">
+										<label>Profile Image</label>
+										<img src="{% if student.profile_image %} {{student.profile_image.url}} {% endif %}" id="profile-photo" class="img-fluid">
+										<br>
+										<label>Set New Profile Image</label>
+										<input type="file" name="image" id="profile-image">
+									</div> {% endcomment %}
+								</div>
+								<hr color="#346cb0">
+								<div class="row">
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_father_name|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.father_occupation_id|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.father_email_address|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.father_phone_number|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.father_nid|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.father_address|as_crispy_field }}
+									</div>
+
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_mother_name|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.mother_occupation_id|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.mother_email_address|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.mother_phone_number|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.mother_nid|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.mother_address|as_crispy_field }}
+									</div>
+								</div>
+								<hr color="#346cb0">
+
+								<div class="row">
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_present_address|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_permanent_address|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_email|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_date_of_birth|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_status|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.student_comments|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										<br>
+										<br>
+										{{ form.sms_to_father|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										<br>
+										<br>
+										{{ form.sms_to_mother|as_crispy_field }}
+									</div>
+								</div>
+								<hr class="mt-5">
+								<div class="d-flex">
+									<button type="button" class="prev btn btn-secondary">Previous</button> <button
+										type="button" class="next btn btn-primary ml-auto"
+										data-validate="fieldsetedit02">Next step</button>
+								</div>
+							</fieldset><!-- /fieldset -->
+						</div><!-- /.content -->
+						<!-- .content -->
+						<div id="test-edit-l-3" class="content dstepper-none fade">
+							<!-- fieldset -->
+							<fieldset>
+								<legend>Obtained Certificate</legend> <!-- .custom-control -->
+								<div id="Edu-qualification">
+									{% for edu in student.eq_student_roll.all %}
+									<div class="form-row" id="delete_row1" data-id="{{edu.id}}">
+										<div class="form-group col-md-2 mb-0">
+											<label>Degree Name</label>
+											<select class="select form-control"
+												onchange='edit_education("{{student.student_roll}}","{{edu.id}}")'
+												id="degree_id{{edu.id}}">
+												<option value="">---------</option>
+												{% for degree in degree_info %}
+												<option value="{{degree.degree_id}}"
+													{% if edu.degree_name.degree_id == degree.degree_id %} selected
+													{% endif %}
+													>{{degree.degree_name}}</option>
+												{% endfor %}
+											</select>
+										</div>
+
+										<div class="form-group col-md-2 mb-0">
+											<label>Board Name</label>
+											<input type="text" id="board_name{{edu.id}}" value="{{edu.board_name}}"
+												onchange='edit_education("{{student.student_roll}}","{{edu.id}}")'
+												class="form-control">
+										</div>
+										<div class="form-group col-md-1 mb-0">
+											<label>Point</label>
+											<input type="number" id="grate_point{{edu.id}}" value="{{edu.result_point}}"
+												onchange='edit_education("{{student.student_roll}}","{{edu.id}}")'
+												class="form-control">
+										</div>
+										<div class="form-group col-md-1 mb-0">
+											<label>Grade</label>
+											<input type="text" id="grate_latter{{edu.id}}" value="{{edu.result_grate}}"
+												onchange='edit_education("{{student.student_roll}}","{{edu.id}}")'
+												class="form-control">
+										</div>
+										<div class="form-group col-md-2 mb-0">
+											<label>Passing Year</label>
+											<input type="text" id="passing_year{{edu.id}}" value="{{edu.passing_year}}"
+												onchange='edit_education("{{student.student_roll}}","{{edu.id}}")'
+												class="form-control">
+										</div>
+										<div class="form-group col-md-4 mb-0">
+											<label>Institute Name</label>
+											<div class="d-flex">
+												<select class="form-control institute_name"
+													id="id_institute_list{{edu.id}}">
+													<option value="">---------</option>
+													{% for institute in instituts %}
+													<option value="{{institute.institute_id}}"
+														{% if edu.institute_id.institute_id == institute.institute_id %}
+														selected {% endif %}>{{institute.institute_name}}</option>
+													{% endfor %}
+												</select>
+												<button class="btn btn-dark" data-value="{{edu.id}}"
+													style="margin: 0px 5px;" type="button"
+													onclick="show_blank_editform(this)"><i
+														class="fas fa-plus"></i></button>
+												<button class="btn btn-danger" style="margin: 0px 5px;" type="button"
+													onclick='delete_form(this.parentElement.parentElement.parentElement,"{{edu.id}}")'><i
+														class="fa fa-trash"></i></button>
+											</div>
+										</div>
+
+									</div>
+									{% endfor %}
+								</div>
+								<button type="button" class="ml-auto btn btn-dark mt-3"
+									onclick='edit_education("{{student.student_roll}}")'>Add More
+									+</button>
+								<hr class="mt-5">
+								<div class="d-flex">
+									<button type="button" class="prev btn btn-secondary">Previous</button> <button
+										type="button" class="next btn btn-primary ml-auto"
+										data-validate="fieldsetedit03">Next step</button>
+								</div>
+							</fieldset><!-- /fieldset -->
+						</div><!-- /.content -->
+						<!-- .content -->
+						<!-- .content -->
+						<div id="test-edit-l-4" class="content dstepper-none fade">
+							<!-- fieldset -->
+							<fieldset>
+								<legend>Emergency Contact Information</legend> <!-- .custom-control -->
+								<div class="form-row">
+									<div class="col-12">
+										<div class="row">
+											<div class="form-check col-md-2">
+												<input type="radio" name="legal_guardians" class="form-check-input"
+													onchange="legal_guardian_change(this)"
+													id="legal_guardians_to_father" value="Father" {% if student.legal_guardian_relation == 'Father' %} checked {% endif %}>
+												<label for="legal_guardians_to_father" class="form-check-label">
+													Father
+												</label>
+											</div>
+
+											<div class="form-check col-md-2">
+												<input type="radio" name="legal_guardians" class="form-check-input"
+													onchange="legal_guardian_change(this)"
+													id="legal_guardians_to_mother" value="Mother" {% if student.legal_guardian_relation == 'Mother' %} checked {% endif %}>
+												<label for="legal_guardians_to_mother" class="form-check-label">
+													Mother
+												</label>
+											</div>
+
+											<div class="form-check col-md-2">
+												<input type="radio" name="legal_guardians" class="form-check-input"
+													onchange="legal_guardian_change(this)" id="legal_guardians_to_other"
+													value="others" {% if student.legal_guardian_relation != 'Father' and  student.legal_guardian_relation != 'Mother' %} checked {% endif %}>
+												<label for="legal_guardians_to_other" class="form-check-label">
+													Others
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+								<hr>
+								<div class="form-row {% if student.legal_guardian_relation == 'Father' or  student.legal_guardian_relation == 'Mother' %} d-none {% endif %}" id="other_legal_guardian">
+									<div class="form-group col-md-3 mb-0">
+										{{ form.legal_guardian_name|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.legal_guardian_occupation_id|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.legal_guardian_contact|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.legal_guardian_relation|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.legal_guardian_nid|as_crispy_field }}
+									</div>
+
+									<div class="form-group col-md-3 mb-0">
+										{{ form.legal_guardian_address|as_crispy_field }}
+									</div>
+								</div>
+
+								<hr class="mt-5">
+								<div class="d-flex">
+									<button type="button" class="prev btn btn-secondary">Previous</button>
+									<button type="button" class="next btn btn-primary ml-auto"
+										data-validate="fieldset04">Next step</button>
+								</div>
+							</fieldset><!-- /fieldset -->
+						</div><!-- /.content -->
+						<div id="test-edit-l-5" class="content dstepper-none fade">
+							<!-- fieldset -->
+							<fieldset>
+								<legend>Emergency Contact Information</legend> <!-- .custom-control -->
+								<div class="form-row">
+									<div class="form-group col-md-3 mb-0">
+										{{ form.local_guardian_name|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.local_guardian_occupation_id|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.local_guardian_contact|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.local_guardian_relation|as_crispy_field }}
+									</div>
+									<div class="form-group col-md-3 mb-0">
+										{{ form.local_guardian_nid|as_crispy_field }}
+									</div>
+
+									<div class="form-group col-md-3 mb-0">
+										{{ form.local_guardian_address|as_crispy_field }}
+									</div>
+								</div>
+								<hr class="mt-5">
+								<div class="d-flex">
+									<button type="button" class="prev btn btn-secondary">Previous</button>
+									<button type="button" class="next btn btn-primary ml-auto"
+										data-validate="fieldset04">Next step</button>
+								</div>
+							</fieldset><!-- /fieldset -->
+						</div><!-- /.content -->
+						<!-- .content -->
+						<div id="test-edit-l-6" class="content dstepper-none fade">
+							<!-- fieldset -->
+							<fieldset>
+								<legend style="color:red;">Did you give all the information? If all your information is correct, upload the student picture and signature..........</legend> <!-- .card -->
+								<div class="form-row">
+									<div class="form-group col-md-4 mb-0">
+										<label style="font-size:20px;font-weight:bold;">Upload Student Image</label>
+										<img src="{% if student.profile_image %} {{student.profile_image.url}} {% endif %}" id="profile-photo" class="img-fluid">
+										<br>
+										<label>Set New Profile Image</label>
+										<input type="file" name="image" id="profile-image">
+									</div>
+									<div class="form-group col-md-4 mb-0">
+										<label style="font-size:20px;font-weight:bold;">Upload Student Signature</label>
+										<img src="{% if student.student_signature %} {{student.student_signature.url}} {% endif %}" id="profile-sign" class="img-fluid">
+										<br>
+										<br>
+										
+										{% comment %} <label>Set New Profile Image</label> {% endcomment %}
+										<input type="file" name="signature" id="profile-signatur">
+									</div>
+								</div><!-- /.card -->
+								<!-- .form-group -->
+								<div class="form-group">
+									<!-- .custom-control -->
+									<div class="custom-control custom-checkbox">
+										<!-- <input type="checkbox" id="agreement" name="agreement" class="custom-control-input" data-parsley-group="agreement" required=""> <label class="custom-control-label" for="agreement">Agree to terms and conditions</label> -->
+									</div><!-- /.custom-control -->
+								</div><!-- /.form-group -->
+								<hr class="mt-5">
+								<div class="d-flex">
+									<button type="button" class="prev btn btn-secondary">Previous</button>
+									<button type="button" id="btnAddRecord" class="submit btn btn-primary ml-auto"
+										data-validate="agreement">Submit</button>
+								</div>
+							</fieldset><!-- /fieldset -->
+						</div><!-- /.content -->
+					</form><!-- /form -->
+				</div><!-- /.card-body -->
+			</div><!-- /.card -->
+		</div><!-- /.bs-stepper -->
+		<!-- toasts container -->
+		<div aria-live="polite" aria-atomic="true">
+			<!-- Position it -->
+			<div style="position: fixed; top: 4.5rem; right: 1rem; z-index: 1050">
+				<!-- .toast -->
+				<div id="submitfeedback" class="toast bg-dark border-dark text-light fade hide" data-delay="3000"
+					role="alert" aria-live="assertive" aria-atomic="true">
+					<div class="toast-body">
+						<strong>Congrats!</strong> Student Information Update Successfully! </div>
+				</div><!-- /.toast -->
+			</div>
+		</div><!-- /toasts container -->
+	</div><!-- /.section-block -->
+
+
+
+	{% comment %} <div class="modal-footer">
+		<button type="button" class="btn btn-danger btn-default pull-right" onclick="close_modal()">Close</button>
+
+	</div> {% endcomment %}
+
+
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="edit_model" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" id="image">
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="image_model" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="max-width:80%" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				
+				<input type="hidden" value="{{id}}" id="student_roll">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="img-container">
+					<div class="row">
+						<div class="col-md-5 offset-md-3" style="min-height:300px; max-height: 600px;">
+							<img id="pro_image" src="https://avatars0.githubusercontent.com/u/3456749">
+							
+						</div>
+						<div class="col-md-12">
+							<div class="preview"></div>
+						</div>
+					</div>	 	
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-primary" id="crop">Crop</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="sing_model" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="max-width:80%" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				
+				<input type="hidden" value="{{id}}" id="student_roll">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="img-container">
+					<div class="row">
+						<div class="col-md-5 offset-md-3" style="min-height:300px; max-height: 600px;">
+							<img id="sing_image" src="https://avatars0.githubusercontent.com/u/3456749">
+							
+						</div>
+						<div class="col-md-12">
+							<div class="singPreview"></div>
+						</div>
+					</div>	 	
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-primary" id="sing_crop">Crop</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock body %}
+{% block js %}
+<script src="{% static 'assets/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'assets/vendor/datatables/extensions/responsive/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'assets/vendor/datatables/extensions/responsive/responsive.bootstrap4.min.js' %}"></script>
+<script src="{% static 'assets/vendor/parsleyjs/parsley.min.js' %}"></script>
+<script src="{% static 'assets/vendor/bs-stepper/js/bs-stepper.min.js' %}"></script>
+<script src="{% static 'assets/javascript/pages/steps_edit.js' %}"></script>
+<script src="{% static 'assets/javascript/pages/dataTables.bootstrap.js' %}"></script>
+<script src="{% static 'assets/javascript/cropper/cropper.min.js' %}"></script>
+<script src="{% static 'assets/javascript/pages/common-submit-editdata.js' %}"></script>
+<script src="{% static 'assets/javascript/pages/edu/edu-studentinfo-list-edit.js' %}"></script>
+
+{% endblock %}

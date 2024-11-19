@@ -1,0 +1,1511 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title> {% block title %} Home | {{ application_title }} {% endblock %}
+  </title>
+  <meta property="og:title" content="Dashboard">
+  <meta name="author" content="Peart Technology Limited">
+  <meta property="og:locale" content="en_US">
+  <meta name="description" content="Education ERP (WhiteBoard)">
+  <meta property="og:description" content="Education ERP (WhiteBoard)">
+  <meta property="og:site_name" content="Education ERP (WhiteBoard)">
+  <script type="application/ld+json">
+  </script>
+  <link rel="apple-touch-icon" sizes="144x144" href="{% static 'assets/apple-touch-icon.png' %}">
+  <link rel="shortcut icon" href="{% static '/assets/images/avatars/web-icon.png' %}">
+  <meta name="theme-color" content="#3063A0">
+  <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/vendor/open-iconic/css/open-iconic-bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/vendor/fontawesome/css/all.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/vendor/select2/css/select2.min.css' %}">
+  <link rel="stylesheet"
+    href="{% static 'assets/vendor/datatables/extensions/responsive/responsive.bootstrap4.min.css' %}">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+  <link rel="stylesheet" href="{% static 'assets/stylesheets/theme.min.css' %}" data-skin="default">
+  <link rel="stylesheet" href="{% static 'assets/stylesheets/theme-dark.min.css' %}" data-skin="dark">
+  <link rel="stylesheet" href="{% static 'assets/stylesheets/custom.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/vendor/flatpickr/flatpickr.min.css' %}">
+
+
+
+  {% comment %}
+  <link rel="icon" href="{% static 'education/favicon.ico' %}"> {% endcomment %}
+  <script>
+    var skin = localStorage.getItem('skin') || 'default';
+    var unusedLink = document.querySelector('link[data-skin]:not([data-skin="' + skin + '"])');
+    unusedLink.setAttribute('rel', '');
+    unusedLink.setAttribute('disabled', true);
+  </script>
+
+  {# Include jQuery #}
+
+  <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+  {# Django Tempus Dominus assets are included in `{{ form.media }}` #}
+  {{ form.media }}
+  {% block css %} {% endblock %}
+</head>
+
+<body>
+  <div class="app">
+    <header class="app-header app-header-dark">
+      <div class="top-bar">
+        <div class="top-bar-brand">
+          <a href="{% url 'appauth-home' %}">
+            <img src="{% static 'assets/logo/logo.png' %}" height="85px">
+          </a>
+        </div>
+        <div class="top-bar-list">
+          <div class="top-bar-item px-2 d-md-none d-lg-none d-xl-none">
+            <button class="hamburger hamburger-squeeze" type="button" data-toggle="aside" aria-label="toggle menu"><span
+                class="hamburger-box"><span class="hamburger-inner"></span></span></button>
+          </div>
+          <div class="top-bar-item top-bar-item-full">
+            <form class="top-bar-search">
+              {% csrf_token %}
+              <div class="input-group input-group-search dropdown">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
+                </div><input type="text" class="form-control" data-toggle="dropdown" aria-label="Search"
+                  placeholder="Search">
+                <div class="dropdown-menu dropdown-menu-rich dropdown-menu-xl ml-n4">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="top-bar-item top-bar-item-right px-0 d-none d-sm-flex">
+            <ul class="header-nav nav">
+
+              <li class="nav-item dropdown header-nav-dropdown">
+                <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span
+                    class="oi oi-grid-three-up"></span></a>
+                <div class="dropdown-menu dropdown-menu-rich dropdown-menu-right">
+                  <div class="dropdown-arrow"></div>
+                  <div class="dropdown-sheets">
+                    <div class="dropdown-sheet-item">
+                      <a href="{% url '' %}" class="tile-wrapper"><span class="tile tile-lg bg-indigo"><i
+                            class="oi oi-people"></i></span> <span class="tile-peek">New
+                          Client</span></a>
+                    </div>
+                    <div class="dropdown-sheet-item">
+                      <a href="{% url '' %}" class="tile-wrapper"><span class="tile tile-lg bg-teal"><i
+                            class="oi oi-fork"></i></span> <span class="tile-peek">Savings
+                          Account Opening</span></a>
+                    </div>
+                    <div class="dropdown-sheet-item">
+                      <a href="{% url '' %}" class="tile-wrapper"><span class="tile tile-lg bg-pink"><i
+                            class="fa fa-tasks"></i></span> <span class="tile-peek">Deposit Account Opening</span></a>
+                    </div>
+                    <div class="dropdown-sheet-item">
+                      <a href="{% url '' %}" class="tile-wrapper"><span class="tile tile-lg bg-yellow"><i
+                            class="oi oi-fire"></i></span> <span class="tile-peek">Loan
+                          Account Opening</span></a>
+                    </div>
+                    <div class="dropdown-sheet-item">
+                      <a href="{% url '' %}" class="tile-wrapper"><span class="tile tile-lg bg-cyan"><i
+                            class="oi oi-document"></i></span> <span class="tile-peek">My
+                          Collection</span></a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div class="dropdown d-flex">
+              <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false"><span class="user-avatar user-avatar-md"><img
+                    src="{% static 'assets/images/avatars/profile.jpg' %}" alt=""></span> <span
+                  class="account-summary pr-lg-4 d-none d-lg-block"><span class="account-name">{{ user_full_name
+                    }}</span> <span class="account-description">
+                    {{ login_samity_name }} </span></span></button>
+              <div class="dropdown-menu">
+                <div class="dropdown-arrow ml-3"></div>
+                <h6 class="dropdown-header d-none d-md-block d-lg-none"> {{ user_full_name }} </h6><a
+                  class="dropdown-item" href="{% url 'appauth-reset-password' %}"><span
+                    class="dropdown-icon oi oi-person"></span> Reset My Password </a> <a class="dropdown-item"
+                  href="{% url 'appauth-logout' %}"><span class="dropdown-icon oi oi-account-logout"></span> Logout</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <aside class="app-aside app-aside-expand-md app-aside-light">
+      <div class="aside-content">
+        <header class="aside-header d-block d-md-none">
+          <button class="btn-account" type="button" data-toggle="collapse" data-target="#dropdown-aside"><span
+              class="user-avatar user-avatar-lg"><img src="{% static 'assets/images/avatars/profile.jpg' %}"
+                alt=""></span> <span class="account-icon"><span class="fa fa-caret-down fa-lg"></span></span> <span
+              class="account-summary"><span class="account-name">{{ user_full_name }}</span> <span
+                class="account-description"> {{ user_designation }}</span></span></button> <!-- /.btn-account -->
+          <div id="dropdown-aside" class="dropdown-aside collapse">
+            <div class="pb-3">
+              <a class="dropdown-item" href="{% url 'appauth-reset-password' %}"><span
+                  class="dropdown-icon oi oi-person"></span> Reset My Password </a> <a class="dropdown-item"
+                href="{% url 'appauth-logout' %}"><span class="dropdown-icon oi oi-account-logout"></span> Logout</a>
+            </div>
+          </div>
+        </header>
+        <div class="aside-menu overflow-hidden">
+          <nav id="stacked-menu" class="stacked-menu">
+            <ul class="menu">
+              <li class="menu-item has-active">
+                <a href="{% url 'appauth-dashboard' %}" class="menu-link"><span class="menu-icon fas fa-home"></span>
+                  <span class="menu-text">Dashboard</span></a>
+              </li>
+              {% if E10000000 %}
+              <li class="menu-item has-child">
+                <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span
+                    class="menu-text">Academic Setting</span>
+                </a>
+                <ul class="menu">
+                  {% if E10000001 %}
+                  <li class="menu-item">
+                    <a href="{% url 'edu-application-setting-createlist' %}" class="menu-link">Academic Information </a>
+                  </li>
+                  {% endif %}
+                  {% if E10000002 %}
+                  <li class="menu-item">
+                    <a href="{% url 'edu-academicyear-createlist' %}" class="menu-link">Academic Year </a>
+                  </li>
+                  {% endif %}
+                  {% if E10000003 %}
+                  <li class="menu-item">
+                    <a href="{% url 'edu-academicclass-createlist' %}" class="menu-link">Manage Class </a>
+                  </li>
+                  {% endif %}
+                  {% if E10000004 %}
+                  <li class="menu-item">
+                    <a href="{% url 'edu-academicgroup-createlist' %}" class="menu-link">Manage Class Group</a>
+                  </li>
+                  {% endif %}
+                  {% if E10000005%}
+                  <li class="menu-item">
+                    <a href="{% url 'edu-subcategory-createlist' %}" class="menu-link">Manage Subject Category</a>
+                  </li>
+                  {% endif %}
+                  {% if E10000006 %}
+                  <li class="menu-item">
+                    <a href="{% url 'edu-subtype-createlist' %}" class="menu-link">Manage Subject Type</a>
+                  </li>
+                  {% endif %}
+                  {% if E10000007 %}
+                  <li class="menu-item">
+                    <a href="{% url 'edu-sublist-createlist' %}" class="menu-link">Manage Subject</a>
+                  </li>
+                  {% endif %}
+                  {% if E10000008 %}
+                  <li class="menu-item">
+                    <a href="{% url 'edu-sectioninfo-createlist' %}" class="menu-link">Manage Section</a>
+                  </li>
+                  {% endif %}
+                  {% if E10000009 %}
+                  <li class="menu-item">
+                    <a href="{% url 'edu-session-createlist' %}" class="menu-link">Manage Session</a>
+                  </li>
+                  {% endif %}
+                  {% if E10000010 %}
+                  <li class="menu-item">
+                    <a href="{% url 'edu-department-createlist' %}" class="menu-link">Manage Department</a>
+                  </li>
+                  {% endif %}
+                  {% if E10000011 %}
+                  <li class="menu-item">
+                    <a href="{% url 'edu-shift-createlist' %}" class="menu-link">Manage Shift</a>
+                  </li>
+                  {% endif %}
+                  {% if E10000012 %}
+                  <li class="menu-item">
+                    <a href="{% url 'edu-degree-createlist' %}" class="menu-link">Manage Degree</a>
+                  </li>
+                  {% endif %}
+                  {% if E10000013 %}
+                  <li class="menu-item">
+                    <a href="{% url 'edu-occupation-createlist' %}" class="menu-link">Manage Profession</a>
+                  </li>
+                  {% endif %}
+                  {% if E10000014 %}
+                  <li class="menu-item">
+                    <a href="{% url 'edu-category-createlist' %}" class="menu-link">Student Category</a>
+                  </li>
+                  {% endif %}
+                  {% if E20000001 %}
+                  <li class="menu-item">
+                    <a href="{% url 'edu-education-createlist' %}" class="menu-link">Education Institute</a>
+                  </li>
+                  {% endif %}
+                  {% if E20000013 %}
+                  <li class="menu-item">
+                    <a href="{% url 'edu-coursereg-createform' %}" class="menu-link">Course Registration</a>
+                  </li>
+                  {%endif%}
+              </li>
+            </ul>
+            </li>
+            {% endif %}
+
+
+            {% if E20000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span class="menu-text">
+                  Student Information</span>
+              </a>
+              <ul class="menu">
+
+                {% if E20000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-studentinfo-createlist' %}" class="menu-link">Student Admission</a>
+                </li>
+                {% endif %}
+
+                {% if E20000003 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-studentinfo-list' %}" class="menu-link">Student List</a>
+                </li>
+                {% endif %}
+
+                {% if E20000004 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-quick-admit' %}" class="menu-link">Quick Registration</a>
+                </li>
+                {% endif %}
+
+                {% if E20000005 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-quick-admit-filterlist' %}" class="menu-link">Quick Registration Update</a>
+                </li>
+                {% endif %}
+
+                {% if E20000006 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-subjectchoice-createlist' %}" class="menu-link">Subject Choice</a>
+                </li>
+                {% endif %}
+
+                {% if E20000007 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-choices-subjectlist' %}" class="menu-link">Subject Choices List</a>
+                </li>
+                {% endif %}
+
+                {% if E20000008 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-student-TcGenerate-form' %}" class="menu-link">Transfer Certificate</a>
+                </li>
+                {% endif %}
+
+
+                {% if E20000009 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-idcard-form-header' %}" class="menu-link">ID Card Header</a>
+                </li>
+                <li class="menu-item">
+                  <a href="{% url 'edu-idcard-createform' %}" class="menu-link">Manage ID Card</a>
+                </li>
+
+                {% endif %}
+                {% if E20000010 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-admitcard-createform' %}" class="menu-link">Manage Admit Card</a>
+                </li>
+                {% endif %}
+
+                {% if E20000011 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-name-plate' %}" class="menu-link">Student Name Plate</a>
+                </li>
+                {% endif %}
+
+                {% if E20000012 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-student_migrations-create' %}" class="menu-link">Student Migrations</a>
+                </li>
+                {% endif %}
+
+              </ul>
+            </li>
+            {% endif %}
+
+            {% if E13000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span class="menu-text">
+                  Teacher Info</span>
+              </a>
+              <ul class="menu">
+                {% if E13000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-teacher-list' %}" class="menu-link"> Teacher info </a>
+                </li>
+                {% endif %}
+
+                {% if E13000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-submapping-teacher-createlist' %}" class="menu-link"> subj-mapping teacher </a>
+                </li>
+                {% endif %}
+
+              </ul>
+            </li>
+            {% endif %}
+
+
+            {% if E30000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span class="menu-text">
+                  Academic Routine</span>
+              </a>
+              <ul class="menu">
+                {% if E30000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-teacher-createlist' %}" class="menu-link">Mapping Guide Teacher </a>
+                </li>
+                {% endif %}
+                {% if E30000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-classroom-createlist' %}" class="menu-link">Create Class Room</a>
+                </li>
+                {% endif %}
+                {% if E30000003 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-classroutine-createlist' %}" class="menu-link">Create Class Routine </a>
+                </li>
+                {% endif %}
+                {% if E30000004 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-routinedetails-createlist' %}" class="menu-link">Create Routine Details </a>
+                </li>
+                {% endif %}
+                {% if E30000005 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-routine-query' %}" class="menu-link">Routine Query </a>
+                </li>
+                {% endif %}
+              </ul>
+            </li>
+            {% endif %}
+
+            {% if E40000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span class="menu-text">
+                  Fees And Charges </span>
+              </a>
+              <ul class="menu">
+                {% if E40000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-feesheadsetting-createlist' %}" class="menu-link">Fees Head</a>
+                </li>
+                {% endif %}
+
+                {% if E40000003 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-feesmapping-createlist' %}" class="menu-link">Fees Mapping</a>
+                </li>
+                {% endif %}
+                {% if E40000002 %}
+                <!--Blank-->
+                {% endif %}
+                {% if E40000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-feesweiver-mapping-createlist' %}" class="menu-link">Fees Waiver Create</a>
+                </li>
+                {% endif %}
+                {% if E40000004 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-absfinesmapping-createlist' %}" class="menu-link">Absent Fine Mapping</a>
+                </li>
+                {% endif %}
+                {% if E40000007 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-feeswaivestudent-createlist' %}" class="menu-link">Student Fees Waiver
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{% url 'edu-feeswaivestudent-list' %}" class="menu-link">Student Fees Waiver List</a>
+                </li>
+                {% endif %}
+                {% if E40000005 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-fees-processing' %}" class="menu-link">Pay Slip Processing</a>
+                </li>
+                {% endif %}
+
+                {% if E40000007 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-quick-collection' %}" class="menu-link">Fees Collection</a>
+                </li>
+                {% endif %}
+                {% if E40000007 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-quick-collection-list' %}" class="menu-link">Fees Collection List</a>
+                </li>
+                {% endif %}
+              </ul>
+            </li>
+            {% endif %}
+
+            {% if E60000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span
+                  class="menu-text">Attendance Sheet</span>
+              </a>
+              <ul class="menu">
+                {% if E60000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-attendence-sheet-createlist' %}" class="menu-link">Attendance Sheet</a>
+                </li>
+                {% endif %}
+
+                {% if E60000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-attendence-addstudent' %}" class="menu-link">Add a new student in Attendance
+                    Sheet</a>
+                </li>
+                {% endif %}
+
+                {% if E60000003 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-examattendance-createform' %}" class="menu-link">Exam Attendance</a>
+                </li>
+                {% endif %}
+
+              </ul>
+            </li>
+            {% endif %}
+
+            {% if E70000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span class="menu-text">Exam
+                  & Result</span>
+              </a>
+              <ul class="menu">
+                {% if E70000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-resultgrade-createlist' %}" class="menu-link">Result Grade</a>
+                </li>
+                {% endif %}
+                {% if E70000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-examtype-createlist' %}" class="menu-link">Exam Type</a>
+                </li>
+                {% endif %}
+                {% if E70000003 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-examterm-createlist' %}" class="menu-link">Exam Term</a>
+                </li>
+                {% endif %}
+                {% if E70000004 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-examsetup-createlist' %}" class="menu-link">Exam Setup</a>
+                </li>
+                {% endif %}
+                {% if E70000005 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-online-exam-createlist' %}" class="menu-link">Online Exam Setup</a>
+                </li>
+                {% endif %}
+                {% if E70000006 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-submitted-question' %}" class="menu-link">Submitted Question</a>
+                </li>
+                {% endif %}
+                {% if E70000007 %}
+
+                <li class="menu-item">
+                  <a href="{% url 'edu-exam-marks-entry' %}" class="menu-link">Exam Marks Entry</a>
+                </li>
+
+                {% endif %}
+                {% if E70000016 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-result-view-setting' %}" class="menu-link">Result View Setting</a>
+                </li>
+                {%endif%}
+                {% if E70000018 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-result-process' %}" class="menu-link">Result View</a>
+                </li>
+                <li class="menu-item">
+                  <a href="{% url 'edu-term-result-marge' %}" class="menu-link">Mearge & Result View</a>
+                </li>
+                {%endif%}
+
+                {% if E70000013 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-student-result-before-publish' %}" class="menu-link">Result Before Publish</a>
+                </li>
+                {% endif %}
+
+                {% if E70000014 %}
+                <!-- Result Before publish Hefz-->
+                <li class="menu-item">
+                  <a href="{% url 'edu-hefz-result-form' %}" class="menu-link">Result Before Publish</a>
+                </li>
+                {% endif %}
+                {% if E70000022 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-hefz-exam-markentry-form' %}" class="menu-link">Hefz Result</a>
+                </li>
+                <li class="menu-item">
+                  <a href="{% url 'edu-hefz-mark-position-form' %}" class="menu-link">Hefz Result Mark Position
+                    Process</a>
+                </li>
+                {% endif %}
+
+                {% if E70000008 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-student-result-subjectwise' %}" class="menu-link">Result List Subjectwise</a>
+                </li>
+                {% endif %}
+                {% if E70000009 %}
+
+                <li class="menu-item">
+                  <a href="{% url 'edu-published-result' %}" class="menu-link">Published Result</a>
+                </li>
+                {% endif %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-resultsheet-createlist' %}" class="menu-link">Final Result Sheet</a>
+                </li>
+                {% if E70000010 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-published-result-marge-form' %}" class="menu-link">Merge Result</a>
+                </li>
+                {% endif %}
+                {% if E70000011 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-marks-blanksheet' %}" class="menu-link">Marks Blank Sheet</a>
+                </li>
+                {% endif %}
+                {% if E70000012 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-seat-plane' %}" class="menu-link">Exam Seat Label</a>
+                </li>
+                {% endif %}
+              </ul>
+            </li>
+            {% endif %}
+
+            {% if E14000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span>
+                <span class="menu-text">Certificate</span>
+              </a>
+              <ul class="menu">
+                {% if E14000003 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-board-name-createlist' %}" class="menu-link">Create Board Name </a>
+                </li>
+                {% endif %}
+                {% if E14000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-certificate-name-createlist' %}" class="menu-link">Create Certificate Name </a>
+                </li>
+                {% endif %}
+                {% if E14000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-certificat-header-address' %}" class="menu-link">Header Address </a>
+                </li>
+                {% endif %}
+                {% if E14000004 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-studentinfo-search' %}" class="menu-link">Students</a>
+                </li>
+                {% endif %}
+                {% if E14000005 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-student-testimonial-list' %}" class="menu-link">Testimonial List</a>
+                </li>
+                {% endif %}
+
+              </ul>
+            </li>
+            {% endif %}
+
+            {% if E50000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span class="menu-text">Pre
+                  Admission</span>
+              </a>
+              <ul class="menu">
+                {% if E50000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-visited-studentInfo' %}" class="menu-link">Visiting Student </a>
+                </li>
+                {% endif %}
+              </ul>
+            </li>
+            {% endif %}
+
+            {% if E80000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span
+                  class="menu-text">Library Information</span>
+              </a>
+              <ul class="menu">
+                {% if E80000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-libraryrack-createlist' %}" class="menu-link">Library Rack Create</a>
+                </li>
+                {% endif %}
+                {% if E80000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-libraryauthor-createlist' %}" class="menu-link">Library Author Create</a>
+                </li>
+                {% endif %}
+                {% if E80000003 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-libraryeditor-createlist' %}" class="menu-link">Library Editor Create</a>
+                </li>
+                {% endif %}
+                {% if E80000004 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-librarybook-createlist' %}" class="menu-link">Library Books Create</a>
+                </li>
+                {% endif %}
+                {% if E80000005 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-librarycard-createlist' %}" class="menu-link">Library Card Create</a>
+                </li>
+                {% endif %}
+                {% if E80000006 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-librarybookissue-createlist' %}" class="menu-link">Library Book Issue</a>
+                </li>
+                {% endif %}
+                {% if E80000007 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-librarybookrequest-createlist' %}" class="menu-link">Library Book Request</a>
+                </li>
+                {% endif %}
+              </ul>
+            </li>
+            {% endif %}
+
+            {% if H10000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span class="menu-text">Hostel
+                  and Dining</span>
+              </a>
+              <ul class="menu">
+
+                {% if H10000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'hostel-feesmapping-createlist' %}" class="menu-link">Hostel & Dining Fees Maping</a>
+                </li>
+                {% endif %}
+
+                {% if H10000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'hostel-fees-processing' %}" class="menu-link">Fees Processing</a>
+                </li>
+                {% endif %}
+
+                {% if H10000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'hostel-hall-createlist' %}" class="menu-link">Hall Details</a>
+                </li>
+                {% endif %}
+
+                {% if H10000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'hostel-bedtype-createlist' %}" class="menu-link">Bed Type Create</a>
+                </li>
+                {% endif %}
+                {% if H10000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'hostel-payfortype-createlist' %}" class="menu-link">PayFor Type Create</a>
+                </li>
+                {% endif %}
+                {% if H10000003 %}
+                <li class="menu-item">
+                  <a href="{% url 'hostel-bedmanagement-createlist' %}" class="menu-link">Bed Create</a>
+                </li>
+                {% endif %}
+                {% if H10000004 %}
+                <li class="menu-item">
+                  <a href="{% url 'hostel-roommanagement-createlist' %}" class="menu-link">Room Create</a>
+                </li>
+                {% endif %}
+                {% if H10000005 %}
+                <li class="menu-item">
+                  <a href="{% url 'hostel-mealtype-createlist' %}" class="menu-link">Meal Type Create</a>
+                </li>
+                {% endif %}
+                {% if H10000006 %}
+                <li class="menu-item">
+                  <a href="{% url 'hostel-meal-createlist' %}" class="menu-link">Meal Create</a>
+                </li>
+                {% endif %}
+                {% if H10000007 %}
+                <li class="menu-item">
+                  <a href="{% url 'hostel-paymentmanage-createlist' %}" class="menu-link">Payment Management</a>
+                </li>
+                {% endif %}
+                {% if H10000008 %}
+                <li class="menu-item">
+                  <a href="{% url 'hostel-admission-createlist' %}" class="menu-link">Hostel Registration</a>
+                </li>
+                {% endif %}
+                {% if H10000009 %}
+                <li class="menu-item">
+                  <a href="{% url 'hostel-addingmeal-createlist' %}" class="menu-link">Add Student to Meal</a>
+                </li>
+                {% endif %}
+                {% if H100000010 %}
+                <li class="menu-item">
+                  <a href="{% url 'hostel-dailymeal-createlist' %}" class="menu-link">Daily Meal Create</a>
+                </li>
+                {% endif %}
+                {% if H10000011 %}
+                <li class="menu-item">
+                  <a href="{% url 'hostel-dailymeal-studentlist' %}" class="menu-link">Daily Meal Info</a>
+                </li>
+                {% endif %}
+
+              </ul>
+            </li>
+            {% endif %}
+            {% if T10000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span
+                  class="menu-text">Transportation System</span>
+              </a>
+              <ul class="menu">
+                {% if T10000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'transport-transportation-type' %}" class="menu-link">Transport Type Create</a>
+                </li>
+                {% endif %}
+                {% if T10000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'transport-transportation' %}" class="menu-link">Transport Create</a>
+                </li>
+                {% endif %}
+                {% if T10000003 %}
+                <li class="menu-item">
+                  <a href="{% url 'transport-location-info' %}" class="menu-link">Location Create</a>
+                </li>
+                {% endif %}
+                {% if T10000004 %}
+                <li class="menu-item">
+                  <a href="{% url 'transport-vehicle-type' %}" class="menu-link">Vehicle Type Create</a>
+                </li>
+                {% endif %}
+                {% if T10000005 %}
+                <li class="menu-item">
+                  <a href="{% url 'transport-vehicle-info' %}" class="menu-link">Vehicle Create</a>
+                </li>
+                {% endif %}
+                {% if T10000006 %}
+                <li class="menu-item">
+                  <a href="{% url 'transport-driver-info' %}" class="menu-link">Driver Info Create</a>
+                </li>
+                {% endif %}
+                {% if T10000007 %}
+                <li class="menu-item">
+                  <a href="{% url 'transport-conductor-info' %}" class="menu-link">Conductor Info Create</a>
+                </li>
+                {% endif %}
+                {% if T10000008 %}
+                <li class="menu-item">
+                  <a href="{% url 'transport-road-map' %}" class="menu-link">Road Map Create</a>
+                </li>
+                {% endif %}
+                {% if T10000009 %}
+                <li class="menu-item">
+                  <a href="{% url 'transport-roadmap-dtl' %}" class="menu-link">Road Map Details Create</a>
+                </li>
+                {% endif %}
+                {% if T10000010 %}
+                <li class="menu-item">
+                  <a href="{% url 'transport-admit-transportation' %}" class="menu-link">Admit Transport</a>
+                </li>
+                {% endif %}
+                {% if T10000011 %}
+                <li class="menu-item">
+                  <a href="{% url 'transport-payfor-type' %}" class="menu-link">Payfor Type</a>
+                </li>
+                {% endif %}
+                {% if T10000012 %}
+                <li class="menu-item">
+                  <a href="{% url 'transport-payment-management' %}" class="menu-link">Payment Management</a>
+                </li>
+                {% endif %}
+                {% if T10000013 %}
+
+                <li class="menu-item">
+                  <a href="{% url 'transport-student-attendance' %}" class="menu-link">Presence in transport</a>
+                </li>
+                {% endif %}
+                {% if T10000014 %}
+                <li class="menu-item">
+                  <a href="{% url 'transport-use-summery' %}" class="menu-link">Transport use summery</a>
+                </li>
+                {% endif %}
+
+              </ul>
+            </li>
+            {% endif %}
+
+
+            {% if E90000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span
+                  class="menu-text">Education
+                  Report</span>
+              </a>
+              <ul class="menu">
+                {% if E90000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-student-filter-print-report-form' %}" class="menu-link">Student Filter</a>
+                </li>
+                <li class="menu-item">
+                  <a href="{% url 'edu-subject-list-search' %}" class="menu-link">Subject List</a>
+                </li>
+                {% endif %}
+
+              </ul>
+            </li>
+            {% endif %}
+
+            {% if F10000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span
+                  class="menu-text">Accounts </span>
+              </a>
+              <ul class="menu">
+                {% if F10000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-account-transaction' %}" class="menu-link">Account Transaction</a>
+                </li>
+                {% endif %}
+                {% if F10000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-ledger-transaction' %}" class="menu-link">Ledger Transaction</a>
+                </li>
+                {% endif %}
+                {% if F10000003 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-journal-voucher-createlist' %}" class="menu-link">Journal Voucher</a>
+                </li>
+                {% endif %}
+                {% if F10000004 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-accounts-balance' %}" class="menu-link">Account Balance</a>
+                </li>
+                {% endif %}
+                {% if F10000005 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-actran-details' %}" class="menu-link">Account Statement</a>
+                </li>
+                {% endif %}
+                {% if F10000006 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-transaction-list' %}" class="menu-link">Transaction List</a>
+                </li>
+                {% endif %}
+                {% if F10000007 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-transaction-query' %}" class="menu-link">Transaction Cancel</a>
+                </li>
+                {% endif %}
+              </ul>
+            </li>
+            {% endif %}
+
+            {% if F20000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span class="menu-text">Cash
+                  Management</span>
+              </a>
+
+              <ul class="menu">
+                {% if F20000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-telbaltrf-view' %}" class="menu-link">Cash Transfer Request</a>
+                </li>
+                {% endif %}
+                {% if F20000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-telbaltrf-authlist' %}" class="menu-link">Cash Receive/Payment</a>
+                </li>
+                {% endif %}
+                {% if F20000003 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-report-teller-balance' %}" class="menu-link">Cashier Balance Report</a>
+                </li>
+                {% endif %}
+                {% if F20000003 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-report-teller-transaction' %}" class="menu-link">Cashier Transaction
+                    Details</a>
+                </li>
+                {% endif %}
+              </ul>
+            </li>
+            {% endif %}
+
+            {% if F40000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-wrench"></span> <span
+                  class="menu-text">Accounts
+                  Settings</span></a>
+              <ul class="menu">
+                {% if F40000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-ledger-create' %}" class="menu-link">Chart Of Account (COA)</a>
+                </li>
+                {% endif %}
+                {% if F40000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-charges-createlist' %}" class="menu-link">Charge Parameter Settings</a>
+                </li>
+                {% endif %}
+                {% if F40000003 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-trantype-createlist' %}" class="menu-link">Transaction Type Settings</a>
+                </li>
+                {% endif %}
+                {% if F40000004 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-trantypeledger-createlist' %}" class="menu-link">Transaction Ledger
+                    Mapping</a>
+                </li>
+                {% endif %}
+                {% if F40000005 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-cashnbankledger-createlist' %}" class="menu-link">Cash &amp; Bank Ledger</a>
+                </li>
+                {% endif %}
+                {% if F40000006 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-accounttype-createlist' %}" class="menu-link">Manage Account Type</a>
+                </li>
+                {% endif %}
+                {% if F40000007 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-clienttype-createlist' %}" class="menu-link">Manage Clients Type</a>
+                </li>
+                {% endif %}
+                {% if F40000008 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-clientacmap-createlist' %}" class="menu-link">Client Account Mapping</a>
+                </li>
+                {% endif %}
+              </ul>
+            </li>
+            {% endif %}
+
+            {% if F50000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span class="menu-text">Inter
+                  Branch Transaction</span>
+              </a>
+              <ul class="menu">
+                {% if F50000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-ibrorg-transaction' %}" class="menu-link">Fund Transfer Request </a>
+                </li>
+                {% endif %}
+                {% if F50000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-ibrtran-list' %}" class="menu-link">Transfer Request List</a>
+                </li>
+                {% endif %}
+              </ul>
+            </li>
+            {% endif %}
+
+
+            {% if F10001000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-wrench"></span> <span
+                  class="menu-text">Accounts Report</span></a>
+              <ul class="menu">
+                {% if F10001001 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-report-account-balance' %}" class="menu-link">Account Balance</a>
+                </li>
+                {% endif %}
+                {% if F10001002 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-report-cashtrandetails' %}" class="menu-link">Cash Transaction Details</a>
+                </li>
+                {% endif %}
+                {% if F10001003 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-report-ledgerstatements' %}" class="menu-link">Ledger Statement</a>
+                </li>
+                {% endif %}
+                {% if F10001004 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-report-receiptpayment' %}" class="menu-link">Receipt & Payment</a>
+                </li>
+                {% endif %}
+                {% if F10001004 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-report-receiptpayment-two' %}" class="menu-link">Receipt & Payment II</a>
+                </li>
+                {% endif %}
+                {% if F10001005 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-report-assetliabilities' %}" class="menu-link">Balance Sheet (Asset &
+                    Liabilities)</a>
+                </li>
+                {% endif %}
+                {% if F10001005 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-report-assetliabilitiestab' %}" class="menu-link">Balance Sheet II </a>
+                </li>
+                {% endif %}
+                {% if F10001006 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-report-incomeexpenses' %}" class="menu-link">Income & Expenses</a>
+                </li>
+                {% endif %}
+                {% if F10001006 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-report-incomeexpensestab' %}" class="menu-link">Income & Expenses II</a>
+                </li>
+                {% endif %}
+                {% if F10001007 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-report-trialbalance' %}" class="menu-link">Trial Balance</a>
+                </li>
+                {% endif %}
+                {% if F10001007 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-report-trialbalancetab' %}" class="menu-link">Trial Balance II</a>
+                </li>
+                {% endif %}
+                {% if F10001007 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-report-profitloss' %}" class="menu-link">Profit and Loss</a>
+                </li>
+                {% endif %}
+                {% if F10001008 %}
+                <li class="menu-item">
+                  <a href="{% url 'finance-report-cashnbank' %}" class="menu-link">Cash & Bank (Receipt & Payment)</a>
+                </li>
+                {% endif %}
+              </ul>
+            </li>
+            {% endif %}
+
+            {% if A10000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span
+                  class="menu-text">Authentication</span>
+              </a>
+              <ul class="menu">
+                {% if A11000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'appauth-user-create' %}" class="menu-link">Create User</a>
+                </li>
+                {% endif %}
+                {% if A11000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'appauth-application-users' %}" class="menu-link">User List</a>
+                </li>
+                {% endif %}
+              </ul>
+            </li>
+            {% endif %}
+
+            {% if A20000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span
+                  class="menu-text">Appauth Settings</span>
+              </a>
+              <ul class="menu">
+                {% if A20000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'appauth-branch-createlist' %}" class="menu-link">Manage Branch</a>
+                </li>
+                {% endif %}
+                {% if A20000004 %}
+                <li class="menu-item">
+                  <a href="{% url 'appauth-country-createlist' %}" class="menu-link">Country Setup</a>
+                </li>
+                {% endif %}
+                {% if A20000005 %}
+                <li class="menu-item">
+                  <a href="{% url 'appauth-division-createlist' %}" class="menu-link">Division Setup</a>
+                </li>
+                {% endif %}
+                {% if A20000006 %}
+                <li class="menu-item">
+                  <a href="{% url 'appauth-district-createlist' %}" class="menu-link">District Setup</a>
+                </li>
+                {% endif %}
+                {% if A20000007 %}
+                <li class="menu-item">
+                  <a href="{% url 'appauth-upazila-createlist' %}" class="menu-link">Upazila Setup</a>
+                </li>
+                {% endif %}
+                {% if A20000008 %}
+                <li class="menu-item">
+                  <a href="{% url 'appauth-union-createlist' %}" class="menu-link">Union Setup</a>
+                </li>
+                {% endif %}
+              </ul>
+            </li>
+            {% endif %}
+
+            {% if HR10000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span class="menu-text">HR
+                  Settings</span>
+              </a>
+              <ul class="menu">
+                {% if HR10000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'hrm-department-info' %}" class="menu-link">Deparment Setup</a>
+                </li>
+                {% endif %}
+                {% if HR10000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'hrm-designation-create' %}" class="menu-link">Designation Setup</a>
+                </li>
+                {% endif %}
+                {% if HR10000003 %}
+                <li class="menu-item">
+                  <a href="{% url 'hrm-company-info-view' %}" class="menu-link">Company Setup</a>
+                </li>
+                {% endif %}
+                {% if HR10000004 %}
+                <li class="menu-item">
+                  <a href="{% url 'hrm-office-info-view' %}" class="menu-link">Office Location</a>
+                </li>
+                {% endif %}
+                {% if HR10000005 %}
+                <li class="menu-item">
+                  <a href="{% url 'hrm-shift-info-view' %}" class="menu-link">Shift Setup</a>
+                </li>
+                {% endif %}
+                {% if HR10000006 %}
+                <li class="menu-item">
+                  <a href="{% url 'hrm-emp-degree-info-view' %}" class="menu-link">Employee Degree</a>
+                </li>
+                {% endif %}
+                {% if HR10000007 %}
+                <li class="menu-item">
+                  <a href="{% url 'hrm-employee-type-create' %}" class="menu-link">Employment Type</a>
+                </li>
+                {% endif %}
+              </ul>
+            </li>
+            {% endif %}
+
+            {% if ME10000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span class="menu-text">Manage
+                  Employee</span>
+              </a>
+              <ul class="menu">
+                {%if ME10000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'hrm-employee-info-create' %}" class="menu-link">ADD Employee</a>
+                </li>
+                {%endif%}
+                {%if ME10000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'hrm-employee-list-form' %}" class="menu-link">Employee List</a>
+                </li>
+                {%endif%}
+                {%if ME10000003 %}
+                <li class="menu-item">
+                  <a href="{% url 'hrm-document-type-create' %}" class="menu-link"> Document Type </a>
+                </li>
+                {%endif%}
+                {%if ME10000004 %}
+                <li class="menu-item">
+                  <a href="{% url 'hrm-employee-document-info-create' %}" class="menu-link">Upload Document</a>
+                </li>
+                {%endif%}
+                {%if ME10000005 %}
+                <li class="menu-item">
+                  <a href="{% url 'hrm-employee-leave-info-create' %}" class="menu-link">Leave Info</a>
+                </li>
+                {%endif%}
+                {%if ME10000006 %}
+                <li class="menu-item">
+                  <a href="{% url 'hrm-employee-leave-application-create' %}" class="menu-link">Leave application</a>
+                </li>
+                {%endif%}
+                {%if ME10000007 %}
+                <li class="menu-item">
+                  <a href="{% url 'hrm-employee-training-info-create' %}" class="menu-link">Training Information</a>
+                </li>
+                {%endif%}
+                
+              </ul>
+            </li>
+            {%endif%}
+            {% if P10000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span
+                  class="menu-text">Payroll</span>
+              </a>
+              <ul class="menu">
+                {% if P10000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'hrm-employee-salary-scale-create' %}" class="menu-link">Salary Scale</a>
+                </li>
+                {%endif%}
+                {% if P10000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'hrm-employee-extra-allownce-create' %}" class="menu-link">Allownce Setup</a>
+                </li>
+                {%endif%}
+                {% if P10000003 %}
+                <li class="menu-item">
+                  <a href="{% url 'hrm-pay-bill-info-create' %}" class="menu-link">Paybill</a>
+                </li>
+                {%endif%}
+                
+              </ul>
+            </li>
+            {%endif%}
+            {% if E11000001 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span class="menu-text">
+                  All Forms</span>
+              </a>
+              <ul class="menu">
+                {% if E11000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-admission-form-header' %}" class="menu-link">Admission Form Header</a>
+                </li>
+                <li class="menu-item">
+                  <a href="{% url 'edu-allform-download' %}" class="menu-link">Forms</a>
+                </li>
+                {% endif %}
+              </ul>
+            </li>
+            {% endif %}
+
+            {% if E12000001 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span class="menu-text">
+                  Fees &amp; Charge Reports</span>
+              </a>
+              <ul class="menu">
+                {% if E12000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-report-studentfeescollection' %}" class="menu-link">Fees Collection Report</a>
+                </li>
+                {% endif %}
+                {% if E11000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-report-studentfeesdue' %}" class="menu-link">Fees Due Report</a>
+                </li>
+                {% endif %}
+                {% if E11000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'edu-report-studentfeesunpaid' %}" class="menu-link">Fees Unpaid Report</a>
+                </li>
+                {% endif %}
+              </ul>
+            </li>
+            {% endif %}
+            <!--Website-->
+            {% if W10000000 %}
+            <li class="menu-item has-child">
+              <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span class="menu-text">
+                  Website</span>
+              </a>
+              <ul class="menu">
+                {% if W10000000 %}
+                <li class="menu-item">
+                  <a href="{% url 'websitebackend-create-page' %}" class="menu-link">Create Pages</a>
+                </li>
+                <li class="menu-item">
+                  <a href="{% url 'websitebackend-pages-list' %}" class="menu-link">Pages</a>
+                </li>
+                {% endif %}
+                {% if W10000001 %}
+                <li class="menu-item">
+                  <a href="{% url 'websitebackend-upload-pdf-create' %}" class="menu-link">Notice</a>
+                </li>
+                {% endif %}
+                {% if W10000002 %}
+                <li class="menu-item">
+                  <a href="{% url 'websitebackend-image-carousel-create' %}" class="menu-link">Slider</a>
+                </li>
+                {% endif %}
+                {% if W10000003 %}
+                <li class="menu-item">
+                  <a href="{% url 'websitebackend-navbar-menu-create' %}" class="menu-link"> Menu Create</a>
+                </li>
+                <li class="menu-item">
+                  <a href="{% url 'websitebackend-navbar-sub-menu-create' %}" class="menu-link"> Sub Menu Create</a>
+                </li>
+                {% endif %}
+                {% if W10000005 %}
+                <li class="menu-item">
+                  <a href="{% url 'websitebackend-importent-link-create' %}" class="menu-link">Important Link</a>
+                </li>
+                {% endif %}
+              </ul>
+            </li>
+            {% endif %}
+
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Model for Loading -->
+        <div class="modal ajaxProgress" id="page_loading" data-backdrop="static">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-body">
+                <h5>Please Wait ...</h5>
+                <img src="{% static 'assets/images/ajax/ajax-loader.gif' %}" alt="loading" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="aside-footer border-top p-3">
+          <button class="btn btn-light btn-block text-primary" data-toggle="skin">Night mode <i
+              class="fas fa-moon ml-1"></i></button>
+        </footer>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <div class="wrapper">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert {% if message.tags %} {{ message.tags }} {% endif %} alert-dismissible fade show"
+          role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {%if is_home_page%}
+        {% include "./appauth-home-shortcut.html" %}
+        {%endif%}
+
+
+        {% block body %}
+
+        {% endblock body %}
+
+      </div>
+
+      <input type='hidden' id='id_global_branch_code' class='global_branch_code' value={{ global_branch_code }}
+        readonly>
+      <input type='hidden' id='id_is_head_office_user' class='is_head_office_user' value={{ is_head_office_user }}
+        readonly>
+      <input type='hidden' id='id_is_back_date_posting' class='is_back_date_posting' value={{ is_back_date_posting }}
+        readonly>
+
+      <footer class="app-footer">
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a class="text-muted" href="http://pearttechnology.com/contact-us" target="_blank">Support</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="text-muted" href="http://pearttechnology.com/contact-us" target="_blank">Help Center</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="text-muted" href="http://pearttechnology.com/contact-us" target="_blank">Privacy</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="text-muted" href="http://pearttechnology.com/contact-us" target="_blank">Terms of Service</a>
+          </li>
+        </ul>
+        <div class="copyright"> Copyright © <a href="http://pearttechnology.com/" target="_blank"> Peart Technology
+            Limited. </a>All right reserved. </div>
+      </footer>
+    </main>
+  </div>
+
+  <script src="{% static 'assets/vendor/bootstrap/js/popper.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/pace/pace.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/stacked-menu/stacked-menu.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/flatpickr/flatpickr.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/easy-pie-chart/jquery.easypiechart.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/chart.js/Chart.min.js' %}"></script>
+  <script src="{% static 'assets/javascript/theme.min.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="{% static 'assets/javascript/sweetalert2.js' %}"></script>
+  <script src="{% static 'assets/vendor/select2/js/select2.min.js' %}"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116692175-1"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'UA-116692175-1');
+  </script>
+
+  <script>
+    $(function () {
+
+      function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+          var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+
+      var csrftoken = getCookie('csrftoken');
+
+      function csrfSafeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+
+      function sameOrigin(url) {
+        var host = document.location.host;
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+          (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+          !(/^(\/\/|http:|https:).*/.test(url));
+      }
+
+      $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+        }
+      });
+
+    });
+  </script>
+  <script src="{% static 'assets/javascript/pages/common.js' %}"></script>
+  {% block js %}
+
+  {% endblock js %}
+</body>
+
+</html>

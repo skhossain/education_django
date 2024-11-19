@@ -1,0 +1,36 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<div class="modal-header"> </div>
+{% csrf_token %}
+<div class="container">
+	<h4 align="center">Update  Information</h4>
+	<div class="card">
+		<div class="card-body">
+			<div>
+				<form method="post" id="edit_form" data-url="{% url 'hrm-employee-leave-application-approve' id %}" class="update-form">
+					{% csrf_token %}
+					<div class="form-row">
+						<div class="form-group col-md-8 mb-0">
+							<label for="comments">comments</label>
+							<textarea class="form-control" name="comments" aria-label="With textarea"></textarea>
+						</div> 
+					</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="disapprove" class="btn btn-danger btn-default pull-right" data-dismiss="modal">Disapprove</button>
+				<button type="submit"  class="btn btn-primary"id="btnSubmit" class="btn btn-primary approve">Approve</button>
+			</div>
+			</form>
+			<div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+</script>
+
+
+<script src="{% static 'assets/javascript/pages/hrm/hrm-leave-application-approve.js' %}"></script>

@@ -1,0 +1,101 @@
+{% load edu_custom_tags %}
+
+<div class="app">
+	<div class="card card-fluid" id="print_result_data">
+		<div class="card-body">
+            <div class="row">
+                <div class="col-md-6 offset-3 text-center">
+                    <h5>{{institute.academic_name}}</h5>
+                    {% if institute.text_one %}
+                    <p style="line-height: 3px;">{{institute.text_one}}</p>
+                    {% endif %}
+                    {% if institute.text_two %}
+                    <p style="line-height: 3px;">{{institute.text_two}}</p>
+                    {% endif %}
+                    {% if institute.text_three %}
+                    <p style="line-height: 3px;">{{institute.text_three}}</p>
+                    {% endif %}
+                    {% if institute.text_four %}
+                    <p style="line-height: 3px;">{{institute.text_four}}</p>
+                    {% endif %}
+                    {% if institute.text_five %}
+                    <p style="line-height: 3px;">{{institute.text_five}}</p>
+                    {% endif %}
+                   <h6>{{term}} Result</h6>
+                </div>
+            </div>
+            <div class="row">
+            <input type="hidden" id="print_title" value="Student Result List">
+			{% for student in students_results %}
+                <div class="col-12 mt-5" {% if forloop.counter|divisibleby:2 %} style="background-color: rgb(250, 250, 250);" {% else %} style="background-color: rgb(253, 253, 253);" {% endif %}>
+                    <div class="row" style="border:1px solid #333 ;">
+                        <div class="col">
+                            Class: {{class_name}}
+                        </div>
+                        <div class="col">Roll: {{student.student_roll__class_roll}}</div>
+                        <div class="col">ID: {{student.student_roll}}</div>
+                        <div class="col-4 text-right">Name: {{student.student_roll__student_name}}</div>
+                        
+                    </div>
+                    
+                    
+                    <div class="row">
+                        <div class="col-6">
+                                <div class="row" style="border:dashed 1px #777">
+                                    <div class="col-5">Subject Name</div>
+                                    <div class="col-2">Mark</div>
+                                    <div class="col-2">Obtain</div>
+                                    <div class="col-2">GPA</div>
+                                    <div class="col-1">LG</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="row" style="border:dashed 1px #777">
+                                    <div class="col-5">Subject Name</div>
+                                    <div class="col-2">Mark</div>
+                                    <div class="col-2">Obtain</div>
+                                    <div class="col-2">GPA</div>
+                                    <div class="col-1">LG</div>
+                                </div>
+                            </div>
+                        {% for subject in subject_results %}
+                            {% if subject.student_roll == student.student_roll %}
+                            <div class="col-6">
+                                <div class="row" style="border:dashed 1px #777">
+                                    <div class="col-5">{{subject.subject_id__subject_name}}</div>
+                                    <div class="col-2">{{subject.total}}</div>
+                                    <div class="col-2">{{subject.obtain}}</div>
+                                    <div class="col-2">{{subject.gpa}}</div>
+                                    <div class="col-1">{{subject.lg}}</div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="row" style="border:1px solid #333 ;">
+                        <div class="col">
+                            Total :-
+                        </div>
+                        <div class="col">Subject Marks: {{student.total}}</div>
+                        <div class="col">Obtain Marks: {{student.obtain}}</div>
+                        <div class="col">GPA: {{student.gpa}}</div>
+                        <div class="col">LG: {{student.lg}}</div>
+                        
+                    </div>
+                    
+                </div>
+            {% endfor %}
+           <div class="mt-1"> {{students_results}}</div>
+        </div>
+    </div>
+ 
+    <button type="button" class="btn btn-info my-3 mr-3"  onclick="print_div('print_result_data')">Print</button>
+		
+    <div class="modal fade" id="edit_model" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+</div>
+

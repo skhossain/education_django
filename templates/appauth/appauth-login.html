@@ -1,0 +1,128 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Sign In | Education ERP (WhiteBoard)</title>
+    <meta property="og:title" content="Sign In">
+    <meta name="author" content="Rajib Pradhan">
+    <meta property="og:locale" content="en_US">
+    <meta name="description" content="Education ERP (WhiteBoard)">
+    <meta property="og:description" content="Education ERP (WhiteBoard)">
+    <link rel="canonical" href="index-2.html">
+    <meta property="og:url" content="index-2.html">
+    <meta property="og:site_name" content="Education ERP (WhiteBoard)">
+    <script type="application/ld+json">
+      {
+        "name": "Education ERP (WhiteBoard)",
+        "description": "Education ERP (WhiteBoard)",
+        "author":
+        {
+          "@type": "Person",
+          "name": "Rajib Pradhan"
+        },
+        "@type": "WebSite",
+        "url": "",
+        "headline": "Sign In",
+        "@context": "http://schema.org"
+      }
+    </script>
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'assets/apple-touch-icon.png' %}">
+    <link rel="shortcut icon" href="{% static '/assets/images/avatars/web-icon.png' %}">
+    <meta name="theme-color" content="#3063A0">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'assets/vendor/fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/stylesheets/theme.min.css' %}" data-skin="default">
+    <link rel="stylesheet" href="{% static 'assets/stylesheets/theme-dark.min.css' %}" data-skin="dark">
+    <link rel="stylesheet" href="{% static 'assets/stylesheets/custom.css' %}">
+    <script>
+        var skin = localStorage.getItem('skin') || 'default';
+        var unusedLink = document.querySelector('link[data-skin]:not([data-skin="' + skin + '"])');
+        unusedLink.setAttribute('rel', '');
+        unusedLink.setAttribute('disabled', true);
+    </script>
+</head>
+
+<body>
+    <main class="auth">
+        <header id="auth-header" class="auth-header"
+            style="background-image: url({% static 'assets/images/illustration/img-1.png' %})" >
+            <h1>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="325.87" height="118.49"
+    viewBox="0 0 325.87 118.49"><text transform="translate(99.47 59.76)"
+        style="font-size:72px;fill:#fff;font-family:BrushScriptStd, Brush Script Std">W<tspan x="70.42" y="0"
+            style="fill:#231f20">B</tspan></text><text x="-114" y="-198.58" /><text
+        transform="translate(156.46 104.79) scale(2.55 1)"
+        style="font-size:28.18716049194336px;fill:#231f20;font-family:AgencyFB-Reg, Agency FB">BOARD</text>
+    <line x1="19.87" y1="117.49" x2="157.87" y2="116.49"
+        style="fill:#231f20;stroke:#231f20;stroke-miterlimit:10;stroke-width:2px" />
+    <line x1="158.87" y1="71.99" x2="309" y2="72.42"
+        style="fill:#fff;stroke:#fff;stroke-miterlimit:10;stroke-width:3px" /><text
+        transform="translate(11.01 103.95) scale(2.55 1)"
+        style="font-size:28.18716049194336px;fill:#fff;font-family:AgencyFB-Reg, Agency FB">WHITE</text>
+</svg>
+                    <span class="sr-only">Sign In</span>
+            </h1>
+        </header>
+        <form action="{% url 'appauth-login' %}" method="post" class="auth-form">
+            {% csrf_token %}
+
+            <div class="form-group">
+                {% if message %}
+                <div class="font-weight-bold" align="center">
+                    {{ message }}
+                </div>
+                {% endif %}
+                <div class="form-label-group">
+                    <input type="text" name="username" id="inputUser" class="form-control" placeholder="Username"
+                        autofocus=""> <label for="username">Username</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-label-group">
+                    <input type="password" name="password" id="inputPassword" class="form-control"
+                        placeholder="Password"> <label for="password">Password</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+            </div>
+            <div class="form-group text-center">
+                <div class="custom-control custom-control-inline custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="remember-me"> <label
+                        class="custom-control-label" for="remember-me">Keep me sign in</label>
+                </div>
+
+            </div>
+        </form>
+        <footer class="auth-footer"> © 2020 All Rights Reserved. <a href="#">Privacy</a> and <a href="#">Terms</a>
+        </footer>
+    </main>
+    <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/bootstrap/js/popper.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/particles.js/particles.min.js' %}"></script>
+    <script>
+        $(document).on('theme:init', () => {
+            particlesJS.load('auth-header', '{% static assets/javascript/pages/particles.json');
+        })
+    </script>
+    <script src="{% static 'assets/javascript/theme.js' %}"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116692175-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'UA-116692175-1');
+    </script>
+
+</body>
+
+</html>

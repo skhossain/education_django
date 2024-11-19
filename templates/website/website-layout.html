@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <link rel="icon" href="favicon.ico" type="https://dskm.ac.bd/assets/image/x-icon" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="keywords"
+        content="madrasah, madrasah education, hifj, academy, course, education, elearning, learning, bangladeshi madrasah">
+
+
+    <title style="font-family: SolaimanLipi;">{% block title_block %} {{academic_info.academic_name}} {% endblock %}
+    </title>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'assets/website/images/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'assets/website/images/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'assets/website/images/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/website/images/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'assets/website/images/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'assets/website/images/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'assets/website/images/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'assets/website/images/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/website/images/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192"
+        href="{% static 'assets/website/images/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/website/images/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'assets/website/images/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/website/images/favicon-16x16.png' %}">
+
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link href="{% static 'assets/bootstrap-5.2.0/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/website/css/calendar.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/website/css/jquery-ui.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/website/css/animate.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/website/css/css-plugin-collections.css' %}" rel="stylesheet" />
+
+    <link id="mainweb-menu-skins" href="{% static 'assets/website/css/mainmenu-skins/mainmenu-rounded-boxed.css' %}"
+        rel="stylesheet" />
+
+    <link href="{% static 'assets/website/css/font.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/website/fonts/SolaimanLipi.woff' %}" />
+
+    <link href="{% static 'assets/website/css/style-main.css' %}" rel="stylesheet" type="text/css">
+
+    <link href="{% static 'assets/website/css/preloader.css' %}" rel="stylesheet" type="text/css">
+
+    <link href="{% static 'assets/website/css/responsive.css' %}" rel="stylesheet" type="text/css">
+
+    <link href="{% static 'assets/website/css/custom.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/website/css/calendar.css' %}" rel="stylesheet" type="text/css">
+    
+    <link href="{% static 'assets/website/css/css_style.css' %}" rel="stylesheet" type="text/css">
+    
+
+    <link href="{% static 'assets/website/css/colors/theme-skin-color-set-1.css' %}" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="{% static 'assets/website/css/style.css' %}" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{% static 'assets/website/js/jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'assets/website/js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'assets/bootstrap-5.2.0/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="{% static 'assets/website/js/jquery-plugin-collection.js' %}"></script>
+
+    <script src="{% static 'assets/website/js/revolution-slider/js/jquery.themepunch.tools.min.js' %}"></script>
+    <script src="{% static 'assets/website/js/revolution-slider/js/jquery.themepunch.revolution.min.js' %}"></script>
+</head>
+
+
+
+<header id="header" class="header">
+        {% block header_block %}
+        {% endblock %}
+    <div>
+        {% block navbar_block %}
+        {% endblock %}
+    </div>
+
+    <div class="row main-content sm:px-28" style="background-image: url(/static/assets/website/images/bg/bg.png)">
+        <section>
+            <div style="background-color: #DBECFD;">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-9">
+                            <div class="main-content" style="background-color: #DBECFD;">
+                                <div class="shadow-md">
+                                    {% block body_block %}
+                                    
+                                    {%endblock%}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="sidebar sidebar-left mt-sm-10">
+                                <div class="shadow-md my-4 border py-5 sm:my-0">
+                                    {% block right_sidebar_block %}
+                                    
+                                    {% endblock %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+    </div>
+    </div>
+    </div>
+    </section>
+
+    <footer id="footer" class="bg-sky-950">
+        <div>
+            {% block footer_block %}
+            
+            {% endblock %}
+        </div>
+    </footer>
+    <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
+    </div>
+
+
+    <script src="{% static 'assets/website/js/custom.js' %}"></script>
+
+    </body>
+
+</html>

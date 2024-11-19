@@ -1,0 +1,27 @@
+{% load static %}
+
+<div class="widget mt-4">
+    <h5 class="widget-title title-dots small"><span>ফরম ডাউনলোড</span></h5>
+    <div class>
+
+        <div class="widget dark text-black">
+            <ul class="list angle-double-right list-border">
+                {%for notice in notices%}
+                {%if notice.types == 1 %}
+                <li class="text-black"><a href="/media/{{notice.pdf_file}}" target="blank">
+                        <span><i class="fa fa-paperclip"></i></span>{{notice.notic_title}}</a></li>
+                {%endif%}
+                {%endfor%}
+            </ul>
+            <div class="clearfix"></div>
+            <div class="panel-heading box-title white-bg widget-title title-dots"
+                style="padding: 5px 0px 5px 15px;border-top: 2px solid #d5e5ff;background-color: #1ab33d !important;margin-bottom: 15px;">
+                <div style="font-family:SolaimanLipi !important;text-transform:;font-size: 12px;font-weight: 600;">
+                    <a href="view-all-form" style="color: #ffffff;padding-left: 45px;">
+                        সমস্ত ডাউনলোড ফর্ম দেখুন
+                        <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

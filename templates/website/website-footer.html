@@ -1,0 +1,70 @@
+{% load static %}
+
+<div class="container">
+
+    <div class="row footer-top">
+        <div class="col-sm-6 col-md-4">
+            <img class="mt-5 mb-20" alt src="{{academic_info.academic_logo.url}}" style="width: 80px; margin: 20 0;">
+
+            <ul class="my-3 text-white">
+                <li class="m-0 py-2"> <i class="fa fa-map text-theme-color-2 mr-5"></i>
+                    {{academic_info.academic_name|default:""}},{{academic_info.academic_address|default:""}} </li>
+                <li class="m-0 py-2"> <i class="fa fa-phone text-theme-color-2 mr-5"></i>
+                    {{academic_info.academic_mobile_1|default:""}}</li>
+                <li class="m-0 py-2"> <i class="fa fa-phone text-theme-color-2 mr-5"></i>
+                    {{academic_info.academic_mobile_2|default:""}} </li>
+                <li class="m-0 py-2"> <i class="fa fa-envelope-o text-theme-color-2 mr-5"></i>
+                    {{academic_info.academic_email|default:""}} </li>
+                <li class="m-0 py-2"> <i class="fa fa-globe text-theme-color-2 mr-5"></i>
+                    {{academic_info.academic_website|default:""}}</li>
+            </ul>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="widget dark text-white">
+                <h4 class="widget-title" style="border-bottom-style: double;">গুরুত্বপুরর্ণ লিংকসূমহ</h4>
+                <ul class="list angle-double-right list-border">
+                    {% for item in footer_link %}
+                    <li><a class="text-white" href="{{item.link}}" target="_blank"><i class="fa fa-paperclip"></i>
+                            {{item.title}} </a></li>
+                    {%endfor%}
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="footer-bottom bg-pink-100">
+    <div class="container">
+        <div class="row footer-last">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style>
+                <div class="widget no-border">
+                    <p class="font-12 text-black-f2 footer-text"> Copyright @
+                        <script>
+                            var currentDate = new Date();
+                            document.write(currentDate.getFullYear())
+                        </script>, {{academic_info}}
+                    </p>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" style>
+                <div class="widget no-border">
+                    <p class="font-12 text-black-f2 footer-text">Technical
+                        Support: <a href="https://pearttechnology.com" target="_blank" style="color: #b50431;">
+                            Peart Technology Ltd.</a></p>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 text-right">
+                <div class="widget dark text-white">
+                    <!-- <ul class="styled-icons icon-bordered icon-sm">
+                        <li><a class="facebook" href="" target="_blank"><i
+                                    class="fa fa-facebook text-white" style="color: #4267B2 !important;"></i></a></li>
+                        <li><a class="twitter" href="#" target="_blank"><i class="fa fa-twitter text-white"
+                                    style="color: #5CD5FC !important;"></i></a></li>
+                        <li><a class="youtube" href="#" target="_blank"><i class="fa fa-youtube text-white"
+                                    style="color: #FF0000 !important;"></i></a></li>
+                    </ul> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+{% load static %}
+{% for ansinfo in exam_info %}
+	<tr>
+		<td> {{ansinfo.student_roll.student_roll}} </td>
+		<td>{{ansinfo.student_roll.student_name}} </td>
+		<td class="publish_status">{{ansinfo.publish_status}}</td>
+		<td>{{ansinfo.total_marks}} </td>
+		<td>{{ansinfo.total_obtain_marks}}</td>
+		<td>
+		{% if ansinfo.publish_status == 'Submitted' %}
+			<button type="button" class="btn btn-info" onclick="question_enable(this,'{{ansinfo.ans_info_id}}')">Enable</button>
+		{% endif %}
+		{% if ansinfo.publish_status == 'Submitted' or  ansinfo.publish_status == 'Finish' %}
+		<a href="edu-submitted-questionview/{{ansinfo.ans_info_id}}" class="btn btn-success" target="_blank">View</a>
+		{% endif %}
+		
+		</td>
+	</tr>
+{% endfor %}
+                              
+{% block js %}
+	<script src="{% static 'assets/javascript/pages/edu/edu-submitted-questionlist.js' %}"></script>
+{% endblock %}

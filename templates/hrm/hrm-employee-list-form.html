@@ -1,0 +1,312 @@
+{% extends 'appauth/appauth-home.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Manage EmployeeList | {{ application_title }}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'assets/javascript/cropper/cropper.min.css' %}">
+{% endblock %}
+{% block body %}
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card card-fluid">
+			<div class="card-body">
+				<div>
+					<form method="post" id="tran_table_data" data-url="{% url 'hrm-employee-nominee-info-insert' %}" 
+						class="update-form">
+						<div class="form-group">
+							<div class="card">
+								<div class="card-body">
+									<div class="form-row">
+										<div class="form-group col-md-10 mb-0">
+											<h3 class="card-title"> {{title}} </h3>
+										</div>
+									</div>
+									<div>
+										{% csrf_token %}
+										<div class="form-row">
+											<div class="form-group col-md-4 mb-0">
+												<div id="div_id_employee_id">
+												<label for="id_employee_id" class="">
+													Employee
+												</label>
+												<select name="employee_id" class="form-control" id="id_employee_id"
+													 tabindex="-1" aria-hidden="true">
+													<!-- <option value="" selected="" data-select2-id="2">---------</option> -->
+												
+												</select>
+											</div> 
+											</div>
+											<div class="form-group col-md-4 mb-0">
+												<div id="div_id_office_id" class="form-group">
+												
+													<label for="id_office_id" class=" requiredField">
+														Office ID
+													</label>
+												
+													<div class="">
+												
+														<input type="text" name="office_id" maxlength="13" class="textinput textInput form-control" 
+															id="id_office_id">
+													</div>
+												</div>
+											</div>
+										</div>
+									
+										<button type="button" id="btnSearch" class="btn btn-info pull-right"> Search Employee</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="app">
+			<div class="card card-fluid">
+				<div class="card-body">
+					<table id="dt-table-list" class="table dt-responsive nowrap w-100">
+						<thead>
+							<tr>
+								<th>Profile Image</th>
+								<th>Employee name</th>
+								<th>Father's name</th>
+								<th>Mother's name</th>
+								<th>Blood Group</th>
+								<th>Gender</th>
+								<th>Religion</th>
+								<th>Marital Status</th>
+								<th>Nationality</th>
+								<th>Country</th>
+								<th>Division</th>
+								<th>District</th>
+								<th>Upozila</th>
+								<th>Pressent Address</th>
+								<th>Parmanent Address</th>
+								<th>Phone own</th>
+								<th>Phone Office</th>
+								<th>Phone Home</th>
+								<th>Passport No.</th>
+								<th>Driving License</th>
+								<th>Tin No.</th>
+								<th>Email personal</th>
+								<th>Joining Date</th>
+								<th>Date Of Birth</th>
+								<th>Status</th>
+								<th>Emp. Contact Name</th> 
+								<th>Emp. Contact Relationship</th>
+								<th>Emp. Contact Phone</th>
+								<th>Emp. Contact Address</th>
+								<th>Running Office</th>
+								<th>Salary Scale</th>
+								<th>Designation</th>
+								<th>Email Office</th>
+								<th>Reporting Officer</th>
+								<th>Current Shift</th>
+								<th>Office Location</th>
+								<th>Card Number</th>
+								<th>Salary Bank</th>
+								<th>Account No.</th>
+								<th>Contract Start Date</th>
+								<th>Contract End Date</th>
+								<th>Last Increment Date</th>
+								<th>Next Increment Date</th>
+								<th>Service End Date</th>
+								<th>Last Transfer Date</th>
+								<th>Next Transfer Date</th>
+								<th>Job Confirm Date</th>
+								<th>PF Confirm Date</th>
+								<th>Gf Confirm Date</th>
+								<th>Wf Confirm Date</th>
+								<th>Last Promotion Pate</th>
+								<th>Action</th>
+								
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th>Profile Image</th>
+								<th>Employee name</th>
+								<th>Father's name</th>
+								<th>Mother's name</th>
+								<th>Blood Group</th>
+								<th>Gender</th>
+								<th>Religion</th>
+								<th>Marital Status</th>
+								<th>Nationality</th>
+								<th>Country</th>
+								<th>Division</th>
+								<th>District</th>
+								<th>Upozila</th>
+								<th>Pressent Address</th>
+								<th>Parmanent Address</th>
+								<th>Phone own</th>
+								<th>Phone Office</th>
+								<th>Phone Home</th>
+								<th>Passport No.</th>
+								<th>Driving License</th>
+								<th>Tin No.</th>
+								<th>Email personal</th>
+								<th>Joining Date</th>
+								<th>Date Of Birth</th>
+								<th>Status</th>
+								<th>Emp. Contact Name</th> 
+								<th>Emp. Contact Relationship</th>
+								<th>Emp. Contact Phone</th>
+								<th>Emp. Contact Address</th>
+								<th>Running Office</th>
+								<th>Salary Scale</th>
+								<th>Designation</th>
+								<th>Email Office</th>
+								<th>Reporting Officer</th>
+								<th>Current Shift</th>
+								<th>Office Location</th>
+								<th>Card Number</th>
+								<th>Salary Bank</th>
+								<th>Account No.</th>
+								<th>Contract Start Date</th>
+								<th>Contract End Date</th>
+								<th>Last Increment Date</th>
+								<th>Next Increment Date</th>
+								<th>Service End Date</th>
+								<th>Last Transfer Date</th>
+								<th>Next Transfer Date</th>
+								<th>Job Confirm Date</th>
+								<th>PF Confirm Date</th>
+								<th>Gf Confirm Date</th>
+								<th>Wf Confirm Date</th>
+								<th>Last Promotion Pate</th>
+								<th>Action</th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="edit_model" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="image_edit_model" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+						<div class="card">
+							<div class="card-body">
+										<fieldset>
+											<legend style="color:red;">Did you give all the information? If all your information is correct, upload the Employee
+												picture and signature..........</legend> <!-- .card -->
+											<div class="form-row">
+												<div class="form-group col-md-4 mb-0">
+													<input type="hidden" readonly='true'  name="emp_id" id="id_emp_id">
+													<label style="font-size:20px;font-weight:bold;">Upload Employee Image</label>
+													<!-- <img src="{% if image_data.image_1 %} {{image_data.image_1.url}} {% endif %}" id="profile-photo" class="img-fluid"> -->
+													<img src="" id="profile-photo" class="img-fluid">
+													<br>
+													<label>Set New Profile Image</label>
+													<input type="file" name="image" id="profile-image">
+												</div>
+												<div class="form-group col-md-4 mb-0">
+													<label style="font-size:20px;font-weight:bold;">Upload Employee Signature</label>
+													<!-- <img src="{% if image_data.image_2 %} {{image_data.image_2.url}} {% endif %}" id="profile-sign" class="img-fluid"> -->
+													<img src="" id="profile-sign" class="img-fluid">
+													<br>
+													<br>
+										
+													{% comment %} <label>Set New Profile Image</label> {% endcomment %}
+													<input type="file" name="signature" id="profile-signatur">
+												</div>
+											</div><!-- /.card -->
+											<!-- /.card -->
+										
+											<hr class="mt-1" />
+											<div class="d-flex">
+												<button type="button" id="btnAddRecord" class="submit btn btn-primary ml-auto"
+													data-validate="agreement">Submit</button>
+											</div>
+										</fieldset>
+							</div>
+						</div>
+			</div>
+		</div>
+	</div>
+
+
+<div class="modal fade" id="image_model" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="max-width:80%" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+
+				<input type="hidden" value="{{id}}" id="student_roll">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="img-container">
+					<div class="row">
+						<div class="col-md-5 offset-md-3" style="min-height:300px; max-height: 600px;">
+							<img id="pro_image" src="https://avatars0.githubusercontent.com/u/3456749">
+
+						</div>
+						<div class="col-md-12">
+							<div class="preview"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-primary" id="crop">Crop</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="sing_model" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="max-width:80%" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+
+				<input type="hidden" value="{{id}}" id="student_roll">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="img-container">
+					<div class="row">
+						<div class="col-md-5 offset-md-3" style="min-height:300px; max-height: 600px;">
+							<img id="sing_image" src="https://avatars0.githubusercontent.com/u/3456749">
+
+						</div>
+						<div class="col-md-12">
+							<div class="singPreview"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-primary" id="sing_crop">Crop</button>
+			</div>
+		</div>
+	</div>
+</div>
+	{% endblock body %}
+
+	{% block js %}
+	<script src="{% static 'assets/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/dataTables.responsive.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/responsive.bootstrap4.min.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/dataTables.bootstrap.js' %}"></script>
+		<script src="{% static 'assets/javascript/cropper/cropper.min.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/hrm/hrm-emp-list.js' %}"></script>
+	{% endblock %}
+</div>

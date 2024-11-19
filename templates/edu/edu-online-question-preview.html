@@ -1,0 +1,161 @@
+{% extends 'appauth/appauth-home.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+question previw | {{ application_title }}
+{% endblock %}
+
+{% block body %}
+
+<div class="row" id="question_preview">
+	<div class="col-lg-12">
+		<div class="card card-fluid">
+			<div class="card-body">
+				<div>
+					<div id="preview_push">
+						{% autoescape off %} {{question.basic_info}} {% endautoescape %}
+						<input type="hidden" id="question-status" value="{{question.publish_status}}">
+						<p class="text-center"><strong>{{question.exam_name}}</strong></p>
+						<div class="row">
+							<div class="col-4">
+								<strong> Date: </strong> {{question.exam_date}}<br>
+								<strong> Exam Time: </strong> {{question.exam_start_time}} to {{question.exam_end_time}}
+							</div>
+							<div class="col-4 text-center">
+								<strong>Class: </strong>{{question.exam_id.class_id}} <br>
+									<strong>Subject: </strong> {{question.exam_id.subject_id}}
+							</div>
+							<div class="col-4 text-right">
+								<strong>Total Mark: </strong>{{question.total_marks}}
+							</div>
+						</div>						
+						<hr>
+					</div>
+					<div class="row">
+						<div class="col-1 h6">LS</div>
+						<div class="col-10 h6">Question</div>
+						<div class="col-1 h6">Marks</div>
+					</div>
+					{% for que in question.online_online_exam_id.all %}
+
+					<div class="row mb-3 pt-2 pb-2" style="border:1px dotted #444">
+						<div class="col-1">
+							{{ forloop.counter }}
+							
+						</div>
+						<div class="col-10 mb-0">
+							<div class="row">
+								<div class="col-10">
+									<label>Question</label>
+									<textarea class="que_tinymce" id="que_text{{ que.question_id }}">{{que.question}}</textarea>
+								</div>
+								<div class="col-2">
+									<button class="btn btn-primary w-100 my-2" onclick='question_change("{{ que.question_id }}")' {% if question.publish_status != 'Locked' %} disabled {% endif %}>Update</button>
+									<button class="btn btn-danger w-100 my-2" onclick='question_delete("{{ que.question_id }}")' {% if question.publish_status != 'Locked' %} disabled {% endif %}>Delete</button>
+								</div>
+							</div>
+							
+							<div class="row">
+								{% ifequal  que.question_type "MCQ" %}
+								{% for option in que.online_exam_question_id.all %}
+
+								<div class="col-10"><label>Answer </label>
+									<input type="text"  name="answer"
+										onkeyup='ans_change(this.value,"{{option.question_details_id}}")'
+										value="{{option.question_option}}" class="form-control">
+								</div>
+								<div class="col-1"><br><br>
+									<input type="radio" id ="InputFieldID" name="right_ans{{que.question_id}}"
+										onchange='rightAns_change(this.value,"{{option.question_details_id}}")'
+										value="1" {{ option.is_correct_answer | yesno:'checked,' }}>
+								</div>
+								<div class="col-1"><br><br>
+									<i class="fas fa-times-circle" style="cursor: pointer; color: red;"
+										onclick='deleteAnswer("{{option.question_option}}","{{option.question_details_id}}")'></i>
+								</div>
+								{% endfor %}
+								{% endifequal  %}
+
+								{% ifequal  que.question_type "MCQS"%}
+								{% for option in que.online_exam_question_id.all %}
+								<div class="col-10"><label>Answer </label>
+									<input  type="text" name="answer"
+										onkeyup='ans_change(this.value,"{{option.question_details_id}}")'
+										value="{{option.question_option}}" class="form-control">
+								</div>
+								<div class="col-1"><br><br>
+									<input  type="checkbox" name="right_ans"
+										onchange='MultiRightAns_change(this,"{{option.question_details_id}}")'
+										{{ option.is_correct_answer | yesno:'checked,' }}>
+								</div>
+								<div class="col-1"><br><br>
+									<i class="fas fa-times-circle" style="cursor: pointer; color: red;"
+										onclick='deleteAnswer("{{option.question_option}}","{{option.question_details_id}}")'></i>
+								</div>
+								{% endfor %}
+								{% endifequal  %}
+								{% ifequal  que.question_type "Short"%}
+								<div class="col-10"><label>Answer </label>
+									<input type="text"  name="answer" readonly
+										class="form-control">
+								</div>
+								{% endifequal  %}
+							
+								{% ifequal  que.question_type "Creative"%}
+								<div class="col-10"><label>Answer </label>
+									<textarea row="2" class="form-control"  readonly></textarea>
+								</div>
+								{% endifequal  %}
+							</div>
+						</div>
+						<div class="col-1 mb-0">
+							{{que.question_marks}}
+						</div>
+					</div>
+					{% endfor %}
+
+				</div>
+				<a href="/edu-online-exam-question-list/{{question.online_exam_id}}" type="button"
+					class="prev btn btn-primary">Question List</a>
+				<a href="/edu-publish-online-question-preview/{{question.online_exam_id}}" type="button"
+					class=" prev btn btn-primary {% if question.publish_status != 'Locked' %} a-disable {% endif %}" >Publish</a>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteAnswerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Delete this answer?</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="deleteAnswerModal"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-danger" id="deleteAnswerConfrimeBtn" data-val=""
+					onclick="deleteAnswerConfirmed()">Delete</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock body %}
+
+{% block js %}
+<script src="{% static 'assets/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'assets/vendor/datatables/extensions/responsive/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'assets/vendor/datatables/extensions/responsive/responsive.bootstrap4.min.js' %}"></script>
+<script src="{% static 'assets/javascript/pages/dataTables.bootstrap.js' %}"></script>
+<script src="{% static 'assets/javascript/tinymce/tinymce.min.js' %}"></script>
+<script src="{% static 'assets/javascript/pages/edu/edu-question-preview.js' %}"></script>
+{% endblock %}
+</div>

@@ -1,0 +1,70 @@
+
+
+	<div class="">
+		<div class="card card-fluid">
+			<div class="card-body">
+					<div id="section-to-print">
+						<input type="hidden" id="print_title" value="{{student.student_roll}}"> 
+						<div style="padding:20px;">
+							<div style="text-align:center;">
+								<h1>{{institute.academic_name}}</h1>
+								<p>{{institute.academic_address}}</p>
+									<p>{{institute.academic_mobile_1}}, {{institute.academic_mobile_2}}
+								</p>
+                                <hr style="border:1px solid black;">
+							</div>
+							
+                            <div style="background-color: LightSteelBlue; width:100%;">
+                                <h4 class="text-center p-1">Exam Wise Student attendance Sheet</h4>
+                            </div>
+							<table class="table table-sm">
+                                <tr>
+                                    <td style="border:1px solid black;"><strong>Class</strong></td><td class="text-center" style="border:1px solid black;">{{attendance.class_id}}</td>
+                                    <td style="border:1px solid black;"><strong>Academic Year</strong></td><td class="text-center" style="border:1px solid black;">{{attendance.academic_Year}}</td>
+                                    <td style="border:1px solid black;"><strong>Session</strong></td><td class="text-center" style="border:1px solid black;">{{attendance.session_id}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="border:1px solid black;"><strong>Exam Date</strong></td><td style="border:1px solid black;" class="text-center">{{attendance.exam_date}}</td>
+                                    <td style="border:1px solid black;"><strong>Exam Time</strong></td><td style="border:1px solid black;" colspan="3" class="text-center">{{attendance.ex_start_time}} to {{attendance.ex_end_time}}</td>
+								</tr>
+								<tr>
+									<td style="border:1px solid black;"><strong>Exam Name</strong></td><td style="border:1px solid black;" class="text-center">{{attendance.exam_id}}</td>
+                                    <td style="border:1px solid black;"><strong>Subject Name</strong></td><td style="border:1px solid black;" class="text-center" colspan="3">{{attendance.subject_id}}</td>
+                                </tr>
+                            </table>
+                        	
+							<table class="table table-sm">
+                                <tr style="background-color:Gray;color:white;">
+                                    <td class="text-center" style="border:1px solid black;"><strong>Serial No.</strong></td>
+                                    <td class="text-center" style="border:1px solid black;"><strong>Student Roll</strong></td>
+                                    <td class="text-center" style="border:1px solid black;"><strong>Student Name</strong></td>
+                                    <td class="text-center" style="border:1px solid black;"><strong>Student Signature</strong></td>
+                                </tr>
+								{% for student in atten_info %}
+									<tr><td class="text-center" style="border:1px solid black;">{{forloop.counter}}</td><td style="border:1px solid black;" class="text-center">{{student.student_roll.student_roll}}</td><td style="border:1px solid black;" class="text-center">{{student.student_roll.student_name}}</td><td style="border:1px solid black;"></td></tr>
+								{% endfor %}
+                            </table>
+
+							</div>
+								<div class="text-right pr-2">
+									{% comment %} <p style="float:right;padding-top:80px;padding-right:60px;">----------------------</p><br> {% endcomment %}
+                                    <p style="border-top:2px dashed black;display:inline;">Signature & Date</p>
+								</div>
+							
+							
+					</div>{% comment %}border-style: dotted;{% endcomment %}
+				</div>{% comment %}section-to-print{% endcomment %}
+			 </div>{% comment %} card-body{% endcomment %}
+		</div>{% comment %}card-fluid {% endcomment %}
+	</div>
+	<div class="action text-right">
+		<button type="button" class="btn btn-danger my-3 mr-2" onclick="print_div('section-to-print')">Print</button>
+		<button type="button" class="btn btn-info my-3 mr-3"  onclick="modal_close('edit_model')">Close</button>
+	</div>
+
+	<div class="modal fade" id="edit_model" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			</div>
+		</div>
+	</div>

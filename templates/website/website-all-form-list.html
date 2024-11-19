@@ -1,0 +1,47 @@
+{% extends 'website/website-layout.html' %}
+{% load static %}
+{% block title_block %} {{title}} {% endblock %}
+{% block css_block %}
+{% endblock %}
+
+{% block header_block %}
+{% include "website/website-hader.html" %}
+{% endblock %}
+{% block navbar_block %}
+{% include "website/website-navbar.html" %}
+{% endblock %}
+{% block body_block %}
+
+<div>
+
+    <div class="col-md-12 text-left"
+        style="background-color: #DBECFD; padding-left: 0px; padding-right: 10px; font-family: SolaimanLipi !important;text-align: justify !important;">
+        <table class="table table-sm">
+            <tbody>
+                {%for notice in download_links%}
+                <tr>
+                    <td>
+                        <a style="padding-left: 40px;" href="/media/{{notice.pdf_file}}" target="blank">
+                            <span><i class="fa fa-paperclip"></i></span>{{notice.notic_title}}</a>
+
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2">No data available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}
+{% block right_sidebar_block %}
+{% include "website/website-sidebar-right.html" %}
+{% endblock %}
+
+{% block footer_block %}
+{% include "website/website-footer.html" %}
+{% endblock %}

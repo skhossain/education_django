@@ -1,0 +1,61 @@
+{% extends 'appauth/appauth-report-base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+Student Fees Collection List | {{ application_title }}
+{% endblock %}
+
+{% block body %}
+
+<div id="wrapper">
+
+    <div id="receiptData">
+
+        <page size="A4">
+            <div id="receipt-data">
+                <div class="text">
+                    <div class="inv-head">
+                        <div class="inv-right">
+                            <header class="receipt-header">
+                            <h3>{{acadamicinfo}}</h3>
+                            <h5>Subject list</h5>
+                            <p class="text-center">Class: {% with subjects|first as subject %}
+                                {{subject.class_id.class_name}}
+                                {% endwith %}
+                            </p>
+                            </header>
+                        </div>
+                    </div>
+                
+                    <div style="clear:both;"></div>
+                    <div class="card">
+        
+                        <div class="card-body">
+                            <table class="table table-sm">
+                                <tr>
+                                    <th>LS</th>
+                                    <th>Subject Name</th>
+                                    <th>Subject Code</th>
+                                    <th>Class Group</th>
+                                    <th>Marks</th>
+                                </tr>
+                                {% for subject in subjects %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{subject.subject_name}}</td>
+                                    <td>{{subject.subject_code|default_if_none:''}}</td>
+                                    <td>{{subject.class_group_id|default_if_none:''}}</td>
+                                    <td>{{subject.maximum_marks}}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </page>
+    </div>
+
+</div>
+{% endblock body %}

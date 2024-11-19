@@ -1,0 +1,85 @@
+
+
+	<div class="">
+		<div class="card card-fluid">
+			<div class="card-body">
+					<div id="section-to-print">
+						<input type="hidden" id="print_title" value="{{student.student_roll}}"> 
+						<div style="padding:20px;">
+							<div style="text-align:center;">
+								<h1>{{testimonial.academic_name}}</h1>
+								<p>{{testimonial.academic_address}}</p>
+									<p>{{testimonial.academic_mobile_1}}, {{testimonial.academic_mobile_2}}
+								</p>
+							</div>
+							<table>
+								<tr>
+								<td width="450px"></td>
+								<td width="300px" style="text-align:right;">No: ................................</td></tr>
+							</table>
+							<table>
+								<tr>  
+								<td width="300px"> </td>
+								<td><h4 style="text-align:center;border-style: dotted dashed solid double;border-color: blue;padding:5px;font-size:20px;border-radius:30%;">Transfer Certificate</h4> </td> 
+								<td width="300px"> </td>
+								</tr>
+							</table>
+							<div>
+								{% comment %} <p><strong>Name:</strong>{{student.student_name}}</p>
+								<p><strong>Father's Name:</strong>{{student.student_father_name}}</p>
+								<p><strong>Mother's Name:</strong>{{student.student_mother_name}}</p>
+								<p><strong>Village/Town:</strong>{{student.student_permanent_address}}</p>
+								<p><strong>District:</strong>{{student.per_district_id}}</p>
+								<p><strong>Date of birth:</strong>{{student.student_date_of_birth}}</p>
+								<p><strong>Roll:</strong>{{student.student_roll}}</p>
+								<p><strong>Registration:</strong>{{student.student_reg}}</p> 
+								
+								 <p>This is to cirtify that <strong> {{student.student_name}}</strong> son/dauther of <strong>{{student.student_father_name}}</strong> and <strong>{{student.student_mother_name}}</strong> Village/Town- <strong>{{student.student_permanent_address}}</strong> Dist- <strong>{{student.per_district_id}}</strong> passed the ..................... examination in <strong>{{grade.academic_year}}</strong> from this school under the ........................................... board,....................... bearing Roll No. <strong>{{student.student_roll}}</strong>  and Registration No. <strong>{{student.student_reg}}</strong> obtain grade point average <strong>{{grade.grade_point_average}}</strong> (<strong>{{grade.result_grade}}</strong>) in <strong>{{student.class_group_id}}</strong> His/her date of birth is <strong>{{student.student_date_of_birth}}</strong></p>
+							
+								<p>To the best of my knowledge he did not take part in any activities subversive of the state or discipline.His/her conduct and character are good.</p>
+								<p>I wish him/her every success in life</p> {% endcomment %}
+
+								<p>This is to certify that {{student.student_name}}, son of {{student.student_father_name}} and {{student.student_mother_name}} of Village : {{student.student_permanent_address}}, Bangladesh has been in my institution since 1999-2006 (January to December) and has completed STD-V. He cleared up her dues up to December 2006.
+								He belongs to a respectable Muslim family. While in the school, his behavior with the teacher and classmates were satisfactory. He was even punctual in his classes and bears a good moral character.</p>
+								<p>His date of birth is {{student.student_date_of_birth}}, according to the Register of the school.</p>
+								<p>I wish his success in future career.</p>
+
+								<h5>Reason for leaving</h4>
+									
+										<p>1. Completing of course</p>
+										<p>2. Change of resident</p>
+										<p>3. Parents choice</p>
+										<p>4. ILL Health</p>
+
+								
+							</div>
+							
+								{% comment %} <div style="float:left;width:500px;">
+									<h5>Reason for leaving</h4>
+									
+										<p>1.Completing of course</p>
+										<p>2.Change of resident</p>
+										<p>3.Parents choice</p>
+										<p>4.ILL Health</p>
+								</div> {% endcomment %}
+								<div style="float:right;width:500px;">
+									<p style="float:right;padding-top:80px;padding-right:60px;">Principle</p>
+								</div>
+							
+							
+					</div>{% comment %}border-style: dotted;{% endcomment %}
+				</div>{% comment %}section-to-print{% endcomment %}
+			 </div>{% comment %} card-body{% endcomment %}
+		</div>{% comment %}card-fluid {% endcomment %}
+	</div>
+	<div class="action text-right">
+		<button type="button" class="btn btn-danger my-3 mr-2" onclick="print_div('section-to-print')">Print</button>
+		<button type="button" class="btn btn-info my-3 mr-3"  onclick="modal_close('edit_model')">Close</button>
+	</div>
+
+	<div class="modal fade" id="edit_model" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			</div>
+		</div>
+	</div>

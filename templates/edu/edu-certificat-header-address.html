@@ -1,0 +1,111 @@
+{% extends 'appauth/appauth-home.html' %} {% load static %}
+<!--Some spase -->
+{% load crispy_forms_tags %} {% block title %} Manage Certificate Header Address| {{
+application_title }} {% endblock %} {% block body %}
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card card-fluid">
+      <div class="card-body">
+        <div>
+          <form
+            method="post"
+            id="tran_table_data"
+            action="{% url 'edu-certificat-header-address-insert' %}"
+            class="update-form"
+            enctype="multipart/form-data"
+          >
+            <div class="form-group">
+              <div class="card">
+                <div class="card-body">
+                  <div class="form-row">
+                    <div class="form-group col-md-10 mb-0">
+                      <h3 class="card-title">Manage Certificate Header Address</h3>
+                    </div>
+                    <div id="qrcode" class="ok"></div>
+                  </div>
+                  <div>
+                    {% csrf_token %}
+
+                    <div class="form-row" id="ap_input_form">
+                      {% if is_head_office_user %}
+                      <div class="form-group col-md-3 mb-0">
+                        {{ form.branch_code | as_crispy_field }}
+                      </div>
+                      {% else %}
+                      <input
+                        type="hidden"
+                        id="id_branch_code"
+                        name="branch_code"
+                        value="{{global_branch_code}}"
+                        readonly >
+                      {% endif %}
+                      <div class="form-group col-md-3 mb-0">
+                        {{ form.academic_name|as_crispy_field }}
+                      </div>
+                      <div class="form-group col-md-4 mb-0">
+                        <label for="id car"
+                          >Address
+                          <span style="font-size: 8px"
+                            >(Max 6 lines. Line brack by (;) and per line in Max
+                            28 Character.)</span
+                          ></label
+                        >
+                        {{ form.address|as_crispy_field }}
+                      </div>
+                      <div class="form-group col-md-3 mb-0">
+                        {{ form.logo|as_crispy_field }}
+                      </div>
+                      <div class="form-group col-md-3 mb-0">
+                        {{ form.sing|as_crispy_field }}
+                      </div>
+                    </div>
+                    <br />
+
+                    <button
+                      type="submit"
+                      id="btnAddRecord"
+                      class="btn btn-primary"
+                      onClick="generateqr()"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+
+                <div class="card-body">
+                  <div id="qrcode"></div>
+                  {% if is_head_office_user %} 
+                  {% for item in forms %}
+                  <hr />
+                  <div class="row">
+                    <div class="col-md-3">
+                      <img src="/media/{{item.logo}}" width="120px" />
+                    </div>
+                    <div class="col-md-9 text-center">
+                      <h5>{{item.academic_name}}</h5>
+                      <p>{{item.address}}</p>
+                    </div>
+                  </div>
+                  {% endfor %} {% endif %}
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="app"></div>
+  </div>
+
+  {% endblock body %} {% block js %}
+  <script src="{% static 'assets/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/datatables/extensions/responsive/dataTables.responsive.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/datatables/extensions/responsive/responsive.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'assets/javascript/pages/dataTables.bootstrap.js' %}"></script>
+  <script src="{% static 'assets/javascript/pages/edu/edu-idcard-form-header.js' %}"></script>
+  <script src="{% static 'assets/javascript/pages/common-parameter-details.js' %}"></script>
+
+  {% endblock %}
+</div>

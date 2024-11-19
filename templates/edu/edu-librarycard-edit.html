@@ -1,0 +1,65 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<div class="modal-header"> </div>
+{% csrf_token %}
+<div class="container">
+	<h4 align="center">Update Library Card</h4>
+	<div class="card">
+		<div class="card-body">
+			<div>
+				<form method="post" id="edit_form" data-url="{% url 'edu-librarycard-edit' id %}" class="update-form">
+					{% csrf_token %}
+					<div class="form-row">
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.name_on_card|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.student_roll |as_crispy_field }} 
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.teacher_id |as_crispy_field }} 
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.book_limit|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.book_taken|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.card_status|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.start_date |as_crispy_field }} 
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.expire_date |as_crispy_field }} 
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.duration_month|as_crispy_field }}
+						</div>
+                         <div class="form-group col-md-3 mb-0">
+							{{ form.total_late_penalty|as_crispy_field }}
+						</div>
+                          <div class="form-group col-md-3 mb-0">
+							{{ form.total_lost_penalty|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.is_active |as_crispy_field }} 
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.is_deleted |as_crispy_field }} 
+						</div>
+					</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger btn-default pull-right" data-dismiss="modal">Close</button>
+				<button type="submit" id="btnSubmit" class="btn btn-primary">Submit</button>
+			</div>
+			</form>
+			<div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="{% static 'assets/javascript/pages/common-submit-editdata.js' %}"></script>

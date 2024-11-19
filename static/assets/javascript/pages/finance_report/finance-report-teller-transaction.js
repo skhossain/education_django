@@ -1,0 +1,88 @@
+$(function () {
+	$('#btnSubmit').click(function () {
+		save_and_show_report();
+	});
+});
+
+function save_and_show_report() {
+	var data_url = $("#report_data").attr('data-url');
+	var report_data = {
+		'p_branch_code': $('#id_branch_code').val(), 'p_teller_id': $('#id_teller_id').val(),
+		'p_from_date': $('#id_from_date').val(), 'p_upto_date': $('#id_upto_date').val()
+	};
+	var report_url = $('#report_url').val();
+	report_data = JSON.stringify(report_data);
+	$('#page_loading').modal('show');
+	$.ajax({
+		url: data_url,
+		data: {
+			'report_name': $('#report_name').val(),
+			"report_data": report_data
+		},
+		cache: "false",
+		type: 'POST',
+		dataType: 'json',
+		success: function (data) {
+			if (data.form_is_valid) {
+				$('#page_loading').modal('hide');
+				window.open(data.report_urls + "/" + report_url, "_blank");
+			}
+			else {
+				$('#page_loading').modal('hide');
+				if(data.error_message){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: data.error_message,
+                        showConfirmButton: true,
+                        })
+                    };
+			}
+		}
+	})
+	return false;
+}
+
+$(document).ready(function () {
+	refresh_branch_list('');
+});
+
+$(window).on('load', function () {
+	var global_branch_code = document.getElementById('id_global_branch_code').value;
+	$('#id_branch_code').val(global_branch_code);
+	$("#id_teller_id").select2();
+	refresh_user_list();
+});
+
+function refresh_branch_list(branch_code) {
+	var url = '/finance-choice-branchlist';
+	$.ajax({
+		url: url,
+		data: {
+			'branch_code': branch_code
+		},
+		success: function (data) {
+			$("#id_branch_code").html(data);
+		}
+	});
+	return false;
+}
+
+function refresh_user_list() {
+	var branch_code = document.getElementById('id_branch_code').value;
+	var url = '/appauth-choice-appuserlist';
+	$.ajax({
+		url: url,
+		data: {
+			'branch_code': branch_code
+		},
+		success: function (data) {
+			$("#id_teller_id").html(data);
+		}
+	});
+	return false;
+}
+
+$(document).ready(function() {
+    $('#id_teller_id').select2({placeholder: " Select a Teller "});
+});

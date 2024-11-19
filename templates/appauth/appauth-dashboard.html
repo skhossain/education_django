@@ -1,0 +1,641 @@
+{% extends 'appauth/appauth-home.html' %} {% load data_find %} {% load static %} {% load humanize %} {% block title %}
+Dashboard | {{ application_title }} {% endblock %} {% block body %}
+<div class="wrapper main_page_inner">
+    <div class="page dashboard_glass_container">
+        <!-- .page-inner -->
+        <div class="page-inner ">
+            <div class="container-fluid ">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <h1 class="page-title">
+                                    <i class="fas fa-chalkboard-teacher mr-2"></i><span
+                                        style="font-family: 'Smooch', cursive; font-size:70px; color:black;">
+                                        WhiteBoard
+                                    </span>
+                                </h1>
+
+                                <p class="text-muted">{{branch_address}} </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                  <a class="nav-link active" id="student-tab" data-toggle="tab" href="#student-info-tab" role="tab" aria-controls="student-info-tab" aria-selected="true">Student Information</a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" id="account-tab" data-toggle="tab" href="#account-info-tab" role="tab" aria-controls="account-info-tab" aria-selected="false">Account Information</a>
+                                </li>
+                                
+                              </ul>
+                              <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="student-info-tab" role="tabpanel" aria-labelledby="student-tab">
+                                    <div class="">
+                                        <div class="row">
+                                            <div class="col-md-8 mt-2">
+                                                 <!-- General information -->
+                                                 <div class="card">
+                                                    <div class="dashboard_card_banner">
+
+                                                        <h5 class="card-title mx-3 my-1"> General Information </h5>
+                                                    </div>
+                                                    <!-- .card-body -->
+                                                    <div class="card-body">
+
+                                                        <div class="section-block">
+                                                            <!-- metric row -->
+                                                            <div class="metric-row">
+                                                                <!-- metric column -->
+                                                                <div class="col">
+                                                                    <!-- .metric -->
+                                                                    <div id="metric"
+                                                                        class="metric metiric-custom metric-bordered">
+
+                                                                        <h2 class="metric-label"> Total Section </h2>
+                                                                        <p class="metric-value h1">
+
+                                                                            <i id="metric-icon"
+                                                                                class="fas fa-layer-group"></i>
+                                                                            <span id="id_total_section" class="value">
+                                                                            </span>
+                                                                        </p>
+
+                                                                    </div>
+                                                                    <!-- /.metric -->
+                                                                </div>
+                                                                <!-- /metric column -->
+                                                                <div class="col">
+                                                                    <!-- .metric -->
+                                                                    <div class="metric metiric-custom metric-bordered">
+                                                                        <h2 class="metric-label"> Total Class </h2>
+                                                                        <p class="metric-value h1">
+                                                                            <i id="metric-icon"
+                                                                                class="fas fa-users"></i>
+
+                                                                            <span id="id_total_class" class="value">
+                                                                            </span>
+                                                                        </p>
+                                                                    </div>
+                                                                    <!-- /.metric -->
+                                                                </div>
+                                                                <!-- /metric column -->
+                                                                <!-- metric column -->
+
+                                                                <div class="col">
+                                                                    <!-- .metric -->
+                                                                    <div class="metric metiric-custom metric-bordered">
+                                                                        <h2 class="metric-label"> Total Shift </h2>
+                                                                        <p class="metric-value h1">
+                                                                            <i id="metric-icon"
+                                                                                class="fas fa-cloud-sun"></i>
+                                                                            <span id="id_total_shift"
+                                                                                class="value"></span>
+                                                                        </p>
+                                                                    </div>
+                                                                    <!-- /.metric -->
+                                                                </div>
+                                                                <!-- /metric column -->
+                                                                <!-- metric column -->
+                                                                <div class="col">
+                                                                    <!-- .metric -->
+                                                                    <div class="metric metiric-custom metric-bordered">
+                                                                        <h2 class="metric-label"> Total branch </h2>
+                                                                        <p class="metric-value h1">
+
+                                                                            <i id="metric-icon"
+                                                                                class="fas fa-building"></i>
+                                                                            <span id="id_total_branch"
+                                                                                class="value"></span>
+                                                                        </p>
+                                                                    </div>
+                                                                    <!-- /.metric -->
+                                                                </div>
+                                                                <!-- /metric column -->
+
+                                                                <!-- metric column -->
+                                                            </div>
+                                                            <!-- /metric row -->
+                                                            <hr>
+                                                            <hr>
+                                                            <div class="metric-row">
+                                                                <!-- metric column -->
+                                                                <div class="col">
+                                                                    <!-- .metric -->
+                                                                    <div id="metric"
+                                                                        class="metric metiric-custom metric-bordered">
+
+                                                                        <h2 class="metric-label"> Total Students </h2>
+                                                                        <p class="metric-value h1">
+
+                                                                            <i id="metric-icon"
+                                                                                class="fas fa-graduation-cap"></i>
+
+                                                                            <span id="id_total_student" class="value">
+                                                                            </span>
+                                                                        </p>
+
+                                                                    </div>
+                                                                    <!-- /.metric -->
+                                                                </div>
+                                                                <!-- /metric column -->
+                                                                <div class="col">
+                                                                    <!-- .metric -->
+                                                                    <div class="metric metiric-custom metric-bordered">
+                                                                        <h2 class="metric-label"> Total Male </h2>
+                                                                        <p class="metric-value h1">
+
+                                                                            <i id="metric-icon" class="fas fa-male"></i>
+
+                                                                            <span id="id_total_St_male" class="value">
+                                                                            </span>
+                                                                        </p>
+                                                                    </div>
+                                                                    <!-- /.metric -->
+                                                                </div>
+                                                                <!-- /metric column -->
+                                                                <!-- metric column -->
+
+                                                                <div class="col">
+                                                                    <!-- .metric -->
+                                                                    <div class="metric metiric-custom metric-bordered">
+                                                                        <h2 class="metric-label"> Total Female </h2>
+                                                                        <p class="metric-value h1">
+
+                                                                            <i id="metric-icon"
+                                                                                class="fas fa-female"></i>
+                                                                            <span id="id_total_st_female"
+                                                                                class="value"></span>
+                                                                        </p>
+                                                                    </div>
+                                                                    <!-- /.metric -->
+                                                                </div>
+                                                                <!-- /metric column -->
+                                                                <!-- metric column -->
+                                                                <div class="col">
+                                                                    <!-- .metric -->
+                                                                    <div class="metric metiric-custom metric-bordered">
+                                                                        <h2 class="metric-label"> Others </h2>
+                                                                        <p class="metric-value h1">
+
+                                                                            <i id="metric-icon"
+                                                                                class="fas fa-genderless"></i>
+                                                                            <span
+                                                                                style=" font-size:25px; font-weight:bolder;"
+                                                                                id="id_total_st_o" class="value"></span>
+                                                                        </p>
+                                                                    </div>
+                                                                    <!-- /.metric -->
+                                                                </div>
+                                                                <!-- /metric column -->
+
+                                                                <!-- metric column -->
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.section-block -->
+
+
+                                                    </div>
+                                                    <!-- /.card-body -->
+
+                                                </div>
+                                                <!-- Employee information -->
+                                                <div class="card">
+                                                    <div class="dashboard_card_banner">
+
+                                                        <h5 class="card-title mx-3 my-1"> Employee Information </h5>
+                                                    </div>
+                                                    <!-- .card-body -->
+                                                    <div class="card-body">
+
+                                                        <div class="section-block">
+                                                            <!-- metric row -->
+                                                            <div class="metric-row">
+                                                                <!-- metric column -->
+                                                                <div class="col">
+                                                                    <!-- .metric -->
+                                                                    <div id="metric"
+                                                                        class="metric metiric-custom metric-bordered">
+
+                                                                        <h2 class="metric-label"> Total Employee </h2>
+                                                                        <p class="metric-value h1">
+
+                                                                            <i id="metric-icon"
+                                                                                class="fas fa-users"></i>
+                                                                            <span id="id_total_Hr" class="value">
+                                                                            </span>
+                                                                        </p>
+
+                                                                    </div>
+                                                                    <!-- /.metric -->
+                                                                </div>
+                                                                <!-- /metric column -->
+                                                                <div class="col">
+                                                                    <!-- .metric -->
+                                                                    <div class="metric metiric-custom metric-bordered">
+                                                                        <h2 class="metric-label"> Total Male Employee
+                                                                        </h2>
+                                                                        <p class="metric-value h1">
+                                                                            <i id="metric-icon" class="fas fa-male"></i>
+
+                                                                            <span id="id_total_male_emp" class="value">
+                                                                            </span>
+                                                                        </p>
+                                                                    </div>
+                                                                    <!-- /.metric -->
+                                                                </div>
+                                                                <!-- /metric column -->
+                                                                <!-- metric column -->
+
+                                                                <div class="col">
+                                                                    <!-- .metric -->
+                                                                    <div class="metric metiric-custom metric-bordered">
+                                                                        <h2 class="metric-label"> Total Female Employee
+                                                                        </h2>
+                                                                        <p class="metric-value h1">
+                                                                            <i id="metric-icon"
+                                                                                class="fas fa-female"></i>
+                                                                            <span id="id_total_female_emp"
+                                                                                class="value"></span>
+                                                                        </p>
+                                                                    </div>
+                                                                    <!-- /.metric -->
+                                                                </div>
+                                                                <!-- /metric column -->
+                                                                <!-- metric column -->
+                                                                <div class="col">
+                                                                    <!-- .metric -->
+                                                                    <div class="metric metiric-custom metric-bordered">
+                                                                        <h2 class="metric-label"> Others </h2>
+                                                                        <p class="metric-value h1">
+                                                                            <i id="metric-icon" class="fas fa-smile"></i>
+                                                                            <span id="id_total_loan_ac"
+                                                                                class="value"></span>
+                                                                        </p>
+                                                                    </div>
+                                                                    <!-- /.metric -->
+                                                                </div>
+                                                                <!-- /metric column -->
+
+                                                                <!-- metric column -->
+                                                            </div>
+                                                            <!-- /metric row -->
+
+                                                        </div>
+                                                        <!-- /.section-block -->
+
+
+                                                    </div>
+                                                    <!-- /.card-body -->
+                                                </div>
+                                                <!--/.Employee Information-->
+                                            </div>
+                                             <!-- .side chart -->
+                                                <div class="col-md-4 mt-2">
+
+                                                    <!-- .card -->
+                                                    <div class="card card-fluid">
+                                                        <!-- .card-body -->
+                                                        <div class="card-body">
+                                                            <div class="chartjs" style="height: 400px">
+                                                                <canvas id="TotalQuantityChart"></canvas>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /card-body -->
+                                                    </div>
+                                                    <!-- /card -->
+
+                                                    <!-- .card -->
+                                                    <div class="card card-fluid">
+                                                        <!-- .card-body -->
+                                                        <div class="card-body">
+                                                            <div class="chartjs" style="height: 400px; ">
+                                                                <canvas id="TotalAmountChart"></canvas>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /card-body -->
+                                                    </div>
+                                                    <!-- /card -->
+
+                                                </div>
+                                                <!-- /.side chart -->
+                                        </div><!--Col 8 end -->
+                                    </div><!--Row End-->
+                                    <div class="row">
+                                        <!-- attandance  information -->
+                                
+                                    <div class="col-md-4">
+                                        <div class="card card-fluid">
+                                            <div class="dashboard_card_banner">
+                                                <h5 class="card-title  mx-3 my-1">Attendance summary
+                                                </h5>
+                                            </div>
+                                            <!-- .card-header -->
+                                            <div class="card-header nav-scroller">
+
+                                                <!-- .nav-tabs -->
+                                                <ul class="nav nav-tabs card-header-tabs">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link show active"
+                                                            data-toggle="tab"
+                                                            href="#project-myteams">Student</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" data-toggle="tab"
+                                                            href="#project-explore-teams">HR</a>
+                                                    </li>
+                                                </ul><!-- /.nav-tabs -->
+                                            </div><!-- /.card-header -->
+
+
+
+                                            <div class="tab-content">
+                                                <!-- .tab-pane -->
+                                                <div class="tab-pane fade active show"
+                                                    id="project-myteams" role="tabpanel">
+                                                    <div class="metric-row p-2">
+                                                        <div class="col">
+                                                            <!-- .metric -->
+                                                            <div id="metric"
+                                                                class="metric metiric-custom metric-bordered">
+
+                                                                <h2 class="metric-label"> Total Students
+                                                                </h2>
+                                                                <p class="metric-value h1">
+
+                                                                    <i id="metric-icon"
+                                                                        class="fas fa-graduation-cap"></i>
+
+                                                                    <span id="id_total_client"
+                                                                        class="value">
+                                                                    </span>
+                                                                </p>
+
+                                                            </div>
+                                                            <!-- /.metric -->
+                                                        </div>
+                                                        <div class="col">
+                                                            <!-- .metric -->
+                                                            <div id="metric"
+                                                                class="metric metiric-custom metric-bordered">
+
+                                                                <h2 class="metric-label">Students
+                                                                    Present</h2>
+                                                                <p class="metric-value h1">
+
+                                                                    <i id="metric-icon"
+                                                                        class="fas fa-clipboard-check"></i>
+
+                                                                    <span id="id_total_client"
+                                                                        class="value">
+                                                                    </span>
+                                                                </p>
+
+                                                            </div>
+                                                            <!-- /.metric -->
+                                                        </div>
+                                                    </div>
+
+                                                </div><!-- /.tab-pane -->
+                                                <!-- .tab-pane -->
+                                                <div class="tab-pane fade" id="project-explore-teams"
+                                                    role="tabpanel">
+                                                    <div class="metric-row p-2">
+                                                        <div class="col">
+                                                            <!-- .metric -->
+                                                            <div id="metric"
+                                                                class="metric metiric-custom metric-bordered">
+
+                                                                <h2 class="metric-label"> Total HR </h2>
+                                                                <p class="metric-value h1">
+
+                                                                    <i id="metric-icon"
+                                                                        class="fas fa-users"></i>
+                                                                    <span id="id_total_client"
+                                                                        class="value">
+                                                                    </span>
+                                                                </p>
+
+                                                            </div>
+                                                            <!-- /.metric -->
+                                                        </div>
+                                                        <div class="col">
+                                                            <!-- .metric -->
+                                                            <div id="metric"
+                                                                class="metric metiric-custom metric-bordered">
+
+                                                                <h2 class="metric-label"> HR Present
+                                                                </h2>
+                                                                <p class="metric-value h1">
+
+                                                                    <i id="metric-icon"
+                                                                        class="fas fa-clipboard-check"></i>
+                                                                    <span id="id_total_client"
+                                                                        class="value">
+                                                                    </span>
+                                                                </p>
+
+                                                            </div>
+                                                            <!-- /.metric -->
+                                                        </div>
+                                                    </div>
+                                                </div><!-- /.tab-pane -->
+                                            </div><!-- /.tab-content -->
+                                        </div>
+                                    </div>
+                                    <!-- result  information -->
+                                    <div class="col-md-8">
+
+                                        <div class="card card-fluid">
+                                            <div class="dashboard_card_banner">
+
+                                                <h5 class="card-title  mx-3 my-1">Exam & Result summary </h5>
+                                            </div>
+                                            <!-- .card-header -->
+                                            <div class="card-header">
+
+                                                <div class="metric-row">
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label class="control-label"
+                                                                for="bss13">Academic year</label>
+                                                            <div class="dropdown bootstrap-select dropup"
+                                                                style="width: 100%;"><select id="bss13"
+                                                                    data-toggle="selectpicker"
+                                                                    data-width="100%" class=""
+                                                                    tabindex="null">
+                                                                    <option> Mustard </option>
+                                                                    <option> Ketchup </option>
+                                                                    <option> Relish </option>
+                                                                    <option> Mayonnaise </option>
+                                                                    <option data-divider="true">
+                                                                    </option>
+                                                                    <option> Barbecue Sauce </option>
+                                                                    <option> Salad Dressing </option>
+                                                                    <option> Tabasco </option>
+                                                                    <option> Salsa </option>
+                                                                </select></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label class="control-label"
+                                                                for="bss13">Academic section</label>
+                                                            <div class="dropdown bootstrap-select dropup"
+                                                                style="width: 100%;"><select id="bss13"
+                                                                    data-toggle="selectpicker"
+                                                                    data-width="100%" class=""
+                                                                    tabindex="null">
+                                                                    <option> Mustard </option>
+                                                                    <option> Ketchup </option>
+                                                                    <option> Relish </option>
+                                                                    <option> Mayonnaise </option>
+                                                                    <option data-divider="true">
+                                                                    </option>
+                                                                    <option> Barbecue Sauce </option>
+                                                                    <option> Salad Dressing </option>
+                                                                    <option> Tabasco </option>
+                                                                    <option> Salsa </option>
+                                                                </select></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- /.card-header -->
+
+                                            <div class="card-body">
+                                                <div class="metric-row">
+                                                    <div class="col">
+                                                        <!-- .metric -->
+                                                        <div id="metric"
+                                                            class="metric metiric-custom metric-bordered">
+
+                                                            <h2 class="metric-label text-center"> Total
+                                                                class </h2>
+                                                            <p class="metric-value h1">
+
+
+                                                                <span id="id_total_client"
+                                                                    class="value">
+                                                                </span>
+                                                            </p>
+
+                                                        </div>
+                                                        <!-- /.metric -->
+                                                    </div>
+                                                    <div class="col">
+                                                        <!-- .metric -->
+                                                        <div id="metric"
+                                                            class="metric metiric-custom metric-bordered">
+
+                                                            <h2 class="metric-label text-center"> Total
+                                                                Section </h2>
+                                                            <p class="metric-value h1">
+
+
+                                                                <span id="id_total_client"
+                                                                    class="value">
+                                                                </span>
+                                                            </p>
+
+                                                        </div>
+                                                        <!-- /.metric -->
+                                                    </div>
+                                                </div>
+                                                <div class="metric-row">
+                                                    <div class="col">
+                                                        <!-- .metric -->
+                                                        <div id="metric"
+                                                            class="metric metiric-custom metric-bordered">
+
+                                                            <h2 class="metric-label text-center"> Exam
+                                                                Taken </h2>
+                                                            <p class="metric-value h1">
+                                                                <span id="id_total_client"
+                                                                    class="value">
+                                                                </span>
+                                                            </p>
+                                                        </div>
+                                                        <!-- /.metric -->
+                                                    </div>
+                                                    <div class="col">
+                                                        <!-- .metric -->
+                                                        <div id="metric"
+                                                            class="metric metiric-custom metric-bordered">
+                                                            <h2 class="metric-label text-center"> Exam
+                                                                will be Taken </h2>
+                                                            <p class="metric-value h1">
+
+
+                                                                <span id="id_total_client"
+                                                                    class="value">
+                                                                </span>
+                                                            </p>
+                                                        </div>
+                                                        <!-- /.metric -->
+                                                    </div>
+                                                </div>
+                                                <div class="metric-row">
+                                                    <div class="col">
+                                                        <!-- .metric -->
+                                                        <div id="metric"
+                                                            class="metric metiric-custom metric-bordered">
+                                                            <h2 class="metric-label"> Total participant
+                                                            </h2>
+                                                            <p class="metric-value h1">
+                                                                <span id="id_total_client"
+                                                                    class="value">
+                                                                </span>
+                                                            </p>
+                                                        </div>
+                                                        <!-- /.metric -->
+                                                        <!-- .metric -->
+                                                        <div id="metric"
+                                                            class="metric metiric-custom metric-bordered">
+                                                            <h2 class="metric-label"> Total Absent </h2>
+                                                            <p class="metric-value h1">
+                                                                <span id="id_total_client"
+                                                                    class="value">
+                                                                </span>
+                                                            </p>
+
+                                                        </div>
+                                                        <!-- /.metric -->
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div><!--Row end -->
+
+                                </div>
+                                <!--First tab end-->
+                                <div class="tab-pane fade" id="account-info-tab" role="tabpanel" aria-labelledby="account-tab">
+                                     Account Information 
+                                </div>
+                                <!--2nd tab end-->
+                              </div>
+                            </div>
+                        </div>
+                                
+                            </div><!-- /.row -->
+                        </div> <!-- /.container -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock body %} {% block js %}
+
+<script src="{% static 'assets/javascript/pages/appauth/appauth-dashboard.js' %}"></script>
+<!-- END PAGE LEVEL JS -->
+
+{% endblock %}
+</body>

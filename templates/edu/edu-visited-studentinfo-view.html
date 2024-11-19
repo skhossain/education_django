@@ -1,0 +1,95 @@
+{% load static %}
+{% load crispy_forms_tags %}
+{% load edu_custom_tags %}
+<div class="modal-header"> </div>
+{% csrf_token %}
+<div class="container" id="section-to-print">
+	<h4 align="center">Visited Student Information</h4>
+	<div class="card">
+		<div class="card-body">
+			<div>
+			<input type="hidden" id="print_title" value="Student Information-{{student.student_roll}}">
+				<table class="table table-sm table-striped table-hover">
+					<tr>
+						<th>Name</th>
+						<td>:</td>
+						<td colspan="2">{{student.student_name}}</td>
+					</tr>
+					<tr>
+						<th>Admit interested class</th>
+						<td>:</td>
+						<td>{{student.class_id}}</td>
+						<td style="border-left:1px solid #999"> Group: {{student.class_group_id}}</td>
+					</tr>
+					<tr>
+						<th>Father's Name</th>
+						<td>:</td>
+						<td>{{student.student_father_name}}</td>
+						<td style="border-left:1px solid #999"> Mobile: {{student.father_phone_number}}</td>
+					</tr>
+					<tr>
+						<th>Mother's Name</th>
+						<td>:</td>
+						<td>{{student.student_mother_name}}</td>
+						<td style="border-left:1px solid #999"> Mobile: {{student.mother_phone_number}}</td>
+					</tr>
+					<tr>
+						<th>Marital Status</th>
+						<td>:</td>
+						<td>{{student.student_marital_status}}</td>
+						<td style="border-left:1px solid #999"> Gender: </td>
+					</tr>
+					<tr>
+						<th>Student Mobile</th>
+						<td>:</td>
+						<td>{{student.student_phone}}</td>
+						<td style="border-left:1px solid #999"> Email: {{student.student_email}}</td>
+					</tr>
+					<tr>
+						<th>Present Address</th>
+						<td>:</td>
+						<td colspan="2">{{student.student_present_address}}</td>
+					</tr>
+					<tr>
+						<th>Permanent Address</th>
+						<td>:</td>
+						<td colspan="2">{{student.student_permanent_address}}</td>
+					</tr>
+					
+					<tr>
+						<th>Current study Institute</th>
+						<td>:</td>
+						<td colspan="2">{{student.current_institute}}</td>
+					</tr>
+				</table>
+				<h6 class="text-center">Education Qualification</h6>
+				<table class="table">
+					<tr>
+						<th>Degree Name</th>
+						<th>Board Name</th>
+						<th>Point</th>
+						<th>Grate</th>
+						<th>Passing Year</th>
+						<th class="w-25">Institute Name</th>
+					</tr>
+					{% for education in educations %}
+					<tr>
+						<td>{{education.degree_id | get_degree_name}}</td>
+						<td>{{education.board_name}}</td>
+						<td>{{education.result_point}}</td>
+						<td>{{education.result_grate}}</td>
+						<td>{{education.passing_year}}</td>
+						<td>{{education.institute_id | get_institute_name}}</td>
+						</tr>
+					{% endfor %}
+				</table>
+			<div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="action text-right">
+	<button type="button" class="btn btn-danger my-3 mr-2" onclick="print_div('section-to-print')">Print</button>
+	<button type="button" class="btn btn-info my-3 mr-3"  onclick="modal_close('view_model')">Close</button>
+</div>

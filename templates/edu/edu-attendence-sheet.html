@@ -1,0 +1,94 @@
+	{% extends 'appauth/appauth-home.html' %}
+	{% load static %}
+	{% load crispy_forms_tags %}
+	{% load edu_custom_tags%}
+	{% block title %}
+	Students Attendance Sheet | {{ application_title }}
+	{% endblock %}
+	
+{% block body %}
+	<div class="row p-3">
+		<input type="hidden" id="sheet_id" value="{{sheet.present_sheet_info_id}}">
+		<table class="table">
+			<tr>
+				<th>Academic Year</th>
+				<td>:</td>
+				<td id="ac_year">{{sheet.academic_year.academic_year}}</td>
+				<th>Month</th>
+				<td>:</td>
+				<td id="ac_month" data-value="{{sheet.month_number}}">{{sheet.month_number | get_month_name}}</td>
+				<th>Class</th>
+				<td>:</td>
+				<td>{{sheet.class_id}}</td>
+				<th>Subject</th>
+				<td>:</td>
+				<td>{{sheet.subject_id}}</td>
+				<th>Class Group</th>
+				<td>:</td>
+				<td>{{sheet.class_group_id}}</td>
+				<th>Section</th>
+				<td>:</td>
+				<td>{{sheet.section_id}}</td>
+				
+			</tr>
+		</table>
+		
+		<div class="col-12 attendance">
+			 <table class='table table-bordered table-hover table-responsive table-sm text-center'>
+				<thead>	
+				<tr class="bg-info text-white">
+					<th class="text-left">Name&nbsp;&&nbsp;Roll</th>
+					{% for d in days %}
+					<th>
+						{{d}}<br>
+						<input type="checkbox" id="d{{d}}" onchange="change_present_all(this.id)" checked disabled>
+					</th>
+					{% endfor %}
+					</tr>
+					</thead>
+					<input type="hidden" id="h_days" value="{{days}}">
+				<tbody>
+				{% for student in student_list %}
+				<tr>
+					<th class="text-left student" data-id="{{ student.student_roll }}">{{ student.student_name }}<br>{{ student.student_roll }}</th>
+					{% for p in student.presents %}
+						<td>
+							{% if p.is_present == 1 %}
+							<input type="checkbox" id="p{{ student.student_roll }}{{ p.date | date:'d' }}" onchange="change_present(this.id)" checked disabled>
+							{% else %}
+							<input type="checkbox" id="a{{ student.student_roll }}{{ p.date | date:'d' }}" onchange="change_present(this.id)" disabled>
+							{% endif %}
+						</td>
+						
+					{% endfor %}
+					
+					{% comment %} {% for p in sheet.psd_present_sheet_info_id.all %}
+						{% if p.student_roll.student_roll == student_roll %}
+						<td>
+							{% if p.is_present == 1 %}
+							<input type="checkbox" id="p{{student_roll}}{{p.date | date:'d' }}" onchange="change_present(this.id)" checked disabled>
+							{% else %}
+							<input type="checkbox" id="a{{student_roll}}{{p.date | date:'d' }}" onchange="change_present(this.id)" disabled>
+							{% endif %}
+						</td>
+						{% endif %}
+					{% endfor %}
+					 {% endcomment %}
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	
+{% endblock body %}
+	
+		{% block js %}
+		<script src="{% static 'assets/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+		<script src="{% static 'assets/vendor/datatables/extensions/responsive/dataTables.responsive.min.js' %}"></script>
+		<script src="{% static 'assets/vendor/datatables/extensions/responsive/responsive.bootstrap4.min.js' %}"></script>
+		<script src="{% static 'assets/javascript/pages/dataTables.bootstrap.js' %}"></script>
+		<script src="{% static 'assets/javascript/pages/edu/edu-attendance.js' %}"></script>
+		{% endblock %}
+	</div>

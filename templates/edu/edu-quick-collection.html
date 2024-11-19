@@ -1,0 +1,194 @@
+{% extends 'appauth/appauth-home.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Quick Collection | {{ application_title }}
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card card-fluid">
+			<div class="card-body">
+				<div>
+					<form method="post" id="tran_table_data" 
+                    data-url="{% url 'edu-admission-insert' %}" 
+						class="update-form">
+						<div class="form-group">
+							<div class="card">
+								<div class="card-body">
+									<div class="form-row">
+										<div class="form-group col-md-12 mb-0">
+											<h3 class="card-title text-center text-blue">Quick Collection </h3>
+                                            <hr>
+										</div>
+									</div>
+									<div>
+										{% csrf_token %}
+										<div class="form-row">
+                                            <div class="form-group col-md-4 mb-0" style="background-color:#dbdbdb;padding:20px; border-radius:5px;margin-right:10px;">
+                                                <div class="form-row">
+                                                    {% if is_head_office_user %}
+                                                    <div class="form-group col-md-12 mb-0">
+                                                        {{ form.branch_code | as_crispy_field }}
+                                                    </div>
+                                                    {% else %}
+                                                        <input type='hidden' id='id_branch_code' name='branch_code' value={{ global_branch_code }} readonly>
+                                                    {% endif %}
+                                                    <div class="form-group col-md-12 mb-0">
+                                                        {{ form.academic_year|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-12 mb-0">
+                                                        {{ form.student_roll|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-12 mb-0">
+                                                        {{ form.receive_date|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-12 mb-0">
+                                                        {{ form.due_date|as_crispy_field }}
+                                                    </div>
+                                                    
+                                                </div>
+                                                <br>
+                                                <button type="button" onclick="student_profile_details()" id="btnSearch" class="btn btn-info pull-right"><i class="fas fa-search"></i> Search </button>
+                                                <button type="button" onclick="student_others_payment_model()" id="btnOthers" class="btn btn-info pull-right" ><i class="fas fa-others"></i> Others Fees </button>
+                                            </div>
+                                            <div class="form-group col-md-7 mb-0" style="background-color:azure;border-radius:5px;padding:10px;">
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-4 mb-0">
+                                                        <img src="" id="profile_img" class="img-fluid" alt="Student Photo">
+                                                        <br>
+                                                        <p>STUDENT ID</p>
+                                                        <stan id="student_id_show"></span>
+                                                        
+                                                    </div>
+                                                    <div class="form-group col-md-8 mb-0">
+                                                        <table class="table table-sm table-borderless">
+                                                            <tr>
+                                                                <td>Student Name</td>
+                                                                <td>:</td>
+                                                                <td id="student_name_show"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Class Name</td>
+                                                                <td>:</td>
+                                                                <td id="class_name_show"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Class Roll</td>
+                                                                <td>:</td>
+                                                                <td id="class_roll_show"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Session</td>
+                                                                <td>:</td>
+                                                                <td id="class_session_show"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Group</td>
+                                                                <td>:</td>
+                                                                <td id="class_group_show"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Father Name</td>
+                                                                <td>:</td>
+                                                                <td id="father_name_show"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Catagory</td>
+                                                                <td>:</td>
+                                                                <td id="category_show"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Mobile</td>
+                                                                <td>:</td>
+                                                                <td id="mobile_show"></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+										</div>{% comment %}mother row{% endcomment %}
+                                        <hr>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12 mb-0">
+                                                <div class="d-flex">
+                                                    <div class="">
+                                                        <h5>Total Paid Amount: 
+                                                        <span id="total_paidAmount"></span> tk</h5>
+                                                    </div>
+                                                    <button id="btnFeesSubmit" type="button" class="btn btn-danger" style="position: absolute;top: 0px;right: 5px;">Save</button>
+
+                                                </div>
+                                                
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <table class="table table-sm table-bordered">
+                                                <tr class="text-blue font-weight-bold">
+                                                   
+                                                    <td>Head Name</td>
+                                                    <td>Due Date</td>
+                                                    <td>Fees Due</td>
+                                                    <td>Fine Due</td>
+                                                    <td>Waiver</td>
+                                                    <td>Total Due</td>
+                                                    <td>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" onclick="set_all_full()" type="radio" name="all_amount" value="" id="all_f">
+                                                            <label class="form-check-label" for="all_f">
+                                                             F
+                                                            </label>
+                                                          </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" onclick="set_all_zero()" type="radio" name="all_amount" value="" id="all_z" checked>
+                                                            <label class="form-check-label" for="all_z">
+                                                              Z
+                                                            </label>
+                                                          </div>
+                                                    </td>
+                                                    <td>Total Paid</td>
+                                                    <td>Total Overdue</td>
+                                                </tr>
+                                                <tbody id="body_tr">
+                                                </tbody>
+                                                
+                                                </table>
+                                            </div>
+                                        </div>
+										{% comment %} <button type="button" id="btnAddRecord" class="btn btn-primary">Create Admission</button>
+										<button type="button" id="btnSearch" class="btn btn-info pull-right"> Search Admission</button> {% endcomment %}
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		
+
+	<div class="modal fade" id="edit_model" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+                
+			</div>
+		</div>
+	</div>
+
+	{% endblock body %}
+
+	{% block js %}
+	<script src="{% static 'assets/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/dataTables.responsive.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/responsive.bootstrap4.min.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/dataTables.bootstrap.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/edu/edu-quick-collection.js' %}"></script>
+    <script src="{% static 'assets/javascript/pages/common-parameter-details.js' %}"></script>
+	{% endblock %}
+</div>

@@ -1,0 +1,140 @@
+{% extends 'studentportal/studentportal-home.html' %}
+{% block header %}
+
+{% endblock %}
+{% block body %}
+<div v-if="tabs[0].tab">
+    <div class="row m-5">
+        <h5>Select your Branch</h5>
+        {% for branch in branchs %}
+        <div class="form-check">
+            <input class="form-check-input" type="radio" value="{{branch.branch_code}}" v-model="form.branch_code" id="branch_{{branch.branch_code}}">
+            <label class="form-check-label" for="branch_{{branch.branch_code}}">
+                {{branch.branch_name}}
+            </label>
+        </div>
+        {%endfor%}
+    </div>
+</div>
+<!--Tab 2-->
+<div v-if="tabs[1].tab">
+    <div class="row m-5">
+        <h5>Primary Information</h5>
+        <hr>
+        <div class="col-md-4">
+            <label>Student's Name <sup class="text-danger">*</sup></label>
+            <input type="text" class="form-control" v-model="form.student_name">
+        </div>
+        <div class="col-md-4">
+            <label>Nic Name </label>
+            <input type="text" class="form-control" v-model="form.nic_name">
+        </div>
+        <div class="col-md-4">
+            <label>Class Name <sup class="text-danger">*</sup></label>
+            <select class="form-control" v-model="form.class_id" @change="class_change()">
+
+            </select>
+        </div>
+    </div>
+</div>
+<!--Tab 3-->
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <ul class="list-inline">
+            <li class="list-inline-item btn btn-primary" v-if="!tabs[0].tab" @click="per_tab(activeTab)">Pre</li>
+            <li class="list-inline-item btn btn-primary" :class="{'active':tabs[0].tab}" @click="select_tab(0)">Branch</li>
+            <li class="list-inline-item btn btn-primary" :class="{'active':tabs[1].tab}" @click="select_tab(1)">Primary Info</li>
+            <li class="list-inline-item btn btn-primary" v-if="!tabs[3].tab" @click="next_tab(activeTab)">Next</li>
+        </ul>
+    </div>
+</div>
+    
+{% endblock body %}
+{% block js %}
+<script type="module">
+    import { createApp } from 'vue'
+
+    createApp({
+        delimiters: ["${", "}$"],
+        data() {
+            return {
+                tabs:[
+                    {tab: true},
+                    {tab: false},
+                    {tab: false},
+                    {tab: false},
+                ],
+                activeTab:0,
+                form:{
+                    branch_code:"",
+                    academic_year:"",
+                    admission_date:"",
+                    student_type:"R",
+                    student_name:"",
+                    nic_name:"",
+                    class_id:"",
+                }
+            }
+        },
+        methods:{
+            per_tab(tab){
+                this.activeTab=tab-1
+               for (let index = 0; index < this.tabs.length; index++) {
+                   let element = this.tabs[index];
+                if(index== this.activeTab){
+                    element.tab=true
+                }else{
+                    element.tab = false
+                }
+                
+               }
+            },
+            next_tab(tab){
+                this.activeTab=tab+1
+               for (let index = 0; index < this.tabs.length; index++) {
+                   let element = this.tabs[index];
+                if(index== this.activeTab){
+                    element.tab=true
+                }else{
+                    element.tab = false
+                }
+                
+               }
+            },
+            select_tab(tab){
+                this.activeTab=tab
+               for (let index = 0; index < this.tabs.length; index++) {
+                   let element = this.tabs[index];
+                if(index== this.activeTab){
+                    element.tab=true
+                }else{
+                    element.tab = false
+                }
+                
+               }
+            },
+            class_change(){
+
+            }
+        },
+        mounted(){
+            //Date
+            var today = new Date();
+            var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+            this.form.academic_year= today.getFullYear();
+            this.form.admission_date = date;
+            // Class list
+            axios.get('/')
+                .then(function (response) {
+                    // handle success
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+
+        }
+    }).mount('#app')
+</script>
+{% endblock js %}

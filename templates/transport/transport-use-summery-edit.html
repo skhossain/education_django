@@ -1,0 +1,55 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<div class="modal-header"> </div>
+{% csrf_token %}
+<div class="container">
+	<h4 align="center">Update Transport Uses Summary </h4>
+	<div class="card">
+		<div class="card-body">
+			<div>
+				<form method="post" id="edit_form" data-url="{% url 'transport-use-summery-edit' id %}" class="update-form">
+					{% csrf_token %}
+					<div class="form-row">
+						<div class="form-group col-md-3 mb-0">
+							<label>To Date</label>
+						   <input type="date" class="form-control" name="to_date" id="id_to_date">
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							<label>From Date</label>
+						   <input type="date" class="form-control" name="from_date" id="id_from_date">
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.academic_year|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.class_id|as_crispy_field }}
+						</div>
+						
+						<div class="form-group col-md-3 mb-0">
+							{{ form.road_map_id|as_crispy_field }}
+						</div>
+						
+						<div class="form-group col-md-3 mb-0">
+							{{ form.trans_status|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.location_info_id|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.student_roll|as_crispy_field }}
+						</div>
+					</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger btn-default pull-right" data-dismiss="modal">Close</button>
+				<button type="submit" id="btnSubmit" class="btn btn-primary">Submit</button>
+			</div>
+			</form>
+			<div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="{% static 'assets/javascript/pages/common-submit-editdata.js' %}"></script>

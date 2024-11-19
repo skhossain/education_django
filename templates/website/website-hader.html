@@ -1,0 +1,102 @@
+{% load static %}
+<div class="bg-rose-600 text-white">
+    <div class="container">
+        <div class="row" style="height: 25px;">
+            <div class="col-sm-7 col-xs-7 col-md-4 col-lg-4">
+                <ul class="list-group list-group-horizontal">
+                    <li>Madrasah Code: {{academic_info.academic_code}}</li>
+                    <li style="padding: 0 10px;" >EIIN: {{academic_info.eiin_number}}</li>
+                </ul>
+            </div>
+            <div class="col-sm-6 col-xs-6 col-md-8 col-lg-8 d-sm-none d-md-block">
+
+                <div style="display: block;float: right; width: 200px;">
+                    <ul class="list-group list-group-horizontal">
+                        <li id="time"><i class="fa fa-clock-o"></i>
+                            <span><time id="demo"></time>,
+                        </li>
+                        <li><i class="fa fa-calendar"></i>
+                            <span><time id="demonew"></time></span>
+                        </li>
+                        <script>
+                            var today = new Date();
+                            var dd = today.getDate();
+                            var mm = today.getMonth() + 1; //January is 0!
+                            var yyyy = today.getFullYear();
+                            if (dd < 10) {
+                                dd = '0' + dd
+                            }
+                            if (mm < 10) {
+                                mm = '0' + mm
+                            }
+
+                            today = dd + '/' + mm + '/' + yyyy;
+                            document.getElementById("demonew").innerHTML = today;
+                            var myVar = setInterval(function () {
+                                myTimer()
+                            }, 1000);
+
+                            function myTimer() {
+                                var d = new Date();
+                                document.getElementById("demo").innerHTML = d.toLocaleTimeString();
+                            }
+                        </script></span>
+                        </li>
+                        <li id="calendar">
+                            <i class="fas fa-calendar-day"></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- <div class="col-sm-5 col-xs-5 col-md-4 col-lg-4 text-end">
+                <div class="dropdown">
+                    <button class="dropdown-toggle text-white p-1 bg-rose-600" type="button" id="topRightdropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        লগইন
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="topRightdropdown">
+                        <li><a class="dropdown-item" href="/appauth-login">ওয়েবসাইট অ্যাডমিন</a></li>
+
+                    </ul>
+                </div> 
+
+            </div> -->
+        </div>
+    </div>
+</div>
+<div class="header-middle p-0 bg-lightest xs-text-center">
+    <div class="container pt-0 pb-0">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div>
+                    <img src="{{academic_info.web_header_banner.url}}" alt="DSKM_LOGO">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row bg-green-300 p-0">
+        <div class="container bg-green-300">
+            <div class="row">
+                <div class="col-md-1 ">
+                    <h5 class="px-3 pt-2" style="font-weight: bold;">নোটিসঃ </h5>
+                </div>
+                <div class="col-md-11 bg-white">
+                    <p>
+                        <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+                            <a>জরুরী বিজ্ঞপ্তি</a><span> || </span>
+                            {%for notice in notices%}
+                            {%if notice.types == 0 %}
+                            <a href="/media/{{notice.pdf_file}}" target="_blank">{{notice.notic_title}}</a><span>||
+                            </span>
+                            {%endif%}
+                            {%endfor%}
+                        </marquee>
+                    </p>
+                </div>
+                
+
+                
+            </div>
+        </div>
+    </div>

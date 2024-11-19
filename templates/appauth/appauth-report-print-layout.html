@@ -1,0 +1,34 @@
+{% load static %}
+{% load humanize %}
+
+<head>
+    
+    <title> {% block title %} {% endblock %}
+    </title>   
+    <link rel="stylesheet" href="{% static 'assets/bootstrap-5.2.0/css/bootstrap.min.css' %}">
+    
+    {% block css %}
+    
+    {% endblock %}
+    {# Include jQuery #}
+    <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/bootstrap-5.2.0/js/bootstrap.bundle.min.js' %}"></script>
+    
+</head>
+
+<body data-gr-c-s-loaded="true" >
+
+    {% block body %}
+
+    {% endblock body %}
+
+    <div id="buttons" style="padding-top:10px; text-transform:uppercase;" class="no-print text-center">
+        <span class="pull-right col-xs-12">
+            <a href="javascript:window.print()" id="web_print" class="btn btn-block btn-primary"
+                onclick="window.print();return false;">Print Report</a>
+        </span>
+    </div>
+
+</body>
+
+

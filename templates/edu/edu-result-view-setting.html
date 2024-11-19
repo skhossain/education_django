@@ -1,0 +1,97 @@
+{% extends 'appauth/appauth-home.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Result View Setting | {{ application_title }}
+{% endblock %}
+{% block body %}
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card card-fluid">
+			<div class="card-body">
+				<div>
+					<form method="post" id="tran_table_data" data-url="{% url 'edu-examsetup-insert' %}"
+						class="update-form">
+						<div class="form-group">
+							<div class="card">
+								<div class="card-body">
+
+										<div class="form-group col-md-10 mb-0">
+											<h3 class="card-title"> Result View Setting </h3>
+										</div>
+										{% csrf_token %}
+										<div class="form-row">
+											{% if is_head_office_user %}
+											<div class="form-group col-md-3 mb-0">
+												{{ form.branch_code | as_crispy_field }}
+											</div>
+											{% else %}
+											<input type='hidden' id='id_branch_code' name='branch_code'
+												   value={{ global_branch_code }} readonly>
+											{% endif %}
+
+											<div class="form-group col-md-3 mb-0">
+												{{ form.academic_year|as_crispy_field }}
+											</div>
+											<div class="form-group col-md-3 mb-0">
+												{{ form.session_id|as_crispy_field }}
+											</div>
+											<div class="form-group col-md-3 mb-0">
+												{{ form.class_id|as_crispy_field }}
+											</div>
+											<div class="form-group col-md-3 mb-0">
+												{{ form.class_group_id|as_crispy_field }}
+											</div>
+											<div class="form-group col-md-3 mb-0">
+												{{ form.term_id|as_crispy_field }}
+											</div>
+											<div class="form-group col-md-3 mb-0">
+												{{ form.short_number|as_crispy_field }}
+											</div>
+											<div class="row">
+												<div class="col-md-8 bg-light">
+													<div class="row">
+													<div class="form-group col-md-4 mb-0">
+														{{ form.subject_one_id|as_crispy_field }}
+													</div>
+													<div class="form-group col-md-4 mb-0">
+														{{ form.subject_two_id|as_crispy_field }}
+													</div>
+													<div class="form-group col-md-4 mb-0">
+														{{ form.subject_three_id|as_crispy_field }}
+													</div>
+													
+													</div>
+												</div>
+										</div>
+										<div class="my-5">
+										<button type="button" id="btnAddRecord" class="btn btn-primary">Submit</button>
+										<button type="button" id="btnSearch" class="btn btn-info ml-2"> Search</button>
+										</div>
+										</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header">
+				View Setting List
+			</div>
+			<div class="card-body table-responsive" id="view-list">
+
+			</div>
+		</div>
+	</div>
+</div>
+{% block js %}
+	
+	<script src="{% static 'assets/javascript/pages/edu/edu-result-view-setting.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/common-parameter-details.js' %}"></script>
+	{% endblock %}
+{% endblock body %}
+

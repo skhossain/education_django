@@ -1,0 +1,67 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<div class="modal-header"> </div>
+{% csrf_token %}
+<div class="container">
+	<h4 align="center">Update Library Books</h4>
+	<div class="card">
+		<div class="card-body">
+			<div>
+				<form method="post" id="edit_form" data-url="{% url 'edu-librarybook-edit' id %}" class="update-form">
+					{% csrf_token %}
+					<div class="form-row">
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.book_name|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.author_id |as_crispy_field }} 
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.editor_id |as_crispy_field }} 
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.isbn_code|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.book_language|as_crispy_field }}
+						</div>
+                        
+						<div class="form-group col-md-3 mb-0">
+							{{ form.number_of_page |as_crispy_field }} 
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.rack_id|as_crispy_field }}
+						</div>
+                         <div class="form-group col-md-3 mb-0">
+							{{ form.total_books|as_crispy_field }}
+						</div>
+                          <div class="form-group col-md-3 mb-0">
+							{{ form.books_available|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.edition_number|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.subscription_amount|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.is_ebook |as_crispy_field }} 
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.is_subscription|as_crispy_field }}
+						</div>
+                       
+					</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger btn-default pull-right" data-dismiss="modal">Close</button>
+				<button type="submit" id="btnSubmit" class="btn btn-primary">Submit</button>
+			</div>
+			</form>
+			<div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="{% static 'assets/javascript/pages/common-submit-editdata.js' %}"></script>

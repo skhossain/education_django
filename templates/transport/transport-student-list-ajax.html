@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-md-6">
+        <label class="text-center pt-3"><strong>Locations</strong></label>
+        {% for l in locations %}
+        <div class="form-check">
+            <input class="form-check-input location" onClick="select_location()" type="checkbox" value="{{l.location_info_id}}" id="loc{{l.location_info_id}}">
+            <label class="form-check-label" for="loc{{l.location_info_id}}">
+                {{l.location_name}}
+            </label>
+          </div>
+        {% endfor %}
+    </div>
+    <div class="col-md-6">
+        <input type="hidden" value="{{students}}" id="all-student">
+        <label class="text-center pt-3"><strong>Students</strong></label>
+        <div id="student_list"></div>
+    </div>
+    <br><br>
+    <button type="button" class="btn btn-success w-100" onClick="saveForm()">Save</button>
+</div>

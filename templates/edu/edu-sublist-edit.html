@@ -1,0 +1,64 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<div class="modal-header"> </div>
+{% csrf_token %}
+<div class="container">
+	<h4 align="center">Update Subject List</h4>
+	<div class="card">
+		<div class="card-body">
+			<div>
+				<form method="post" id="edit_form" data-url="{% url 'edu-sublist-edit' id %}" class="update-form">
+					{% csrf_token %}
+					<div class="form-row">
+                        
+						<div class="form-group col-md-3 mb-0">
+							<label>Class Name *</label>
+							<select class="form-control" name="class_id" id="id_class_id">
+								<option value="{{instance_data.class_id.class_id}}">{{instance_data.class_id}}</option>
+							</select>
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.class_group_id|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.subject_type_id|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.subject_name|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.sort_name|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.subject_code|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.category_id|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.maximum_marks|as_crispy_field }}
+						</div>
+                          <div class="form-group col-md-3 mb-0">
+							{{ form.minimum_pass_marks|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.out_of|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.credit|as_crispy_field }}
+						</div>
+					</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger btn-default pull-right" data-dismiss="modal">Close</button>
+				<button type="submit" id="btnSubmit" class="btn btn-primary">Submit</button>
+			</div>
+			</form>
+			<div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="{% static 'assets/javascript/pages/common-submit-editdata.js' %}"></script>

@@ -1,0 +1,42 @@
+{% load hostel_custom_tags %}
+<div style="overflow-x:auto;" id="print_div">
+  <input type="hidden" value="Daily Meal Details {{date_range.start|date:'d M, Y'}}-{{date_range.end|date:'d M, Y'}}" id="print_title">
+  <h3 class="text-center">Daily Meal Details ({{date_range.start}} to {{date_range.end}})</h3>
+<table class="table table-sm table-striped">
+  <tr>
+    <th>Roll</th>
+    <th>Name</th>
+    {% for date in dates %}
+      <th>{{date.m}}&nbsp;{{date.d}}</th>
+    {% endfor %}
+  </tr>
+
+  {% for student in students %}
+    <tr>
+      <td>{{ student.student_roll }}</td>
+      <td>{{ student.student_roll__student_name }}</td>
+      {% for date in dates %}
+      <td>
+        {% with student.student_roll|dateroll_list:date.date as result %}
+              {% with result|get_meal_number_cancel as meal %}
+              {% for m in meal %}
+                <div class="d-flex">
+                  <p style="width:90px; font-size:.9em; padding:3px;margin:0">
+                  {{ m.meal_id__meal_name }} - {{ m.total }}
+                </p>
+                <span style=" font-size:.8em; cursor:pointer" data-info="{{m.meal_id}},{{ m.total }},{{student.student_roll}}" data-date="{{m.date}}" onclick="cancle_meal(this)"><i class="fas fa-trash"></i></span>
+                </div>
+              {% endfor %}
+              {% endwith %}
+          {% endwith %}
+      
+      </td>
+      {% endfor %}
+      
+    </tr>
+    {% endfor %}
+</table>
+</div>
+
+
+

@@ -1,0 +1,524 @@
+{% load static %}
+
+<div class="section-block appauthShortcut-section">
+    <section class="marquee">
+        <h4 class="text">
+            Welcome to WhiteBoard Education Software.
+        </h4>
+        <h4 class="text">
+        Welcome to WhiteBoard Education Software.
+        </h4>
+        <h4 class="text">
+            Welcome to WhiteBoard Education Software.
+        </h4>
+        <h4 class="text">
+            Welcome to WhiteBoard Education Software.
+        </h4>
+        <!-- <h4 class="text">
+            Welcome to WhiteBoard Education Software.
+        </h4> -->
+        <!-- <h4 class="text">
+            Welcome to WhiteBoard Education Software.
+        </h4>
+        <h4 class="text">
+        Welcome to WhiteBoard Education Software.
+        </h4> -->
+    </section>
+    <header class="page-navs shadow-sm pr-3">
+        <div class="m-auto">
+            <div class="dropdown d-inline-block">
+                <button type="button" class="btn btn-light  btn-lg" title="Invite members" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+          <span> see video Tutorial...</span>
+          <i class="fas fa-photo-video"></i></button>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-rich stop-propagation">
+                    <div class="dropdown-arrow"></div>
+                    <div class="dropdown-header"> Video Link </div>
+                    <div class="form-group px-3 py-2 m-0">
+                        <a href="">
+                            <h6>Branch Open</h6>
+                            <small class="form-text text-muted">To any branch Account Open and Deposit Account open /Loan Account Open
+                /Fixed Deposit Account Open.</small>
+                        </a>
+                        <a href="">
+                            <h6>Supplier Create</h6>
+                            <small class="form-text text-muted">To any branch Account Open and Deposit Account open /Loan Account Open
+                /Fixed
+                Deposit Account Open.</small>
+                        </a>
+                        <a href="">
+                            <h6>Account Opening</h6>
+                            <small class="form-text text-muted">To any branch Account Open and Deposit Account open /Loan Account Open
+                /Fixed
+                Deposit Account Open.</small>
+                        </a>
+                    </div>
+                    <div id="people-list" class="tribute-inline stop-propagation"></div><a href="#" class="dropdown-footer">Go to
+            Youtube Channel <i class="oi oi-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="main-container">
+        <div class="grid-wrapper">
+             <!-- Work by salma -->
+
+             {% if E20000002 %}
+             <div class="col">
+                 <a href="{% url 'edu-studentinfo-createlist' %}">
+                     <div class="metric metric-bordered align-items-center">
+                         <p class="metric-value home-icon">
+                             <img src="{% static 'assets/images/icon/admission.webp' %}">
+                         </p>
+                         <h2 class="metric-label"> Student's Admission </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %}
+ 
+             {% if E20000004 %}
+             <div class="col">
+                 <a href="{% url 'edu-quick-admit' %}">
+                     <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value home-icon">
+                            <img src="{% static 'assets/images/icon/startup.webp' %}">
+                        </p>
+                         <h2 class="metric-label"> Quick Admission </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %}
+ 
+             {% if E50000001 %}
+             <div class="col">
+                 <a href="{% url 'edu-visited-studentInfo' %}">
+                     <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value home-icon">
+                            <img src="{% static 'assets/images/icon/students_1_.webp' %}">
+                        </p>
+                         <h2 class="metric-label"> Visited Student's </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %}
+             
+             {% if E20000006 %}
+             <div class="col">
+                 <a href="{% url 'edu-subjectchoice-createlist' %}">
+                     <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value home-icon">
+                            <img src="{% static 'assets/images/icon/booklist.webp' %}">
+                        </p>
+                         
+                         <h2 class="metric-label"> Subject's Choice </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %}
+ 
+             {% if E20000007 %}
+             <div class="col">
+                 <a href="{% url 'edu-choices-subjectlist' %}">
+                     <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value home-icon">
+                            <img src="{% static 'assets/images/icon/bookname.webp' %}">
+                        </p>
+                         <h2 class="metric-label"> Choices Subject List </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %}
+             {% if E30000005 %}
+             <div class="col">
+                 <a href="{% url 'edu-routine-query' %}">
+                     <div class="metric metric-bordered align-items-center">
+                         <p class="metric-value home-icon">
+                            <img src="{% static 'assets/images/icon/routine.webp' %}">
+                         </p>
+                         <h2 class="metric-label"> Routine Query </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %}
+             {% if E40000007 %}
+             <div class="col">
+                 <a href="{% url 'edu-quick-collection' %}">
+                     <div class="metric metric-bordered align-items-center">
+                         <p class="metric-value home-icon">
+                            <img src="{% static 'assets/images/icon/quick.webp' %}">
+                         </p>
+                         <h2 class="metric-label"> Quick Collection </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %}
+             {% if E60000001 %}
+             <div class="col">
+                 <a href="{% url 'edu-attendence-sheet-createlist' %}">
+                     <div class="metric metric-bordered align-items-center">
+                         <p class="metric-value home-icon">
+                            <img src="{% static 'assets/images/icon/attendant-list.webp' %}">
+                         </p>
+                         <h2 class="metric-label"> Attendance Sheet </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %}
+             
+             <div class="col">
+                 <a href="{% url 'hrm-employee-info-create' %}">
+                     <div class="metric metric-bordered align-items-center">
+                         <p class="metric-value home-icon">
+                            <img src="{% static 'assets/images/icon/work-team.webp' %}">
+                         </p>
+                         <h2 class="metric-label"> Add Employee </h2>
+                     </div>
+                 </a>
+             </div>
+             
+ 
+             {% if E70000004 %}
+             <div class="col">
+                 <a href="{% url 'edu-examsetup-createlist' %}">
+                     <div class="metric metric-bordered align-items-center">
+                         <p class="metric-value home-icon">
+                            <img src="{% static 'assets/images/icon/exam.webp' %}">
+                         </p>
+                         <h2 class="metric-label"> Exam Setup </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %}
+ 
+             {% if E70000005 %}
+             <div class="col">
+                 <a href="{% url 'edu-online-exam-createlist' %}">
+                     <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value home-icon">
+                            <img src="{% static 'assets/images/icon/online-test.webp' %}">
+                        </p>
+                         <h2 class="metric-label">Online Exam Setup </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %}
+             {% if E70000007 %}
+             <div class="col">
+                 <a href="{% url 'edu-exam-marks-entry' %}">
+                     <div class="metric metric-bordered align-items-center">
+                         <p class="metric-value home-icon">
+                            <img src="{% static 'assets/images/icon/marking.webp' %}">
+                         </p>
+                         <h2 class="metric-label">Exam Mark's Entry </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %}
+             {% if E70000009 %}
+             <div class="col">
+                 <a href="{% url 'edu-published-result' %}">
+                     <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value home-icon">
+                            <img src="{% static 'assets/images/icon/results.webp' %}">
+                         </p>
+                         <h2 class="metric-label">Published Result </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %}
+             
+             {% if F30000004 %}
+             <div class="col">
+                 <a href="{% url 'finance-transaction-query' %}">
+                     <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value home-icon">
+                            <img src="{% static 'assets/images/icon/transaction.webp' %}">
+                         </p>
+                         <h2 class="metric-label">Transaction Details Query </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %}
+             <!-- Work by salma -->
+ 
+              {% if S10002003 %}
+             <div class="col">
+                 <a href="{% url 'sales-report-salesdetails' %}">
+                     <div class="metric metric-bordered align-items-center">
+                         <p class="metric-value h3">
+                             <sub><i class="fas fa-cart-plus"></i></sub>
+                         </p>
+                         <h2 class="metric-label"> Sales Profit & Loss </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %}
+   
+             {% if F10000001 %}
+             <div class="col">
+                 <a href="{% url 'finance-account-transaction' %}">
+                     <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value home-icon">
+                            <img src="{% static 'assets/images/icon/money-transfer.webp' %}">
+                         </p>
+                         <h2 class="metric-label"> Account Transaction </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %} {% if F10000002 %}
+             <div class="col">
+ 
+                 <a href="{% url 'finance-ledger-transaction' %}">
+                     <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value home-icon">
+                            <img src="{% static 'assets/images/icon/ledger.webp' %}">
+                         </p>
+                         <h2 class="metric-label"> Ledger Transaction </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %} {% if F10001008 %}
+             <div class="col">
+                 <a href="{% url 'finance-report-cashnbank' %}">
+                     <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value home-icon">
+                            <img src="{% static 'assets/images/icon/bank.webp' %}">
+                         </p>
+                         <h2 class="metric-label"> Cash & Bank Report </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %} {% if F10001002 %}
+             <div class="col">
+                 <a href="{% url 'finance-report-cashtrandetails' %}">
+                     <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value home-icon">
+                            <img src="{% static 'assets/images/icon/cash-flow.webp' %}">
+                         </p>
+                         <h2 class="metric-label"> Cash Transaction Details </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %} {% if F10001004 %}
+             <div class="col">
+                 <a href="{% url 'finance-report-receiptpayment' %}">
+                     <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value home-icon">
+                            <img src="{% static 'assets/images/icon/payment-method.webp' %}">
+                         </p>
+                         <h2 class="metric-label"> Receipt & Payment </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %} {% if F10001005 %}
+             <div class="col">
+                 <a href="{% url 'finance-report-assetliabilities' %}">
+                     <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value home-icon">
+                            <img src="{% static 'assets/images/icon/balance-sheet.webp' %}">
+                         </p>
+                         <h2 class="metric-label"> Balance Sheet (Asset & Liabilities) </h2>
+                     </div>
+                 </a>
+             </div>
+             {% endif %}
+             <!--End-->
+
+            {% if S10000001 %}
+            <div class="col">
+
+                <a href="{% url 'sales-clients-createlist' %}">
+                    <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value h3">
+                            <sub> <i style="font-size: 40px;" class="oi oi-people fa-lg"></i></sub>
+                        </p>
+                        <h2 class="metric-label"> Customer Opening </h2>
+                    </div>
+                </a>
+            </div>
+            {% endif %} {% if S10000002 %}
+            <div class="col">
+                <a href="{% url 'sales-clients-list' %}">
+                    <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value h3">
+                            <sub><i class="oi oi-list fa-lg"></i></sub>
+                        </p>
+                        <h2 class="metric-label"> Customer list </h2>
+                    </div>
+                </a>
+            </div>
+            {% endif %} {% if S10000003 %}
+            <div class="col">
+                <a href="{% url 'sales-supplier-createlist' %}">
+                    <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value h3">
+                            <sub> <i class="fas fa-user-circle"></i></sub>
+                        </p>
+                        <h2 class="metric-label"> Supplier Opening </h2>
+                    </div>
+                </a>
+            </div>
+            {% endif %} {% if S10000005 %}
+            <div class="col">
+                <a href="{% url 'sales-salesbatch-createlist' %}">
+                    <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value h3">
+                            <sub><i class="fas fa-exchange-alt"></i></sub>
+                        </p>
+                        <h2 class="metric-label"> Batch Opening </h2>
+                    </div>
+                </a>
+            </div>
+            {% endif %} {% if S10002006 %}
+            <div class="col">
+                <a href="{% url 'sales-report-daywise-salesnreturnstmt' %}">
+                    <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value h3">
+                            <sub><i class="fas fa-calendar-day"></i></sub>
+                        </p>
+                        <h2 class="metric-label">Customer Statements</h2>
+                    </div>
+                </a>
+            </div>
+            {% endif %} {% if S10001004 %}
+            <div class="col">
+                <a href="{% url 'sales-report-daywise-purchasenreturnstmt' %}">
+                    <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value h3">
+                            <sub><i class="fas fa-calendar-week"></i></sub>
+                        </p>
+                        <h2 class="metric-label"> Supplier Statements </h2>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+    
+            {% if S30000008 %}
+            <div class="col">
+                <a href="{% url 'sales-quickpurchase-master' %}">
+                    <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value h3">
+                            <sub><i class="fas fa-shopping-basket"></i></sub>
+                        </p>
+                        <h2 class="metric-label"> Purchase Entry</h2>
+                    </div>
+                </a>
+            </div>
+            {% endif %} {% if S30000003 %}
+            <div class="col">
+                <a href="{% url 'sales-purchase-list' %}">
+                    <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value h3">
+                            <sub><i class="fas fa-table"></i></sub>
+                        </p>
+                        <h2 class="metric-label"> Purchase List </h2>
+                    </div>
+                </a>
+            </div>
+            {% endif %} {% if S30000004 %}
+            <div class="col">
+                <a href="{% url 'sales-purchase-returnproduct' %}">
+                    <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value h3">
+                            <sub><i class="fa fa-undo"></i></sub>
+                        </p>
+                        <h2 class="metric-label"> Purchase Return </h2>
+                    </div>
+                </a>
+
+            </div>
+            {% endif %} {% if S30000006 %}
+            <div class="col">
+                <a href="{% url 'sales-damage-entry' %}">
+                    <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value h3">
+                            <sub><i class="fas fa-exclamation-circle"></i></sub>
+                        </p>
+                        <h2 class="metric-label"> Damage Entry</h2>
+                    </div>
+                </a>
+            </div>
+            {% endif %} {% if S10001002 %}
+            <div class="col">
+                <a href="{% url 'sales-report-stockinventory' %}">
+                    <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value h3">
+                            <sub><i class="fas fa-dolly-flatbed"></i></sub>
+                        </p>
+                        <h2 class="metric-label"> Purchase Details</h2>
+                    </div>
+                </a>
+            </div>
+            {% endif %} {% if S10001001 %}
+            <div class="col">
+                <a href="{% url 'sales-report-stockinventory' %}">
+                    <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value h3">
+                            <sub><i class="fas fa-warehouse"></i></sub>
+                        </p>
+                        <h2 class="metric-label"> Inventory Status</h2>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+
+
+            {% if S40000002 %}
+            <div class="col">
+                <a href="{% url 'sales-sales-create' %}">
+                    <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value h3">
+                            <sub><i class="fas fa-shopping-cart"></i></sub>
+                        </p>
+                        <h2 class="metric-label"> Sales Entry </h2>
+                    </div>
+                </a>
+            </div>
+            {% endif %} {% if S40000002 %}
+            <div class="col">
+                <a href="{% url 'sales-quick-sales' %}">
+                    <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value h3">
+                            <sub><i class="fas fa-cash-register"></i></sub>
+                        </p>
+                        <h2 class="metric-label"> Quick/Cash Sales </h2>
+                    </div>
+                </a>
+            </div>
+            {% endif %} {% if S40000003 %}
+            <div class="col">
+                <a href="{% url 'sales-invoice-list' %}">
+                    <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value h3">
+                            <sub><i class="fas fa-file-invoice"></i></sub>
+                        </p>
+                        <h2 class="metric-label"> Invoice List </h2>
+                    </div>
+                </a>
+            </div>
+            {% endif %} {% if S40000004 %}
+            <div class="col">
+                <a href="{% url 'sales-sales-return' %}">
+                    <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value h3">
+                            <sub><i class="fas fa-file-invoice-dollar"></i></sub>
+                        </p>
+                        <h2 class="metric-label"> Sales Return </h2>
+                    </div>
+                </a>
+            </div>
+            {% endif %} {% if S10002002 %}
+            <div class="col">
+                <a href="{% url 'sales-report-daywisesales' %}">
+                    <div class="metric metric-bordered align-items-center">
+                        <p class="metric-value h3">
+                            <sub><i class="fas fa-truck-loading"></i></sub>
+                        </p>
+                        <h2 class="metric-label"> Daily Sales Details </h2>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+            
+           
+        </div>
+    </div>

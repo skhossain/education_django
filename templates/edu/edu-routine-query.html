@@ -1,0 +1,114 @@
+{% extends 'appauth/appauth-home.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+Manage RoutineDetails | {{ application_title }}
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card card-fluid">
+			<div class="card-body">
+				<div>
+					<form method="post" id="tran_table_data" data-url="{% url 'edu-routine-query-view' %}" 
+						class="update-form">
+						<div class="form-group">
+							<div class="card">
+								<div class="card-body">
+									<div class="form-row">
+										<div class="form-group col-md-10 mb-0">
+											<h3 class="card-title"> Manage Class Routine Details </h3>
+										</div>
+									</div>
+									<div>
+										{% csrf_token %}
+										<div class="form-row">
+											<div class="form-group col-md-3 mb-0">
+												{{ form.routine_id|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.class_id|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.class_group_id|as_crispy_field }}
+											</div>
+											<div class="form-group col-md-3 mb-0">
+												{{ form.shift_id|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.section_id|as_crispy_field }}
+											</div>
+                                            
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.teacher_id|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.room_id|as_crispy_field }}
+											</div>
+											<div class="form-group col-md-3 mb-0">
+												{{ form.day|as_crispy_field }}
+											</div>										
+										</div>
+										<br>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-check form-check-inline">
+													<input class="form-check-input" type="radio" value="1" name="routine_view" id="teacher">
+													<label class="form-check-label" for="teacher">
+													Teacher Routine
+													</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<input class="form-check-input" type="radio" value="2" name="routine_view" id="class_routine">
+													<label class="form-check-label" for="class_routine">
+													Class Routine
+													</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<input class="form-check-input" type="radio" value="3" name="routine_view" id="daily_routine" checked>
+													<label class="form-check-label" for="daily_routine">
+													Daily Routine
+													</label>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-check form-check-inline">
+													<input class="form-check-input" type="checkbox" value="1" name="shift_view" id="shift_view">
+													<label class="form-check-label" for="shift_view">
+														Divide by Shift
+													</label>
+												</div>
+											</div>
+										  </div>
+										<br>
+										<br>
+										<button type="button" id="reset_form" class="btn btn-danger pull-right"> Reset </button>
+										<button type="button" id="btnSearch" class="btn btn-info pull-right"> Search </button>
+										<button type="button" id="pdf-create" class="btn btn-success pull-right"> PDF </button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="app">
+			<div id="table_data"></div>
+		</div>
+	</div>
+
+
+	{% endblock body %}
+
+	{% block js %}
+	<script src="{% static 'assets/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/dataTables.responsive.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/responsive.bootstrap4.min.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/dataTables.bootstrap.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/edu/edu-routine-query.js' %}"></script>
+	{% endblock %}
+</div>

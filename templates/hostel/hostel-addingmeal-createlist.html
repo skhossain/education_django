@@ -1,0 +1,113 @@
+{% extends 'appauth/appauth-home.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Manage HostelAddMeal | {{ application_title }}
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card card-fluid">
+			<div class="card-body">
+				<div>
+					<form method="post" id="tran_table_data" data-url="{% url 'hostel-addingmeal-insert' %}" 
+						class="update-form">
+						<div class="form-group">
+							<div class="card">
+								<div class="card-body">
+									<div class="form-row">
+										<div class="form-group col-md-10 mb-0">
+											<h3 class="card-title"> Hostel Student To Meal Adding </h3>
+										</div>
+									</div>
+									<div>
+										{% csrf_token %}
+										<div class="form-row">
+											<div class="form-group col-md-3 mb-0">
+												{{ form.meal_id|as_crispy_field }}
+											</div>
+											
+                                            <div class="form-group col-md-3 mb-0">
+												<label>Select Student (ID) </label>
+												<select name="student_roll" id="id_student_roll" class="form-control" onchange="student_basic_info()">
+													<option>-----------</option>
+													{% for student in students %}
+														<option value="{{student.student_roll.student_roll}}">{{student}}</option>
+													{% endfor %}
+												</select>
+											</div>
+											<div class="form-group col-md-3 mb-0">
+												{{ form.meal_status|as_crispy_field }}
+											</div>
+											
+											<div class="form-group col-md-6 py-3 offset-md-3 mb-0">
+												<h3 class="card-title text-center"> Student Basic Info </h3>
+													<span id="table-data" >
+													
+													</span>
+											</div>
+										</div>
+										{% comment %} <button type="button" id="btnAddRecord" class="btn btn-primary">Create Admission Info</button> {% endcomment %}
+										<button type="button" id="btnAddRecord" class="btn btn-info float-right" onclick="add_meal_student_list()"> Adding Info</button>
+										<button type="button" id="btnSearch" class="btn btn-info pull right"> Search Info</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="app">
+
+			<div class="card card-fluid">
+				<div class="card-body">
+					<table id="dt-table-list" class="table dt-responsive w-100">
+						<thead>
+							<tr>
+								<th>Meal Name </th>
+								<th>Student Roll</th>
+								<th>Student Name</th>
+								<th> Meal Status</th>
+								<th> Action</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th>Meal Name </th>
+								<th>Student Roll</th>
+								<th>Student Name</th>
+								<th> Meal Status</th>
+								<th> Action</th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+
+	</div>
+
+	<div class="modal fade" id="edit_model" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			</div>
+		</div>
+	</div>
+
+	{% endblock body %}
+
+	{% block js %}
+	
+	<script src="{% static 'assets/javascript/moment.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/dataTables.responsive.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/responsive.bootstrap4.min.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/dataTables.bootstrap.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/hostel/hostel-addmeal-createlist.js' %}"></script>
+	{% endblock %}
+</div>

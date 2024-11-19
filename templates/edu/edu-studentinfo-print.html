@@ -1,0 +1,338 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<div class="modal-header"> </div>
+{% csrf_token %}
+<div class="container" >
+	<div class="card">
+		<div class="card-body">
+			<div id="section-to-print">
+				<div class="row">
+					<div class="col-12 text-center pt-5 form-info-header">
+						<p style="font-size:1.5rem;font-weight:bold; line-height:.2rem">{{form_header.academic_name}}</p>
+						{% if form_header.text_one %}
+						<p style="line-height:.2rem">{{form_header.text_one}}</p>
+						{% endif %}
+						{% if form_header.text_two %}
+						<p style="line-height:.2rem">{{form_header.text_two}}</p>
+						{% endif %}
+						{% if form_header.text_three %}
+						<p style="line-height:.2rem">{{form_header.text_three}}</p>
+						{% endif %}
+						{% if form_header.text_four %}
+						<p style="line-height:.2rem">{{form_header.text_four}}</p>
+						{% endif %}
+						{% if form_header.text_five %}
+						<p style="line-height:.2rem">{{form_header.text_five}}</p>
+						{% endif %}
+						<div class="student-image">
+							{% if students.profile_image %}
+							<img src="{{students.profile_image.url}}" alt="student image" style="width:100px;height:100px;border:1px solid;">
+							{% else %}
+							<strong>Student Image</strong>
+							{% endif %}
+						</div>
+						<div class="ac-logo">
+							{% if students.profile_image %}
+							<img src="{{form_header.logo.url}}" alt="LOGO" style="width:100px;height:100px;border:1px solid;">
+							{% else %}
+							<strong>LOGO</strong>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-body">
+						<div>
+						<input type="hidden" id="print_title" value="Student Information-{{students.student_roll}}">
+							<table class="table table-sm table-hover">
+								<tr>
+									<td colspan="6">
+										<table class="table table-sm table-striped table-hover">
+											<tr><th colspan="6" class="text-center">Student's Academic Information</th></tr>
+											<tr>
+												<th>Branch Code</th>
+												<td>:</td>
+												<td>{{students.branch_code | default:""}}</td>
+												<th>Contact Student</th>
+												<td>:</td>
+												<td>{{students.student_phone | default:""}}</td>
+											</tr>
+											<tr>
+												<th>Student Name</th>
+												<td>:</td>
+												<td>{{students.student_name}}</td>
+												<th>Student ID</th>
+												<td>:</td>
+												<td>{{students.student_roll}}</td>
+											</tr>
+											<tr>
+												<th>Class Name</th>
+												<td>:</td>
+												<td>{{students.class_id | default:""}}</td>
+												<th>Registration No.</th>
+												<td>:</td>
+												<td>{{students.student_reg | default:""}}</td>
+											</tr>
+											<tr>
+												<th>Class Roll</th>
+												<td>:</td>
+												<td>{{students.class_roll}}</td>
+												<th>Academic Year</th>
+												<td>:</td>
+												<td>{{students.academic_year}}</td>
+											</tr>
+											<tr>
+												<th>Shift Name</th>
+												<td>:</td>
+												<td>{{students.shift_id | default:""}}</td>
+												<th>Group Name</th>
+												<td>:</td>
+												<td>{{students.class_group_id | default:""}}</td>
+											</tr>
+											<tr>
+												<th>Admission Date</th>
+												<td>:</td>
+												<td>{{students.student_joining_date | default:""}}</td>
+												<th>Date of Birth</th>
+												<td>:</td>
+												<td>{{students.student_date_of_birth}}</td>
+											</tr>
+
+										</table>
+									</td>
+								</tr>
+
+								<tr>
+									<td colspan="6">
+										<table class="table table-sm table-striped table-hover">
+											<tr><th colspan="6" class="text-center">Student's Parents and Personal Information</th></tr>
+											<tr>
+												<th>Nic Name</th>
+												<td>:</td>
+												<td>{{students.student_nick_name | default:""}}</td>
+												<th>Blood Group</th>
+												<td>:</td>
+												<td>{{students.student_blood_group | default:""}}</td>
+											</tr>
+											<tr>
+												<th>Father's Name</th>
+												<td>:</td>
+												<td>{{students.student_father_name | default:""}}</td>
+												<th>Mother's Name</th>
+												<td>:</td>
+												<td>{{students.student_mother_name | default:""}}</td>
+											</tr>
+											<tr>
+												<th>Gender</th>
+												<td>:</td>
+												<td>{{students.student_gender | default:""}}</td>
+												<th>Religion</th>
+												<td>:</td>
+												<td>{{students.student_religion | default:""}}</td>
+											</tr>
+											<tr>
+												<th>Merital Status</th>
+												<td>:</td>
+												<td>{{students.student_marital_status | default:""}}</td>
+												<th>Student NID</th>
+												<td>:</td>
+												<td>{{students.student_national_id | default:""}}</td>
+											</tr>
+											<tr>
+												<th>Father's Phone</th>
+												<td>:</td>
+												<td>{{students.father_phone_number | default:""}}</td>
+												<th>Father's NID</th>
+												<td>:</td>
+												<td>{{students.father_nid | default:""}}</td>
+											</tr>
+											<tr>
+												<th>Father's Address</th>
+												<td>:</td>
+												<td>{{students.father_address | default:""}}</td>
+												<th>SMS to Father</th>
+												<td>:</td>
+												<td>{{students.sms_to_father | default:""}}</td>
+											</tr>
+											<tr>
+												<th>Father's Occupation</th>
+												<td>:</td>
+												<td>{{students.father_occupation_id | default:""}}</td>
+												<th>Father's Email</th>
+												<td>:</td>
+												<td>{{students.father_email_address | default:""}}</td>
+											</tr>
+											<tr>
+												<th>Mother's Occupation</th>
+												<td>:</td>
+												<td>{{students.mother_occupation_id | default:""}}</td>
+												<th>Mother's Phone</th>
+												<td>:</td>
+												<td>{{students.mother_phone_number | default:""}}</td>
+											</tr>
+											
+											<tr>
+												<th>Mother's NID</th>
+												<td>:</td>
+												<td>{{students.mother_nid | default:""}}</td>
+												<th>Mother's Address</th>
+												<td>:</td>
+												<td>{{students.mother_address | default:""}}</td>
+											</tr>
+											<tr>
+												<th>SMS to Mother</th>
+												<td>:</td>
+												<td>{{students.sms_to_mother | default:""}}</td>
+												<th>Student Email</th>
+												<td>:</td>
+												<td>{{students.student_email | default:""}}</td>
+											</tr>
+											<tr>
+												<th>Bith Certificate</th>
+												<td>:</td>
+												<td>{{students.student_birth_cert | default:""}}</td>
+												<th>Last Institute</th>
+												<td>:</td>
+												<td>{{students.last_institute_id | default:""}}</td>
+											</tr>
+											<tr>
+												<th>Student Status</th>
+												<td>:</td>
+												<td>{{students.student_status | default:""}}</td>
+												<th>Student Comments</th>
+												<td>:</td>
+												<td>{{students.student_comments | default:""}}</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+
+								
+								<tr>
+									<td colspan="6">
+										<table class="table table-sm table-hover">
+											<tr>
+												<th class="text-center">Present Address</th>
+												<th></th>
+												<th></th>
+												<th class="text-center">Permanent Address</th>
+											</tr>
+											<tr>
+												<th>Division</th>
+												<td>:</td>
+												<td>{{students.pre_division_id | default:""}}</td>
+												<td class="text-center">{{students.per_division_id | default:""}}</td>
+											</tr>
+											<tr>
+												<th>District</th>
+												<td>:</td>
+												<td>{{students.pre_district_id | default:""}}</td>
+												<td class="text-center">{{students.per_district_id | default:""}}</td>
+											</tr>
+											<tr>
+												<th>Upozila</th>
+												<td>:</td>
+												<td>{{students.pre_upozila_id | default:""}}</td>
+												<td class="text-center">{{students.per_upozila_id | default:""}}</td>
+											</tr>
+											<tr>
+												<th>Vill/Word</th>
+												<td>:</td>
+												<td>{{students.student_present_address | default:""}}</td>
+												<td class="text-center">{{students.student_permanent_address | default:""}}</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								
+								<tr>
+									<td colspan="6">
+										<table class="table table-sm table-striped table-hover">
+											<tr><th colspan="6" class="text-center">Student's Legal and Local Guardian's Information</th></tr>
+											<tr>
+												<th>Legal Guardian Name</th>
+												<td>:</td>
+												<td>{{students.legal_guardian_name | default:""}}</td>
+												<th>Local Guardian Name</th>
+												<td>:</td>
+												<td>{{students.local_guardian_name | default:""}}</td>
+											</tr>
+											<tr>
+												<th>Legal Guardian Contact</th>
+												<td>:</td>
+												<td>{{students.legal_guardian_contact | default:""}}</td>
+												<th>Local Guardian Contact</th>
+												<td>:</td>
+												<td>{{students.local_guardian_contact | default:""}}</td>
+											</tr>
+											<tr>
+												<th>Legal Guardian NID</th>
+												<td>:</td>
+												<td>{{students.legal_guardian_nid | default:""}}</td>
+												<th>Local Guardian NID</th>
+												<td>:</td>
+												<td>{{students.local_guardian_nid | default:""}}</td>
+											</tr>
+											<tr>
+												<th>Legal Guardian Occupation</th>
+												<td>:</td>
+												<td>{{students.legal_guardian_occupation_id | default:""}}</td>
+												<th>Local Guardian Occupation</th>
+												<td>:</td>
+												<td>{{students.local_guardian_occupation_id | default:""}}</td>
+											</tr>
+											<tr>
+												<th>Legal Guardian Address</th>
+												<td>:</td>
+												<td>{{students.legal_guardian_address | default:""}}</td>
+												<th>Local Guardian Address</th>
+												<td>:</td>
+												<td>{{students.local_guardian_address | default:""}}</td>
+											</tr>
+											<tr>
+												<th>Legal Guardian Relation</th>
+												<td>:</td>
+												<td>{{students.legal_guardian_relation | default:""}}</td>
+												<th>Local Guardian Relation</th>
+												<td>:</td>
+												<td>{{students.local_guardian_relation | default:""}}</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								
+							</table>
+							<h6 class="text-center">Education Qualification</h6>
+								<table class="table table-sm table-striped table-hover">
+									<tr>
+										<th>Degree Name</th>
+										<th>Board Name</th>
+										<th>Point</th>
+										<th>Grade</th>
+										<th>Passing Year</th>
+										<th class="w-25">Institute Name</th>
+									</tr>
+									{% for education in students.eq_student_roll.all %}
+										
+									<tr>
+										<td>{{education.degree_name | default:""}}</td>
+										<td>{{education.board_name | default:""}}</td>
+										<td>{{education.result_point | default:""}}</td>
+										<td>{{education.result_grate | default:""}}</td>
+										<td>{{education.passing_year | default:""}}</td>
+										<td>{{education.institute_id | default:""}}</td>
+										</tr> 
+										{% endfor %}
+								</table>
+						</div>
+					</div>
+				</div> 
+		</div>
+	</div>
+</div>
+<div class="action text-right">
+	<button type="button" class="btn btn-danger my-3 mr-2" onclick="print_div('section-to-print')">Print</button>
+	<button type="button" class="btn btn-info my-3 mr-3"  onclick="modal_close('edit_model')">Close</button>
+</div>
+<script src="{% static 'assets/javascript/pages/common-submit-editdata.js' %}"></script>

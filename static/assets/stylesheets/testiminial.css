@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+#testimonial{
+    width:281mm;
+    height: 194mm;
+    border: 10mm solid transparent;
+    border-color: darkcyan;
+    border-image: url('../images/icon/border_2.png') 30 round;
+    margin:4mm auto;
+    position: relative;  
+    
+}
+.bold-italic{
+    font-family: 'Lobster Two', cursive;
+    font-weight: bold;
+    font-size: 16px;
+    font-style: italic;
+}
+.backagroung_image{
+    width: 100mm;
+    height: 100mm;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: .1;
+}
+.backagroung_image img{
+    width: 100%;
+    height: 100%;
+}
+@media print{
+    
+.no-print{
+display: none;
+}
+}

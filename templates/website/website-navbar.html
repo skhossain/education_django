@@ -1,0 +1,39 @@
+{% load static %}
+<div class="row sticky-top">
+    <nav id="mainmenu" class="mainmenu navbar navbar-dark bg-blue-800">
+        <ul class="mainweb-menu">
+            {% for item in navbar_menu %}
+            {% if not item.nsm_navbar_lavel.all %}
+            <li class="bg-rose-600"><a href="/{{item.menu_url|default:''}}" class="sm:text-white">{{item}}</a></li>
+            {%else%}            
+            <li class="border-b last:border-b-0 sm:border-b-0 border-rose-300"><a class="text-red-500 sm:text-white" href="#">{{item}}</a>
+                <ul class="dropdown">
+                    {%for sub_item in item.nsm_navbar_lavel.all %}
+                    {% if sub_item.status == 1 %}
+                    <li class="bg-rose-600 text-white">
+                        {% if "http" in sub_item.menu_url or "https" in sub_item.menu_url %}
+                        <a href="{{sub_item.menu_url|default:'#'}}" class="sm:text-white">{{sub_item}}</a>
+                        {% else %}
+                        <a href="/{{sub_item.menu_url|default:'#'}}" class="sm:text-white">{{sub_item}}</a>
+                        {% endif %}
+                        
+                    </li>
+                    {%endif%}
+                    {%endfor%}
+                </ul>
+            </li>
+            {%endif%}
+            {% endfor %}
+
+        </ul>
+        <div id="top-search-bar" class="collapse">
+            <div class="container">
+                <form role="search" action="#" class="search_form_top" method="get">
+                    <input type="text" placeholder="Type text and press Enter..." name="s" class="form-control"
+                        autocomplete="off">
+                    <span class="search-close"><i class="fa fa-search"></i></span>
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>

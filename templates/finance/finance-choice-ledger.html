@@ -1,0 +1,4 @@
+<option value="">----------</option>
+{% for data in list_data %}
+<option value="{{ data.gl_code }}">{{ data.gl_name }} {{ data.reporting_gl_code|default_if_none:"" }}</option>
+{% endfor %}

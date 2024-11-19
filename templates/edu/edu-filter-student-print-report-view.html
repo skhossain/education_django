@@ -1,0 +1,120 @@
+{% extends 'appauth/appauth-report-base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+Student Filter | {{ application_title }}
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <div id="receiptData">
+        <page size="A4">
+            <div id="receipt-data">
+                <div class="text">
+                    <div class="inv-head">
+                        <div class="inv-right">
+                            <header class="receipt-header">
+                                <h2>{{ header.academic_name }}</h2>
+                                {% if header.text_one %}
+                                    <p style="line-height:1.3px">{{ header.text_one }}</p>
+                                {% endif %}
+                                {% if header.text_two %}
+                                    <p style="line-height:1.3px">{{ header.text_two }}</p>
+                                {% endif %}
+                                {% if header.text_three %}
+                                    <p style="line-height:1.3px">{{ header.text_three }}</p>
+                                {% endif %}
+                                {% if header.text_four %}
+                                    <p style="line-height:1.3px">{{ header.text_four }}</p>
+                                {% endif %}
+                                {% if header.text_five %}
+                                    <p style="line-height:1.3px">{{ header.text_five }}</p>
+                                {% endif %}
+                                <h4> Student Report </h4>
+                            </header>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p style="font-size: 14px;"><strong>Reporting Date : </strong> {% now "SHORT_DATE_FORMAT" %} </p>
+                        </div>
+                        <div class="col">
+                            <p style="font-size: 14px;"><strong>Academic Year : </strong> {{ p_academic_year }}</p>
+                        </div>
+                        {% if p_class_name %}
+                        <div class="col">
+                            <p style="font-size: 14px;"><strong>Class Name : </strong> {{p_class_name }}</p>
+                        </div>
+                        {% endif %}
+                        {% if p_class_group %}
+                        <div class="col">
+                            <p style="font-size: 14px;"><strong>Class Group : </strong> {{p_class_group }}</p>
+                        </div>
+                        {% endif %}
+                        {% if p_gender %}
+                        <div class="col">
+                            <p style="font-size: 14px;" class="text-end"><strong>Gender : </strong> {{ p_gender }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div style="clear:both;"></div>
+                    <table class="table table-striped" style="border-left: none !important;">
+
+                        <thead>
+                            <tr>
+                                <th class="text-center " style="border-left:1px solid !important;">Serial</th>
+                                <th class="text-center">student ID
+                                </th>
+                                <th class="text-center ">Roll No </th>
+                                <th class="text-center ">class Name </th>
+                                <th class="text-center ">Name </th>
+                                <th class="text-center ">Group</th>
+                                <th class="text-center ">Gender</th>
+                                <th class="text-center ">Father Name</th>
+                                <th class="text-center ">Mother Name</th>
+                                <th class="text-center ">Father Mobile No</th>
+                                <th class="text-center">Mother Mobile No</th>
+                            </tr>
+                        </thead>
+                        <tbody style="background-color: transparent !important;">
+
+                            {% for rows in dtl_data %}
+
+                            <tr style="background-color: transparent !important;">
+                                <td style="border-left:1px solid !important;">{{ forloop.counter }}</td>
+                                <td>{{rows.student_roll}}</td>
+                                <td class="text-left">{{rows.class_roll}} </td>
+                                <td class="text-left">{{rows.class_id.class_name}} </td>
+                                <td class="text-left">{{rows.student_name}} </td>
+                                <td class="">{{rows.class_group_id.class_group_name}}</td>
+                                <td class="">{{rows.get_student_gender_display}}</td>
+                                <td class="">{{rows.student_father_name}}</td>
+                                <td class="">{{rows.student_mother_name}}</td>
+                                <td class="">{{rows.father_phone_number}}</td>
+                                <td class="">{{rows.mother_phone_number}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <!-- <tfoot>
+                            <tr>
+                                <th colspan="3" class="text-right" style="border:none !important;"> Total :</th>
+                                <th colspan="1" class="text-right" style="border:none !important;"> {{
+                                    total_credit_amount|default_if_none:""|intcomma }} </th>
+                                <th colspan="1" class="text-right" style="border:none !important;"> {{
+                                    total_debit_amount|default_if_none:""|intcomma }} </th>
+                                <th colspan="1" class="text-right" style="border:none !important;"> {{
+                                    total_account_balance|default_if_none:""|intcomma }} </th>
+                            </tr>
+                        </tfoot> -->
+                    </table>
+                </div>
+            </div>
+        </page>
+    </div>
+
+</div>
+{% endblock body %}

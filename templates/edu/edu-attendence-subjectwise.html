@@ -1,0 +1,123 @@
+ <div class="app">
+			<div class="card card-fluid" id="print_result_data">
+				<div class="card-body">
+                    <br>
+                   <h3 class="text-center"><strong>All Students Attendancesheet</strong></h3>
+                    <br>
+                    <br>
+                    <div class="card-body">
+				<div class="row">
+					<div class="col-md-4">
+					<div class="row">
+					<div class="col-12">
+						<strong>Academic Year :</strong>
+
+							{{sheet.academic_year}}
+						</div>
+						<div class="col-12">
+							<strong>Months :</strong>
+							{% comment %} {{ month_number| get_month_name  }} {% endcomment %}
+							{{sheet.month_number}}
+						</div>
+						<div class="col-12">
+
+							<strong>Class :</strong>
+
+							{{sheet.class_id}}
+						</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="row">
+							<div class="col-12">
+							<strong>Class Group :</strong>
+
+							{{sheet.class_group_id}}
+						</div>
+						<div class="col-12">
+							<strong> Section :</strong>
+
+							{{sheet.section_id}}
+						</div>
+						<div class="col-12">
+							<strong>Subject :</strong>
+
+							{{sheet.subject_id}}
+						</div>
+						</div>
+						</div>
+						
+					</div>
+				</div>
+
+			<div class="table-responsive">
+  
+
+				<table  class="table table-bordered">
+					<thead>
+                        <tr>
+                            <th>Student Roll</th>
+                            <th>Student Name</th>
+							<th>Day 1</th>
+							<th>Day 2</th>
+							<th>Day 3</th> 
+							<th>Day 4</th>
+							<th>Day 5</th>
+							<th>Day 6</th>
+							<th>Day 7</th>
+							<th>Day 8</th>
+							<th>Day 9</th>
+							<th>Day 10</th>
+							<th>Day 11</th>
+							<th>Day 12</th>
+							<th>Day 13</th>
+							<th>Day 14</th>
+							<th>Day 15</th>
+							<th>Day 16</th>
+							<th>Day 17</th>
+							<th>Day 18</th>
+							<th>Day 19</th>
+							<th>Day 20</th>
+							<th>Day 21</th>
+							<th>Day 22</th>
+							<th>Day 23</th>
+							<th>Day 24</th>
+							<th>Day 25</th>
+							<th>Day 26</th>
+							<th>Day 27</th>
+							<th>Day 28</th>
+							<th>Day 29</th>
+							<th>Day 300</th>
+
+                            
+                        
+						</tr>
+					</thead>
+
+					<tr>
+						<td>12332</td>
+						<td>Tapos</td>
+					</tr>
+                     {% comment %} {%for attendence in rolls  %}
+                        <tr>
+                            <td>{{attendence.student_roll}}</td>
+                            <td>{{attendence.student_name}}{{ student_roll  |  get_student_name   }}</td>
+ 
+                        </tr>
+                    {%endfor%}     {% endcomment %}
+						
+				</table>
+                    </div>
+                    
+			</div>
+            <button type="button" class="btn btn-info my-3 mr-3"  onclick="print_div('print_result_data')">Print</button>
+ 
+
+		</div>
+        <div class="modal fade" id="edit_model" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			</div>
+		</div>
+
+</div>

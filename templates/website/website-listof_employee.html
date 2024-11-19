@@ -1,0 +1,80 @@
+{% extends 'website/website-layout.html' %}
+{% load static %}
+{% load website_custom_tags %}
+{% block title_block %} {{title}} {% endblock %}
+{% block css_block %}
+{% endblock %}
+
+{% block header_block %}
+{% include "website/website-hader.html" %}
+{% endblock %}
+{% block navbar_block %}
+{% include "website/website-navbar.html" %}
+{% endblock %}
+{% block body_block %}
+
+<div>
+
+    <div class="col-md-12 text-left"
+        style="background-color: #DBECFD; padding-left: 0px; padding-right: 10px; font-family: SolaimanLipi !important;text-align: justify !important;">
+
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ছবি</th>
+                    <th>নাম</th>
+                    <th>পদবি</th>
+                    <th>মোবাইল নং</th>
+                    <th>ই-মেইল</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in pages %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td> <img src="/media/{{item.profile_image}}" alt="image" style="width: 100px;"></td>
+                    <td>{{ item.employee_name }}</td>
+                    <td>{{ item.designation_id|get_designation_name }}</td>
+                    <td>{{ item.employee_phone_office }}</td>
+                    <td>{{ item.email_official }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">No items found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <hr>
+        <div class="pagination">
+            <span class="step-links">
+                {% if pages.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ pages.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current-page">Page {{ pages.number }}</span>
+
+                {% if pages.has_next %}
+                <a href="?page={{ pages.next_page_number }}">next</a>
+                <a href="?page={{ pages.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+{% block right_sidebar_block %}
+{% include "website/website-sidebar-right.html" %}
+<div>
+    {% include "website/website-form-download.html" %}
+</div>
+{% endblock %}
+
+{% block footer_block %}
+{% include "website/website-footer.html" %}
+{% endblock %}

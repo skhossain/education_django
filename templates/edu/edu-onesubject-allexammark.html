@@ -1,0 +1,89 @@
+<div class="container" >
+	
+	<div class="card">
+		<div class="card card-fluid" id="print-student-result">
+			<input type="hidden" id="print_title" value="Result Information-">				
+			<div class="card-body">
+				<div class="row">
+					<div class="col-12 text-center">
+						<h5>{{institute.academic_name}}</h5>
+						<p style="line-height:1px">{{institute.academic_address}}</p>
+						<p style="line-height:1px"><b>Subject: {% with exam|first as exam_data %}
+								{{exam_data.subject_id}}
+							{% endwith %}
+							</b>
+						</p>
+						<h5 style="font-size:.9rem"><u>Marks Sheet</u></h5>
+					</div>
+				</div>
+			
+				{% with exam|first as exam_data %}
+				<div class="row">
+					<div class="col-md-6">
+							<p style="line-height:1px">
+								<strong>Student Name :</strong>
+								{{exam_data.student_roll.student_name}}
+							</p>
+							<p style="line-height:1px">
+								<strong>Student Roll :</strong>
+								{{exam_data.student_roll.student_roll}}
+							</p>
+							<p style="line-height:1px">
+								<strong>Class :</strong>
+								{{exam_data.class_id}}
+							</p>
+							{% if exam_data.exam_id.class_group_id %}
+							<p style="line-height:1px">
+								<strong>Group Name :</strong>
+								{{exam_data.exam_id.class_group_id}}
+							</p>
+							{% endif %}
+						
+					</div>
+					<div class="col-md-6 text-right">
+						<p style="line-height:1px">
+							<strong>Student Type :</strong>
+							{{exam_data.student_roll.get_student_type_display}}
+						</p>
+						<p style="line-height:1px">
+							<strong>Academic Year :</strong>
+							{{exam_data.academic_year.academic_year}}
+						</p>
+					</div>
+				</div>
+				{% endwith %}
+				<br>
+				<br>
+			<table  class="table table-bordered text-center">							
+			<tr>
+				<th class="align-middle">SL No.</th>
+				<th class="align-middle">Exam Name</th>			
+				<th class="align-middle">Total Marks</th>				
+				<th class="align-middle">Total Obtain  Marks</th>
+				<th class="align-middle">GPA</th>
+				<th class="align-middle">GRADE NAME </th>
+			</tr>
+			{% for mark_list in exam %}
+				<tr>
+					<td class="align-middle">{{forloop.counter}}</td>
+            		<td class="align-middle">{{ mark_list.exam_id }}</td>
+            		<td class="align-middle">{{ mark_list.total_exam_marks }}</td>
+            		<td class="align-middle">{{mark_list.obtain_marks}}</td>
+            		<td class="align-middle">{{mark_list.grade_point_average}}</td>
+            		<td class="align-middle">{{mark_list.result_grade}}</td>
+            	    
+            	</tr>
+			{% endfor %}		
+			</table>
+		</div>
+
+	</div>		
+		<div class="card-footer">
+			<div class="ml-auto">
+				<button type="button" class="btn btn-info my-1 mr-3 mt-5 mb-5" onclick="print_div('print-student-result')">Print</button>
+				<button type="button" class="btn btn-danger my-1 mr-3 mt-5 mb-5"  onclick="modal_close('edit_model')">Close</button>
+			</div>
+		</div>
+	</div>						
+
+</div>

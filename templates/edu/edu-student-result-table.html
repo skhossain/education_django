@@ -1,0 +1,120 @@
+{% load edu_custom_tags %}
+
+<div class="app">
+	<div class="card card-fluid" id="print_result_data">
+		<div class="card-body">
+            <div class="row">
+                <div class="col-md-4 offset-4 text-center">
+                    <h5>{{institute.academic_name}}</h5>
+                    <p>{{institute.academic_address}}</p>
+                    <p>{{institute.academic_mobile_1}}, {{institute.academic_mobile_2}}
+                    </p>
+                </div>
+                <div class="col-md-4 offset-4 text-center">
+                    <h5><u>Exam Mark List</u></h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-center">
+                  <strong>Academic Year:</strong> {{result_period.academic_year}}
+                </div>
+                <div class="col-md-4 text-center">
+                    <strong>Class:</strong> {{result_period.class_id}}
+                </div>
+                {% if result_period.class_group_id %}
+                <div class="col-md-4 text-center">
+                    <strong>Group:</strong> {{result_period.class_group_id}}
+                </div>
+                {% endif %}
+                <div class="col-md-4 text-center">
+                    <strong>Exam Term:</strong> {{result_period.term_id}}
+                </div>
+                <div class="col-md-4">
+                    <p class="font-weight-bold">Pass: {{Pass_Percentage}}%, <span class="text-red">Fail: {{Fail_Percentage}}%</span></p>
+                </div>
+            </div>
+            <br>
+            <br>
+            <input type="hidden" id="print_title" value="Student Result List">
+			<table id="dt-table-list" class="table table-bordered text-center">
+				<thead>
+                    <tr>
+                        <th>Roll & ID</th>
+                        <th>Name</th>
+                        <th style="width:100px">Subject</th>
+                        
+                        <th>Mark</th>
+                        <th>Ob:&nbsp;Mark</th>
+                        <th>GPA</th>
+                        <th>LG</th>
+                        <th>Total&nbsp;Mark</th>
+                        <th>Final&nbsp;GPA</th>
+                        <th>Final&nbsp;Grade</th>
+                        <th>Merit&nbsp;Pos:</th>
+					</tr>
+				</thead>
+                {% for mark_list in mark %}
+                    <tr>
+                        {% if mark_list.row_span %}
+                        <td class="align-middle" rowspan="{{ mark_list.item_count }}" id="marksheet{{ mark_list.student_roll }}">
+                            {{mark_list.class_roll}}
+                            {% if mark_list.final_result_gpa > 0 %}
+                                {% for total in total_mark%}
+                                {% if mark_list.student_roll == total.student_roll %}
+                                    <button type="button" class="btn btn-info btn-sm" onclick='show_marksheet("{{ mark_list.student_roll }}","{{total.position}}")'> <i class="fas fa-eye"></i></button>
+                                {% endif %}
+                                {% endfor %}
+                            {% else %}
+                            <button type="button" class="btn btn-info btn-sm" onclick='show_marksheet("{{ mark_list.student_roll }}","Fail")'> <i class="fas fa-eye"></i></button>    
+                            {% endif %}
+                            
+                            
+                            {{ mark_list.student_roll }}</td>
+                        <td class="align-middle" rowspan="{{ mark_list.item_count }}">{{ mark_list.student_name }}</td>
+                        {% endif %}
+                        <td class="align-middle"><i onclick='show_exam_mark("{{ mark_list.student_roll }}","{{ mark_list.subject_id }}")' class="fas fa-eye"></i>&nbsp;{{mark_list.subject_name}}</td>
+                        <td class="align-middle">{{ mark_list.total_marks }}</td>
+                        <td class="align-middle">{{mark_list.total_obtain_marks}}</td>
+                        <td class="align-middle">{{mark_list.result_gpa}}</td>
+                        <td class="align-middle">{{mark_list.grade_name}}</td>
+                        {% if mark_list.row_span %}
+                        <td class="align-middle" rowspan="{{ mark_list.item_count }}">
+                            {% for total in total_mark%}
+                            {% if mark_list.student_roll == total.student_roll %}
+                                {{total.mark}}
+                            {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td class="align-middle" rowspan="{{ mark_list.item_count }}">{{ mark_list.final_result_gpa }}</td>
+                        <td class="align-middle" rowspan="{{ mark_list.item_count }}">{{ mark_list.final_grade_name }}</td>
+                        <td class="align-middle" rowspan="{{ mark_list.item_count }}">
+                            {% if mark_list.final_result_gpa > 0 %}
+                                {% for total in total_mark%}
+                                {% if mark_list.student_roll == total.student_roll %}
+                                    {{total.position}}{% if total.position == 1 %}st{% elif total.position == 2 %}nd{% elif total.position == 3 %}rd{% else %}th{% endif %}
+                                {% endif %}
+                                {% endfor %}
+                            {% else %}
+                            Fail
+                            {% endif %}
+                        </td>
+                        {% endif %}
+                    </tr>
+
+                {% endfor %}
+
+							
+			</table>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-info my-3 mr-3"  onclick="print_div('print_result_data')">Print</button>
+		
+    <div class="modal fade" id="edit_model" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+</div>
+

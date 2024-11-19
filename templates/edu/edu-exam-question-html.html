@@ -1,0 +1,134 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<div>
+{% for answer_info in ans_info %}
+{% autoescape off %} {{answer_info.online_exam_id.basic_info}} {% endautoescape %}
+						<p class="text-center"><strong>{{answer_info.online_exam_id.exam_name}}</strong></p>
+						<div class="row">
+							<div class="col-4">
+								<strong> Date: </strong> {{answer_info.online_exam_id.exam_date}}<br>
+								<strong> Exam Time: </strong> {{answer_info.online_exam_id.exam_start_time}} to {{ans_info.online_exam_id.exam_end_time}}
+							</div>
+							<div class="col-4 text-center">
+								<strong>Class: </strong>{{answer_info.online_exam_id.exam_id.class_id}} <br>
+									<strong>Subject: </strong> {{answer_info.online_exam_id.exam_id.subject_id}}
+							</div>
+							<div class="col-4 text-right">
+								<strong>Total Mark: </strong>{{answer_info.total_marks}}
+							</div>
+						</div>						
+						<hr>
+					</div>
+					<div class="row">
+						<div class="col-1 h6">LS</div>
+						<div class="col-10 h6">Question</div>
+						<div class="col-1 h6">Marks</div>
+					</div>
+					 {% for que in answer_info.ans_info.all %}
+
+					<div class="row mb-3 pt-2 pb-2" id="q_submit" style="border:1px dotted #444">
+						<div class="col-1">
+							{{ forloop.counter }}
+						</div>
+						<div class="col-10 mb-0">
+							{% autoescape off %} {{que.question_id.question}} {% endautoescape %}
+							<div class="row">
+								{% ifequal  que.question_id.question_type "MCQ" %}
+								{% for option in que.oqadtl_answer_id.all %}
+								<div class="form-check col-12">
+									<input type="radio" class="form-check-input" name="answer{{que.answer_id}}"
+									id="answer_input{{option.id}}" onchange='mcq_rightAns(this.value,"{{option.id}}")' value="1" {{ option.is_correct_answer | yesno:'checked,' }}>
+										<label for="answer_input{{option.id}}" class="form-check-label">
+												{{option.answer_option}}
+											</label>
+								</div>
+							
+								{% endfor %}
+								{% endifequal  %}
+
+								{% ifequal  que.question_id.question_type "MCQS"%}
+								{% for option in que.oqadtl_answer_id.all %}
+								<div class="col-12">
+									<input type="checkbox" name="answer{{que.answer_id}}" id="answer_input{{option.id}}" onchange='mcqs_rightAns(this,"{{option.id}}")' value="{{option.question_option}}" {{ option.is_correct_answer | yesno:'checked,' }}>
+									<label for="answer_input{{option.id}}" class="form-check-label">
+										{{option.answer_option}}
+									</label>
+								</div>
+								
+								{% endfor %}
+								{% endifequal  %}
+								{% ifequal  que.question_id.question_type "Short"%}
+								{% if que.oqadtl_answer_id.all %}
+								{% for option in que.oqadtl_answer_id.all %}
+								<div class="col-12">
+									<input type="text" class="form-control" onchange='text_answer(this.value,"{{que.answer_id}}")' value="{{option.answer_option}}">
+								</div>
+								{% endfor %}
+								{% else %}
+								<div class="col-12">
+									<input type="text" class="form-control" onchange='text_answer(this.value,"{{que.answer_id}}")' value="">
+								</div>
+								{% endif %}
+								{% endifequal  %}
+							
+								{% ifequal  que.question_id.question_type "Creative"%}
+								{% if que.oqadtl_answer_id.all %}
+								{% for option in que.oqadtl_answer_id.all %}
+								<div class="col-12">
+									<textarea row="2" class="form-control" onchange='text_answer(this.value,"{{que.answer_id}}")' value="{{option.answer_option}}">{{option.answer_option}}</textarea>
+								</div>
+								{% endfor %}
+								{% else %}
+								<div class="col-12">
+									<textarea row="2" class="form-control" onchange='text_answer(this.value,"{{que.answer_id}}")'></textarea>
+								</div>
+								{% endif %}
+								{% endifequal  %}
+									 
+							</div>
+						</div>
+						<div class="col-1 mb-0">
+							{{que.question_marks}}
+						</div>
+						
+					</div>
+					{% endfor %} 
+					<input type="checkbox" class="input" id="answer_input" >
+					<label for="answer_input" class="form-check-label">
+						Confirm
+					</label>
+					 <br/><br/>
+					<button type="button" id="exam_submit_button" onclick='exam_submit("{{answer_info.ans_info_id}}")' class=" btn btn-primary ml-auto " data-validate="agreement" disabled="disabled">Submit</button>
+{% endfor %}
+</div>
+{% block js %}
+
+	<script>
+		$(function() {
+			$('.input').click(function() {
+				if ($(this).is(':checked')) {
+					$('#exam_submit_button').removeAttr('disabled');
+				} else {
+					$('#exam_submit_button').attr('disabled', 'disabled');
+				}
+			});
+		});
+		
+	</script>
+	{% csrf_token %}
+	<script>
+		function exam_submit(id) { 
+		
+		$.ajax({
+			url:"/edu-questionSubmit-button/"+id,
+			datatype:'json',
+			type:'get',
+			success: function (data){
+				if(data.publish_status=="Submitted"){
+					window.location.reload()
+				}
+			}
+		})
+	}  
+	</script>
+{% endblock %}

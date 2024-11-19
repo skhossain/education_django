@@ -1,0 +1,45 @@
+{% extends 'appauth/appauth-home.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Manage Department | {{ application_title }}
+{% endblock %}
+
+{% block body %}
+<table id="dt-table-list" class="table dt-responsive nowrap w-100">
+    <thead>
+        <tr>
+            <th>LOGID</th>
+            <th>  USERID </th>
+            <th> CHECKTIME </th>
+            <th> CHECKTYPE </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        
+        {%for data in data %}
+        <tr>
+            <th> {{data.LOGID}} </th>
+            <th> {{data.USERID}} </th>
+            <th> {{data.CHECKTIME}} </th>
+            <th> {{data.CHECKTYPE}} </th>
+            
+            
+        </tr>
+        {%endfor%}
+
+    </tbody>
+    <tfoot>
+        <th>LOGID</th>
+        <th>  USERID </th>
+        <th> CHECKTIME </th>
+        <th> CHECKTYPE </th>
+    </tfoot>
+</table>
+
+
+
+
+{%endblock body%}

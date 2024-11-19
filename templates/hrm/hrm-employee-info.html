@@ -1,0 +1,1109 @@
+{% extends 'appauth/appauth-home.html' %} {% load static %} {% load crispy_forms_tags %} {% block title %} Manage
+Employee | {{ application_title }}
+{% endblock %} 
+{% block css %}
+<link rel="stylesheet" href="{% static 'assets/javascript/cropper/cropper.min.css' %}">
+{% endblock %}
+
+{% block body %}
+
+<div class="row" style="color: black;font-weight:400;">
+	<div class="col-lg-12">
+				<div>
+					<div>
+						<div class="page-section">
+							<div class="section-block">
+								<!-- Default Steps -->
+								<!-- .bs-stepper -->
+								<div id="stepper" class="bs-stepper">
+									<!-- .card -->
+									<div class="card">
+										<!-- .card-header -->
+										<div class="card-header">
+											<h3 class="card-title text-center">{{title}}</h3>
+
+											<!-- .steps -->
+											<div class="steps steps-" role="tablist">
+												<ul>
+
+													<li class="step active" data-target="#test-l-1"
+														data-validate="fieldset01">
+														<a href="#" class="step-trigger" tabindex="-1"
+															aria-selected="true"><span
+																class="step-indicator step-indicator-icon"><i
+																	class="oi oi-account-login"></i></span>
+															<span class="d-none d-sm-inline">Employee Details</span></a>
+													</li>
+
+													<li class="step" data-target="#test-l-2" data-validate="fieldset02">
+														<a href="#" class="step-trigger" tabindex="-1"
+															aria-selected="false"><span
+																class="step-indicator step-indicator-icon"><i
+																	class="oi oi-person"></i></span>
+															<span class="d-none d-sm-inline">Employee Education</span></a>
+													</li>
+													<li class="step" data-target="#test-l-3" data-validate="fieldset03">
+														<a href="#" class="step-trigger" tabindex="-1"
+															aria-selected="false"><span
+																class="step-indicator step-indicator-icon"><i
+																	class="oi oi-credit-card"></i></span>
+															<span class="d-none d-sm-inline">Employee Experience</span></a>
+													</li>
+													<li class="step" data-target="#test-l-4" data-validate="agreement">
+														<a href="#" class="step-trigger" tabindex="-1"
+															aria-selected="false"><span
+																class="step-indicator step-indicator-icon"><i
+																	class="oi oi-check"></i></span>
+															<span class="d-none d-sm-inline">Employee References</span></a>
+													</li>
+
+													<li class="step" data-target="#test-l-5" data-validate="agreement">
+														<a href="#" class="step-trigger" tabindex="-1"
+															aria-selected="false"><span
+																class="step-indicator step-indicator-icon"><i
+																	class="oi oi-check"></i></span>
+															<span class="d-none d-sm-inline">Employee Image</span></a>
+													</li>
+
+												</ul>
+											</div>
+
+											<!-- /.steps -->
+										</div>
+										<!-- /.card-header -->
+										<!-- .card-body -->
+										<div class="card-body">
+											<form method="post" id="stepper-form" name="stepperForm" 
+												data-url="{% url 'hrm-employee-info-insert' %}"
+												class="update-form p-lg-4 p-sm-3 p-0">
+												<!-- tran_table_data -->
+												{% csrf_token %}
+												<!-- .content -->
+												<div id="test-l-1" class="content fade active dstepper-block">
+													<!-- fieldset -->
+													<fieldset>
+													
+																<!-- .card -->
+																<div class="card bg-light">
+																<!-- .card  body-->
+																	<div class="card-body p-2">
+																<div class="d-flex">
+																	<legend class="text-center">Employee Personal Information</legend>
+																</div>
+														<div class="form-row">
+																
+															<!-- .form-group -->
+															<div class="form-group col-md-3 mb-0">
+																<div class="p-0 m-0">
+																	{{ form.employee_name|as_crispy_field }}
+																</div>
+															</div>
+															<!-- /.form-group -->
+															<!-- .form-group -->
+															<div class="form-group col-md-3 mb-0">
+																<div class="p-0 m-0">
+																	{{ form.employee_father_name|as_crispy_field}}
+																</div>
+															</div>
+															<!-- /.form-group -->
+															<!-- .form-group -->
+															<div class="form-group col-md-3 mb-0">
+																<div class="p-0 m-0">
+																	{{ form.employee_mother_name|as_crispy_field}}
+																</div>
+															</div>
+															<!-- /.form-group -->
+																	<!-- .form-group -->
+																	<div class="form-group col-md-3 mb-0">
+																		<div class="p-0 m-0">
+																			{{form.employee_date_of_birth|as_crispy_field}}
+																		</div>
+																	</div>
+																	<!-- /.form-group -->
+
+																	<!-- .form-group -->
+															<div class="form-group col-md-3 mb-0">
+																<div class="p-0 m-0">
+																	{{ form.employee_blood_group|as_crispy_field}}
+																</div>
+															</div>
+																	<!-- /.form-group -->
+
+															<!-- /.form-group -->
+															<div class="form-group col-md-3 mb-0">
+																<div class="p-0 m-0">
+																	{{ form.employee_sex|as_crispy_field }}
+																</div>
+															</div>
+															<!-- /.form-group -->
+															<!-- /.form-group -->
+															<div class="form-group col-md-3 mb-0">
+																<div class="p-0 m-0">
+																	{{form.employee_marital_status|as_crispy_field}}
+																</div>
+															</div>
+															<!-- /.form-group -->
+															<div class="form-group col-md-3 mb-0">
+																<div class="p-0 m-0">
+																	{{form.employee_religion|as_crispy_field}}
+																</div>
+															</div>
+															<!-- /.form-group -->
+															<div class="form-group col-md-3 mb-0">
+																<div class="p-0 m-0">
+																	{{ form.employee_national_id|as_crispy_field}}
+																</div>
+															</div>
+															<!-- /.form-group -->
+																<div class="form-group col-md-12 mb-0">
+																	<div class="p-0 m-0">
+																		<h6 class="text-center">Contact Information</h6>
+																	
+																	</div>
+																	<hr>
+																</div>
+															<!-- /.form-group -->
+															<div class="form-group col-md-3 mb-0">
+																<div class="p-0 m-0">
+																	{{ form.country_id|as_crispy_field }}
+																</div>
+															</div>
+															<!-- /.form-group -->
+															<!-- /.form-group -->
+															<div class="form-group col-md-3 mb-0">
+																<div class="p-0 m-0">
+																	{{ form.division_id|as_crispy_field }}
+																</div>
+															</div>
+															<!-- /.form-group -->
+
+															<!-- /.form-group -->
+															<div class="form-group col-md-3 mb-0">
+																<div class="p-0 m-0">
+																	{{ form.district_id|as_crispy_field }}
+																</div>
+															</div>
+															<!-- /.form-group -->
+															<!-- /.form-group -->
+															<div class="form-group col-md-3 mb-0">
+																<div class="p-0 m-0">
+																	{{ form.upozila_id|as_crispy_field }}
+																</div>
+															</div>
+															<!-- /.form-group -->
+															<!-- /.form-group -->
+															<div class="form-group col-md-6 mb-0">
+																<!-- <div class="p-0 m-0"> -->
+																{{ form.employee_present_address|as_crispy_field}}
+																<!-- </div> -->
+															</div>
+															<!-- /.form-group -->
+															<!-- /.form-group -->
+															<div class="form-group col-md-6 mb-0">
+																<!-- <div class="p-0 m-0"> -->
+																{{form.employee_permanent_address|as_crispy_field}}
+																<!-- </div> -->
+															</div>
+															<!-- /.form-group -->
+															<!-- /.form-group -->
+															<div class="form-group col-md-3 mb-0">
+																<div class="p-0 m-0">
+																	{{ form.employee_phone_own|as_crispy_field }}
+																</div>
+															</div>
+															<!-- /.form-group -->
+															<!-- /.form-group -->
+															<div class="form-group col-md-3 mb-0">
+																<div class="p-0 m-0">
+																	{{ form.employee_phone_office|as_crispy_field}}
+																</div>
+															</div>
+															<!-- /.form-group -->
+															<!-- /form-group -->
+															<div class="form-group col-md-3 mb-0">
+																<div class="p-0 m-0">
+																	{{ form.employee_phone_home|as_crispy_field }}
+																</div>
+															</div>
+															<!-- /.form-group -->		
+															<!-- /form-group -->
+														
+															<!-- /.form-group -->
+															
+																		</div>
+																		<!-- /.form row -->
+																		</div>
+																		<!-- /.card body-->
+																		</div>
+																		<!-- /.card -->
+																		<!-- .card -->
+																		<div class="card bg-light">
+																			<!-- .card  body-->
+																			<div class="card-body p-2">
+																				<!-- .form-row -->
+																						<div class="form-row">
+
+																<div class="form-group col-md-12 mb-0">
+																	<div class="p-0 m-0">
+																		<h6 class="text-center">Optional Contact Information</h6>
+																
+																	</div>
+																	<hr>
+																</div>
+																	<!-- .form-group -->
+																	<div class="form-group col-md-3 mb-0">
+																		<div class="p-0 m-0">
+																			{{ form.eme_contact_name|as_crispy_field }}
+																		</div>
+																	</div>
+																	<!-- /.form-group -->
+																	<!-- .form-group -->
+																	<div class="form-group col-md-3 mb-0">
+																		<div class="p-0 m-0">
+																			{{ form.eme_contact_relation|as_crispy_field}}
+																		</div>
+																	</div>
+																	<!-- /.form-group -->
+																	<!-- .form-group -->
+																	<div class="form-group col-md-3 mb-0">
+																		<div class="p-0 m-0">
+																			{{ form.eme_contact_phone|as_crispy_field }}
+																		</div>
+																	</div>
+																	<!-- /.form-group -->
+																	<!-- .form-group -->
+																	<div class="form-group col-md-3 mb-0">
+																		<div class="p-0 m-0">
+																			{{ form.eme_contact_address|as_crispy_field}}
+																		</div>
+																	</div>
+																	<!-- /.form-group -->
+																	<div class="form-group col-md-12 mb-0">
+																		<div class="p-0 m-0">
+																			<h6 class="text-center">Official  Information</h6>
+																	
+																		</div>
+																		<hr>
+																	</div>
+															<!-- .form-group -->
+															<div class="form-group col-md-3 mb-0">
+																<div class="p-0 m-0">
+																	{{ form.employee_tin|as_crispy_field }}
+																</div>
+															</div>
+															<!-- /.form-group -->
+															<!-- /.form-group -->
+															<div class="form-group col-md-3 mb-0">
+																<div class="p-0 m-0">
+																	{{ form.email_personal|as_crispy_field }}
+																</div>
+															</div>
+															<!-- /.form-group -->
+													
+														<!-- .form-group -->
+														<div class="form-group col-md-3 mb-0">
+															<div class="p-0 m-0">
+																{{form.employee_joining_date|as_crispy_field}}
+															</div>
+														</div>
+														<!-- /.form-group -->
+														<!-- .form-group -->
+														<div class="form-group col-md-3 mb-0">
+															<div class="p-0 m-0">
+																{{ form.employee_status|as_crispy_field }}
+															</div>
+														</div>
+														<!-- /.form-group -->
+													
+														<!-- .form-group -->
+														<div class="form-group col-md-3 mb-0">
+															<div class="p-0 m-0">
+																{{ form.office_id|as_crispy_field }}
+															</div>
+														</div>
+														<!-- /.form-group -->
+														<!-- .form-group -->
+														<div class="form-group col-md-3 mb-0">
+															<div class="p-0 m-0">
+																{{ form.emptype_id|as_crispy_field }}
+															</div>
+														</div>
+														<!-- /.form-group -->
+														<!-- .form-group -->
+														<div class="form-group col-md-3 mb-0">
+															<div class="p-0 m-0">
+																{{ form.salscale|as_crispy_field }}
+															</div>
+														</div>
+														<!-- /.form-group -->
+														<!-- .form-group -->
+														<div class="form-group col-md-3 mb-0">
+															<div class="p-0 m-0">
+																{{ form.designation_id|as_crispy_field }}
+															</div>
+														</div>
+														<!-- /.form-group -->
+														<!-- .form-group -->
+														<div class="form-group col-md-3 mb-0">
+															<div class="p-0 m-0">
+																{{ form.email_official|as_crispy_field }}
+															</div>
+														</div>
+														<!-- /.form-group -->
+														<!-- .form-group -->
+														<div class="form-group col-md-3 mb-0">
+															<div class="p-0 m-0">
+																{{ form.reporting_to|as_crispy_field }}
+															</div>
+														</div>
+														<!-- /.form-group -->
+														
+														<!-- .form-group -->
+														<div class="form-group col-md-3 mb-0">
+															<div class="p-0 m-0">
+																{{ form.current_shift|as_crispy_field }}
+															</div>
+														</div>
+														<!-- /.form-group -->
+														<!-- .form-group -->
+														<div class="form-group col-md-3 mb-0">
+															<div class="p-0 m-0">
+																{{ form.office_location|as_crispy_field }}
+															</div>
+														</div>
+														<!-- /.form-group -->
+														<!-- .form-group -->
+														<div class="form-group col-md-3 mb-0">
+															<div class="p-0 m-0">
+																{{ form.card_number|as_crispy_field }}
+															</div>
+														</div>
+														<!-- /.form-group -->
+														<!-- .form-group -->
+														<div class="form-group col-md-3 mb-0">
+															<div class="p-0 m-0">
+																{{ form.salary_bank|as_crispy_field }}
+															</div>
+														</div>
+														<!-- /.form-group -->
+														<!-- .form-group -->
+														<div class="form-group col-md-3 mb-0">
+															
+																{{ form.salary_bank_ac|as_crispy_field }}
+														
+														</div>
+														<!-- /.form-group -->
+														<!-- /.form-group -->
+														<div class="form-group col-md-3 mb-0">
+														
+																{{ form.passport_no|as_crispy_field }}
+															
+														</div>
+														<!-- /.form-group -->
+														<!-- /.form-group -->
+														<div class="form-group col-md-3 mb-0">
+															
+																{{ form.driving_licence|as_crispy_field }}
+													
+														</div>
+														<!-- /.form-group -->
+														<!-- .form-group -->
+															<div class="form-group col-md-3 mb-0">
+																<div class="p-0 m-0">
+																	{{ form.is_teacher|as_crispy_field }}
+																</div>
+															</div>
+															<!-- /.form-group -->
+													</div><!-- /.form-row -->
+												</div><!-- /.card  body-->
+												</div><!-- /.card -->
+														<hr class="mt-1" />
+														<!-- .d-flex -->
+														<div class="d-flex">
+															<button type="button" class="next btn btn-primary ml-auto"
+																data-validate="fieldset01">
+																Next step
+															</button>
+														</div>
+														<!-- /.d-flex -->
+													</fieldset>
+													<!-- /fieldset -->
+												</div>
+												<!-- /.content -->
+												<!-- .content -->
+												<div id="test-l-2" class="content fade dstepper-none">
+													<!-- fieldset -->
+													<fieldset>
+																<!-- .card -->
+																<div class="card bg-light">
+																	<!-- .card  body-->
+																	<div class="card-body p-2">
+																
+															<legend class="text-center">Employee Education Information</legend>
+															<!-- .education Qualification -->
+															<div id="education_qualification">
+																<input type="hidden" id="eduId" name="eduId" value="1">
+																<div id="eduqationDivId1" class="form-row">
+																		<!-- .form-group -->
+																		<div class="form-group col-md-2 mb-0">
+																			<div class="p-0 m-0">
+																				<div id="div_id_degree_name" class="form-group">
+																					<label for="id_degree_name" class=" requiredField">
+																						Name of Degree<span class="asteriskField">*</span>
+																					</label>
+																							<select name="degree_name1"
+																								class="form-control" id="id_degree_name" tabindex="-98">
+																							</select>
+																				</div>
+																			</div>
+																		</div>
+															
+																		<div class="form-group col-md-2 mb-0">
+																			<div class="p-0 m-0">
+																				<div id="div_id_board_name" class="form-group">
+																
+																					<label for="id_board_name" class="">
+																						Name of Board
+																					</label>
+																						<input type="text" name="board_name1" maxlength="200" class="textinput textInput form-control"
+																							id="id_board_name">
+																				</div>
+																			</div>
+																		</div>
+														
+																		<div class="form-group col-md-1 mb-0">
+																			<div class="p-0 m-0">
+																				<div id="div_id_result_point" class="form-group">
+																					<label for="id_result_point" class="">
+																						GPA
+																					</label>	
+																						<input type="text" name="result_poin1t" maxlength="100" class="textinput textInput form-control"
+																							id="id_result_point">
+																					
+																				</div>	
+																			</div>
+																		</div>
+												
+																		<div class="form-group col-md-1 mb-0">
+																			<div class="p-0 m-0">	
+																				<div id="div_id_result_grate" class="form-group">
+																					<label for="id_result_grate" class="">
+																						Letter Grade
+																					</label>
+																						<input type="text" name="result_grate1" maxlength="100" class="textinput textInput form-control"
+																							id="id_result_grate">
+																					</div>
+																				</div>	
+																			</div>
+																		
+														
+																		<div class="form-group col-md-2 mb-0">
+																			<div class="p-0 m-0">
+																				<div id="div_id_passing_year" class="form-group">
+																
+																					<label for="id_passing_year" class="">
+																						Passing Year
+																					</label>
+																						<input type="text" name="passing_year1" maxlength="500" class="textinput textInput form-control"
+																							id="id_passing_year">
+																				</div>
+																			</div>
+																		</div>
+																		<!-- /.form-group -->
+																		<!-- .form-group -->
+																		<div class="form-group col-md-2 mb-0">
+																			<div class="p-0 m-0">
+																				<div id="div_id_institute_name" class="form-group">
+																					<label for="id_institute_name" class="">
+																						Name of Institution
+																					</label>
+																						<input type="text" name="institute_name1" maxlength="100"
+																							class="textinput textInput form-control" id="id_institute_name">
+																				</div>
+																			</div>
+																		</div>
+																		<!-- /.form-group -->	
+																		<!-- .form-group -->
+																		<div class="form-group col-md-1  mb-0">
+																			<div class="p-0 mt-4 mb-4">
+																				<div id="div_id_delete_button " class="form-group">
+																						<label for="id_institute_name" class="">
+																		
+																						</label>
+																					<button class="btn btn-danger" style="margin: 0px 5px;" type="button"
+																						onclick="delete_form(this.parentElement.parentElement.parentElement,1)"><i class="fa fa-trash"></i></button>
+																				</div>
+																			</div>
+																		</div>
+																	
+
+																</div>
+
+															</div>
+															<!-- /.education Qualification -->
+													<div class="mt-4">
+														<button id="addnewEdu" class="btn btn-dark"> <i class="fas fa-plus"> Add more</i></button>
+													</div>
+													
+															</div><!-- /.card -->
+															</div><!-- /.card  body-->
+																<hr class="mt-1" />
+																<div class="d-flex">
+																	<button type="button" class="prev btn btn-secondary">
+																		Previous
+																	</button>
+																	<button type="button" class="next btn btn-primary ml-auto" data-validate="fieldset02">
+																		Next step
+																	</button>
+																</div>
+																</fieldset>
+																<!-- /fieldset -->
+														</div>
+												<!-- .content -->
+												<div id="test-l-3" class="content fade dstepper-none">
+													<!-- fieldset -->
+													<fieldset>
+														<legend class="text-center">Employee Experience Information</legend>
+														<!-- .card -->
+														<div class="card bg-light">
+															<div class="card-body">
+																<div class="form-row">
+																	<div class="row">
+																		<div class="col-md-6">
+																		<div class="row">
+																			
+																			<!-- .form-group -->
+																			<!-- .form-group -->
+																			<div class="form-group col-md-3 mb-0">
+																				<div class="p-0 m-0">
+																				
+																					<div id="div_id_company_name" class="form-group">
+																						<label for="id_company_name" class=" requiredField">
+																							Institution Name<span class="asteriskField">*</span>
+																						</label>
+																						<div class="">
+																							<input type="text" name="company_name" maxlength="200" class="textinput textInput form-control"
+																								required="" id="id_company_name">
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<!-- /.form-group -->
+																			<!-- .form-group -->
+																			<div class="form-group col-md-3 mb-0">
+																				<div class="p-0 m-0">
+																					<div id="div_id_company_address" class="form-group">
+																						<label for="id_company_address" class=" requiredField">
+																							Institution Address<span class="asteriskField">*</span>
+																						</label>
+																						<div class="">
+																							<input type="text" name="company_address" maxlength="500" class="textinput textInput form-control"
+																								required="" id="id_company_address">
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<!-- /.form-group -->
+																			<!-- .form-group -->
+																			<div class="form-group col-md-3 mb-0">
+																				<div class="p-0 m-0">
+																					<div id="div_id_company_type" class="form-group">
+																						<label for="id_company_type" class="">
+																							Institution Type
+																						</label>
+																						<div class="">
+																							<input type="text" name="company_type" maxlength="200" class="textinput textInput form-control"
+																								id="id_company_type">
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<!-- /.form-group -->
+																			<!-- .form-group -->
+																			<div class="form-group col-md-3 mb-0">
+																				<div class="p-0 m-0">	
+																					<div id="div_id_position" class="form-group">
+																						<label for="id_position" class="">
+																							Position
+																						</label>
+																						<div class="">
+																							<input type="text" name="position" maxlength="200" class="textinput textInput form-control"
+																								id="id_position">
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<!-- /.form-group -->
+																			<!-- .form-group -->
+																			<div class="form-group col-md-3 mb-0">
+																				<div class="p-0 m-0">
+																					<div id="div_id_department" class="form-group">
+																						<label for="id_department" class="">
+																							Department
+																						</label>
+																						<div class="">
+																							<input type="text" name="department" maxlength="200" class="textinput textInput form-control"
+																								id="id_department">	
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<!-- /.form-group -->
+																			<!-- .form-group -->
+																			<div class="form-group col-md-3 mb-0">
+																				<div class="p-0 m-0">
+																					<div id="div_id_responsibility" class="form-group">
+																						<label for="id_responsibility" class="">
+																							Responsibility
+																						</label>
+																						<div class="">
+																							<input type="text" name="responsibility" maxlength="800" class="textinput textInput form-control"
+																								id="id_responsibility">
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<!-- /.form-group -->
+																			<!-- .form-group -->
+																			<div class="form-group col-md-3 mb-0">
+																				<div class="p-0 m-0">
+																					<div id="div_id_achievement" class="form-group">
+																						<label for="id_achievement" class="">
+																							Achievement
+																						</label>
+																						<div class="">
+																							<input type="text" name="achievement" maxlength="200" class="textinput textInput form-control"
+																								id="id_achievement">
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<!-- /.form-group -->
+																			<!-- .form-group -->
+																			<div class="form-group col-md-3 mb-0">
+																				<div class="p-0 m-0">
+																					<div id="div_id_phone_number" class="form-group">
+																						<label for="id_phone_number" class="">
+																							Institution Phone No.
+																						</label>
+																						<div class="">
+																							<input type="text" name="phone_number" maxlength="200" class="textinput textInput form-control"
+																								id="id_phone_number">
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<!-- /.form-group -->
+																			<!-- .form-group -->
+																			<div class="form-group col-md-3 mb-0">
+																				<div class="p-0 m-0">
+																					<div id="div_id_email" class="form-group">
+																						<label for="id_email" class="">
+																							Institution Email
+																						</label>
+																						<div class="">
+																							<input type="text" name="email" maxlength="200" class="textinput textInput form-control"
+																								id="id_email">
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<!-- /.form-group -->
+																			<!-- .form-group -->
+																			<div class="form-group col-md-3 mb-0">
+																				<div class="p-0 m-0">
+																					<div id="div_id_contact_person" class="form-group">
+																						<label for="id_contact_person" class="">
+																							Contact Person
+																						</label>
+																						<div class="">
+																							<input type="text" name="contact_person" maxlength="200" class="textinput textInput form-control"
+																								id="id_contact_person">
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<!-- /.form-group -->
+																		
+																			<!-- .form-group -->
+																			<div class="form-group col-md-3 mb-0">
+																				<div class="p-0 m-0">
+																					<div id="div_id_start_date" class="form-group">
+																		
+																						<label for="id_start_date" class=" requiredField">
+																							Start Date<span class="asteriskField">*</span>
+																						</label>
+																						<div class="">
+																		
+																							<input type="date" name="start_date" class="dateinput form-control" required="" id="id_start_date">
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<!-- /.form-group -->
+																			<!-- .form-group -->
+																			<div class="form-group col-md-3 mb-0">
+																				<div class="p-0 m-0">	
+																					<div id="div_id_end_date" class="form-group">
+																		
+																						<label for="id_end_date" class=" requiredField">
+																							End Date<span class="asteriskField">*</span>
+																						</label>
+																						<div class="">
+																		
+																							<input type="date" name="end_date" class="dateinput form-control" required="" id="id_end_date">
+																						</div>
+																					</div>	
+																				</div>
+																			</div>
+																			<!-- /.form-group -->
+																			<!-- .form-group -->
+																			<div class="form-group col-md-12 mb-0">
+																				<div class="p-0 m-0">
+																					<button id="experinceListAdd" type="button" class="btn btn-dark">Add To List</button>
+																				</div>
+																			</div>
+																			<!-- /.form-group -->
+																		</div>
+																		</div>
+																		<div class="col-md-6">
+																			<div class="card">
+																				<table class="table table-borderless">
+																				<thead>
+																					<tr>
+																						<th scope="col">#</th>
+																						<th scope="col">Check</th>
+																						<th scope="col">Institution Name</th>
+																						<th scope="col">Institution Type</th>
+																						<th scope="col">Start Date</th>
+																						<th scope="col">End Date</th>
+																						<th scope="col" >Delete</th>
+																					</tr>
+																				</thead>
+																				<tbody id="custom-data-table">
+																				
+																					
+																				
+																				</tbody>
+																				</table>
+																			
+																				
+																				{% verbatim %}
+																				<script id="myTemplate" type="text/x-handlebars-template">
+																						{{#each . }}
+																							<tr>
+																							<th scope="row">{{@index}}</th>
+																							<td><input type="checkbox" name="vehicle1" value="Bike" checked></td>
+																							<td>{{company_name}}</td>
+																							<td>{{company_type}}</td>
+																							<td>{{start_date}}</td>
+																							<td>{{end_date}}</td>
+																							<td><button type="button" data-index={{@index}} class="btn btn-danger" onclick="fnDeleteFromList(this)"><i
+																										class="fas fa-trash-alt"></i></button></td>
+																							</tr>
+																			
+																				{{/each}}
+																				</script>
+																				{% endverbatim %}
+																				
+																			</div>
+																		</div>
+														
+												
+																	</div>
+																</div>
+															</div>
+														</div>
+														<!-- /.card -->
+												
+														<hr class="mt-1" />
+														<div class="d-flex">
+															<button type="button" class="prev btn btn-secondary">
+																Previous
+															</button>
+															<button type="button" class="next btn btn-primary ml-auto" data-validate="fieldset02">
+																Next step
+															</button>
+														</div>
+													</fieldset>
+													<!-- /fieldset -->
+												</div>
+												<!-- /.content -->
+												<!-- .content -->
+												<div id="test-l-4" class="content fade dstepper-none">
+													<!-- fieldset -->
+													<fieldset>
+														<legend class="text-center">Reference Person's Information</legend>
+														<!-- .card -->
+														<div class="card bg-light">
+															<div class="card-body overflow-auto" style="height: 360px">
+																<div class="form-row">
+																	<div class="row">
+																		<!-- .form-group -->
+																		<!-- .form-group -->
+																		<div class="form-group col-md-3 mb-0">
+																			<div class="p-0 m-0">
+																				{{third_form.nominee_name|as_crispy_field}}
+																			</div>
+																		</div>
+																		<!-- /.form-group -->
+																		<!-- .form-group -->
+																		<div class="form-group col-md-3 mb-0">
+																			<div class="p-0 m-0">
+																				{{ third_form.nominee_sex|as_crispy_field }}
+																			</div>
+																		</div>
+																		<!-- /.form-group -->
+																		<!-- .form-group -->
+																		<div class="form-group col-md-3 mb-0">
+																			<div class="p-0 m-0">
+																				{{ third_form.nominee_father_name|as_crispy_field }}
+																			</div>
+																		</div>
+																		<!-- /.form-group -->
+																		<!-- .form-group -->
+																		<div class="form-group col-md-3 mb-0">
+																			<div class="p-0 m-0">
+																				{{ third_form.nominee_mother_name|as_crispy_field}}
+																			</div>
+																		</div>
+																		<!-- /.form-group -->
+																		<!-- .form-group -->
+																		<div class="form-group col-md-3 mb-0">
+																			<div class="p-0 m-0">
+																				{{ third_form.nominee_present_addr|as_crispy_field }}
+																			</div>
+																		</div>
+																		<!-- /.form-group -->
+																		<!-- .form-group -->
+																		<div class="form-group col-md-3 mb-0">
+																			<div class="p-0 m-0">
+																				{{ third_form.nominee_permanent_addr|as_crispy_field }}
+																			</div>
+																		</div>
+																		<!-- /.form-group -->
+																		<!-- .form-group -->
+																		<div class="form-group col-md-3 mb-0">
+																			<div class="p-0 m-0">
+																				{{ third_form.nominee_birth_date|as_crispy_field }}
+																			</div>
+																		</div>
+																		<!-- /.form-group -->
+												
+																		<!-- .form-group -->
+																		<div class="form-group col-md-3 mb-0">
+																			<div class="p-0 m-0">
+																				{{ third_form.nominee_nid_num|as_crispy_field }}
+																			</div>
+																		</div>
+																		<!-- /.form-group -->
+																		<!-- .form-group -->
+																		<div class="form-group col-md-3 mb-0">
+																			<div class="p-0 m-0">
+																				{{ third_form.nominee_religion|as_crispy_field }}
+																			</div>
+																		</div>
+																		<!-- /.form-group -->
+																		<!-- .form-group -->
+																		<div class="form-group col-md-3 mb-0">
+																			<div class="p-0 m-0">
+																				{{ third_form.nominee_blood_group|as_crispy_field }}
+																			</div>
+																		</div>
+																		<!-- /.form-group -->
+																		<!-- .form-group -->
+																		<div class="form-group col-md-3 mb-0">
+																			<div class="p-0 m-0">
+																				{{ third_form.nominee_mobile_num|as_crispy_field }}
+																			</div>
+																		</div>
+																		<!-- /.form-group -->
+												
+																	</div>
+																</div>
+															</div>
+														</div>
+														<!-- /.card -->
+												
+														<hr class="mt-1" />
+														<div class="d-flex">
+															<button type="button" class="prev btn btn-secondary">
+																Previous
+															</button>
+											
+														<button type="button" class="next btn btn-primary ml-auto" data-validate="fieldset02">
+															Next step
+														</button>
+														</div>
+													</fieldset>
+													<!-- /fieldset -->
+												</div>
+												<!-- /.content -->
+												<!-- .content -->
+												<div id="test-l-5" class="content fade dstepper-none">
+													<!-- fieldset -->
+													<fieldset>
+															<legend style="color:red;" class="text-center">Did you give all the information? If all your information is correct, upload the Employee
+																picture and signature..........</legend> <!-- .card -->
+															<div class="form-row">
+																<div class="form-group col-md-4 mb-0">
+																	<label style="font-size:20px;font-weight:bold;">Upload Employee Image</label>
+																	<img src="{% if image_data.image_1 %} {{image_data.image_1.url}} {% endif %}" id="profile-photo"
+																		class="img-fluid">
+																	<br>
+																	<label>Set New Profile Image</label>
+																	<input type="file" name="image" id="profile-image">
+																</div>
+																<div class="form-group col-md-4 mb-0">
+																	<label style="font-size:20px;font-weight:bold;">Upload Employee Signature</label>
+																	<img src="{% if image_data.image_2 %} {{image_data.image_2.url}} {% endif %}" id="profile-sign"
+																		class="img-fluid">
+																	<br>
+																	<br>
+															
+																	{% comment %} <label>Set New Profile Image</label> {% endcomment %}
+																	<input type="file" name="signature" id="profile-signatur">
+																</div>
+															</div><!-- /.card -->
+														<!-- /.card -->
+												
+														<hr class="mt-1" />
+														<div class="d-flex">
+															<button type="button" class="prev btn btn-secondary">
+																Previous
+															</button>
+															<button type="button" id="btnAddRecord" class="submit btn btn-primary ml-auto"
+																data-validate="agreement">Submit</button>
+												
+														</div>
+													</fieldset>
+													<!-- /fieldset -->
+												</div>
+												<!-- /.content -->
+											</form>
+											<!-- /form -->
+												</div>
+												<!-- /.content -->
+									
+										</div>
+										<!-- /.card-body -->
+									</div>
+									<!-- /.card -->
+								</div>
+								<!-- /.bs-stepper -->
+								<!-- toasts container -->
+								<div aria-live="polite" aria-atomic="true">
+									<!-- Position it -->
+									<div style="
+                      position: fixed;
+                      top: 4.5rem;
+                      right: 1rem;
+                      z-index: 1050;
+                    ">
+										<!-- .toast -->
+										<div id="submitfeedback" class="toast bg-dark border-dark text-light fade hide"
+											data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true">
+											<div class="toast-header bg-primary text-white">
+												Employee is created
+											</div>
+											<div class="toast-body">
+												<strong>Congrats!</strong> You see the submit feedback.
+											</div>
+										</div>
+										<!-- /.toast -->
+									</div>
+								</div>
+								<!-- /toasts container -->
+							</div>
+						</div>
+					
+						
+						{% comment %} <button type="button" id="btnSearch" class="btn btn-info pull-right">
+							Search Employee
+						</button> {% endcomment %}
+					</div>
+		
+		</div>
+
+		
+	</div>
+
+	<div class="modal fade" id="edit_model" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content"></div>
+		</div>
+	</div>
+<div class="modal fade" id="image_model" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="max-width:80%" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+
+				<input type="hidden" value="{{id}}" id="student_roll">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="img-container">
+					<div class="row">
+						<div class="col-md-5 offset-md-3" style="min-height:300px; max-height: 600px;">
+							<img id="pro_image" src="https://avatars0.githubusercontent.com/u/3456749">
+
+						</div>
+						<div class="col-md-12">
+							<div class="preview"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-primary" id="crop">Crop</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="sing_model" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="max-width:80%" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+
+				<input type="hidden" value="{{id}}" id="student_roll">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="img-container">
+					<div class="row">
+						<div class="col-md-5 offset-md-3" style="min-height:300px; max-height: 600px;">
+							<img id="sing_image" src="https://avatars0.githubusercontent.com/u/3456749">
+
+						</div>
+						<div class="col-md-12">
+							<div class="singPreview"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-primary" id="sing_crop">Crop</button>
+			</div>
+		</div>
+	</div>
+</div>
+	{% endblock body %} {% block js %}
+	<script src="{% static 'assets/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/dataTables.responsive.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/responsive.bootstrap4.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/parsleyjs/parsley.min.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/dataTables.bootstrap.js' %}"></script>
+	<script src="{% static 'assets/vendor/bs-stepper/js/bs-stepper.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/handalebars/handlebars-v4.7.7.js' %}"></script>
+	<script src="{% static 'assets/javascript/cropper/cropper.min.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/hrm/hrm-employee-createlist.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/step_post.js' %}"></script>
+	{% endblock %}
+</div>

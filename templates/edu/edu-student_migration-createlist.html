@@ -1,0 +1,102 @@
+{% extends 'appauth/appauth-home.html' %}{% load static %}
+<!--Some spase -->
+{% load crispy_forms_tags %}
+{% block title %} Students Migrations |
+{{application_title}}
+{% endblock %}
+{% block body %}
+
+<div class="card">
+  <div class="card-header">
+    <h5>Student Migrations</h5>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12">
+        {% if is_head_office_user %}
+        <div class="form-group col-md-3 mb-0">
+          {{ form.branch_code | as_crispy_field }}
+        </div>
+        {% else %}
+        <input type='hidden' id='id_branch_code' name='branch_code' value={{ global_branch_code }} readonly>
+        {% endif %}
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h6>From</h6>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                {{ form.from_accademic_year|as_crispy_field }}
+              </div>
+              <div class="col-md-6">
+                {{ form.from_class|as_crispy_field }}
+              </div>
+              <div class="col-md-6">
+                {{ form.from_class_group|as_crispy_field }}
+              </div>
+              <div class="col-md-6">
+                {{ form.from_section|as_crispy_field }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h6>To</h6>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                {{ form.to_accademic_year|as_crispy_field }}
+              </div>
+              <div class="col-md-6">
+                {{ form.to_class|as_crispy_field }}
+              </div>
+              <div class="col-md-6">
+                {{ form.to_class_group|as_crispy_field }}
+              </div>
+              <div class="col-md-6">
+                {{ form.to_section|as_crispy_field }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <button type="button" class="btn btn-info" onclick="class_student_filter()">Search Students</button>
+        <button type="button" class="btn btn-primary" onclick="update_selected_students()">Migrations</button>
+      </div>
+
+    </div>
+    <br><br>
+    <div class="" id="student_list">
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="edit_model" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+{% endblock body %}
+
+{% block js %}
+<script src="{% static 'assets/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'assets/vendor/datatables/extensions/responsive/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'assets/vendor/datatables/extensions/responsive/responsive.bootstrap4.min.js' %}"></script>
+<script src="{% static 'assets/javascript/pages/dataTables.bootstrap.js' %}"></script>
+<script src="{% static 'assets/javascript/moment.js' %}"></script>
+<script src="{% static 'assets/javascript/pages/edu/edu-Student-migrations-createlist.js' %}"></script>
+<script src="{% static 'assets/javascript/pages/common-parameter-details.js' %}"></script>
+
+{% endblock %}
+</div>

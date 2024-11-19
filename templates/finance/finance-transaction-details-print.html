@@ -1,0 +1,122 @@
+{% extends 'appauth/appauth-report-base.html' %} {% load static %}
+<!-- brack-->
+{% load humanize %} {% block title %} Fees Payment Slip | {{ application_title }} {% endblock %} {% block body %}
+
+<div id="wrapper">
+  <div id="receiptData">
+    <page size="A4">
+      <div id="receipt-data">
+        <div class="text">
+          <div class="inv-head">
+            <div class="inv-right">
+              <header class="receipt-header" style="position:relative">
+                <h5 class="store-name">{{ company_name }}</h5>
+                {% if form_hader.text_one %}
+                <p style="line-height: 2px">{{form_hader.text_one}}</p>
+                {% endif %} 
+                {% if form_hader.text_two %}
+                <p style="line-height: 5px;">{{form_hader.text_two}}</p>
+                {% endif %}
+                {% if form_hader.text_three %}
+                <p style="line-height: 5px;">{{form_hader.text_three}}</p>
+                {% endif %}
+                {% if form_hader.text_four %}
+                <p style="line-height: 5px;">{{form_hader.text_four}}</p>
+                {% endif %}
+                {% if form_hader.text_five %}
+                <p style="line-height: 5px;">{{form_hader.text_five}}</p>
+                {% endif %}
+                <h6 class="store-name"><b>Transaction Slip</b></h6>
+                {% if form_hader.logo %}
+                <img src="media/{{form_hader.logo}}" style="width: 60px;
+                  height: 60px;
+                  position: absolute;
+                  top: 10px;
+                  left: 10px;">
+                {% endif %}
+              </header>
+            </div>
+          </div>
+          <div style="clear: both"></div>
+         <table id="data_table_sheet" class="table table-hover table-bordered table-sm">
+	<thead>
+		<tr>
+			<th>Serial</th>
+			<th>Ledger Name</th>
+			<th>Debit Amount</th>
+      <th>Credit Amount</th>
+			<th>Document Number</th>
+			{% comment %} <th>Tran Person</th>
+			<th>Tran Details</th> {% endcomment %}
+			<!-- <th>Tran By</th>
+			<th>Auth By</th>
+			<th>Cancel By</th>
+			<th>Cancel On</th> -->
+		</tr>
+	</thead>
+	<tbody>
+		{% for rows in data %}
+		<tr>
+			<td class="batch_serial" data-type="name">{{ rows.batch_serial }}</td>
+			<td class="gl_name" data-type="inst">{{ rows.gl_name }}</td>
+			<td class="total_debit_amount" data-type="inst">{{ rows.total_debit_amount|default_if_none:"0.00"}}</td>
+			<td class="cancel_amount" data-type="inst">{{ rows.total_credit_amount|default_if_none:"0.00"}}</td>
+			<td class="tran_document_number" data-type="inst">{{ rows.tran_document_number|default_if_none:"-" }}</td>
+			{% comment %} <td class="tran_person_name" data-type="inst">{{ rows.tran_person_name|default_if_none:"-" }}</td>
+			<td class="transaction_narration" data-type="inst">{{ rows.transaction_narration|default_if_none:"-"  }}</td> {% endcomment %}
+			<!-- <td class="app_user_id" data-type="inst">{{ rows.app_user_id|default_if_none:"-"  }}</td>
+			<td class="auth_by" data-type="inst">{{ rows.auth_by|default_if_none:"-"  }}</td>
+			<td class="cancel_by" data-type="inst">{{ rows.cancel_by|default_if_none:"-" }}</td>
+			<td class="cancel_on" data-type="inst">{{ rows.cancel_on|default_if_none:"-"  }}</td> -->
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+          <br />
+          <br />
+
+          {% if cancel_by %}
+          <p style="font-size: 14px; text-align: center" class="text-danger">
+            <strong
+              >Validation of this payment is cancel by : {{ cancel_by }}
+            </strong>
+          </p>
+          {% endif %}
+
+          <div style="float: left; width: 100%">
+            <div style="width: 45%; float: left">
+              <p
+                style="
+                  font-size: 12px;
+                  font-weight: bold;
+                  border-top: 1px solid black;
+                  text-align: center;
+                "
+              >
+                Receipt By: {{ app_user_id }}
+              </p>
+            </div>
+            <div style="width: 20%; float: left">
+              <p>&nbsp;</p>
+            </div>
+            <div style="width: 25%; float: right">
+              <p
+                style="
+                  font-size: 12px;
+                  font-weight: bold;
+                  border-top: 1px solid black;
+                  text-align: center;
+                "
+              >
+                Student Signature
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </page>
+  </div>
+</div>
+{% endblock body %}
+
+

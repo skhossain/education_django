@@ -1,0 +1,135 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<div class="modal-header"> </div>
+{% csrf_token %}
+<div class="container">
+	<h4 align="center">Update Exam Setup</h4>
+	<div class="card">
+		<div class="card-body">
+			<div>
+				<form method="post" id="edit_form" data-url="{% url 'edu-examsetup-edit' id %}" class="update-form">
+					{% csrf_token %}
+					<div class="form-row">
+						<input type="hidden" id='id_branch_code' name='branch_code' value={{ branch_code }} readonly>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.exam_name|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.term_id|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.examtype_id|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.academic_year|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.session_id|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0" id="class-div">
+							{{ form.class_id|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							<label>Class Group Name</label>
+							<select name="class_group_id" class="select form-control" id="class_group_id">
+								<option value="">---------</option>
+								{% for class_group in class_groups %}
+								<option {% if exam.class_group_id.class_group_id == class_group.class_group_id %} selected
+									{% endif %} value="{{class_group.class_group_id}}">
+									{{class_group.class_group_name}}
+								</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							<label>Subject</label>
+							<select name="subject_id" class="select form-control" id="subject_id">
+								<option value="">---------</option>
+								{% for subject_list in subjects %}
+								<option value="{{subject_list.subject_id}}" 
+                                        {% if exam.subject_id.subject_id == subject_list.subject_id %} selected {% endif %}>
+									{{subject_list.subject_name}}
+								</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.cal_condition|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.total_exam_marks|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.minimum_pass_marks|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.exam_type_status|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-3 mb-0">
+							{{ form.no_of_exam|as_crispy_field }}
+						</div>
+					</div>
+
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger btn-default pull-right" data-dismiss="modal">Close</button>
+				<button type="submit" id="btnSubmit" class="btn btn-primary">Submit</button>
+			</div>
+			</form>
+			<div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% block js %}
+<script>
+	$('#class-div select').change(function () {
+		group_list()
+		subject_list()
+	})
+	$('#class_group_id').change(function () {
+		subject_list()
+	})
+
+	function subject_list() {
+		const class_id = $('#class-div select').val()
+		var class_group_id = document.getElementById('class_group_id').value
+
+		$.ajax({
+			url: "apiedu-sublist-api/?class_id=" + class_id + "&class_group_id=" + class_group_id,
+			type: 'get',
+			datatype: 'json',
+			success: function (data) {
+				$("#subject_id option").remove();
+				$("#subject_id").append('<option value="">-----------</option>');
+				data.forEach(element => {
+					$("#subject_id").append('<option value="' + element.subject_id + '">' + element
+						.subject_name + '</option>');
+				});
+				// console.log(data)
+			}
+		})
+	}
+	function group_list() {
+		const class_id = $('#class-div select').val()
+		$.ajax({
+			url: "apiedu-academicgroup-api/?class_id=" + class_id,
+			type: 'get',
+			datatype: 'json',
+			success: function (data) {
+				$("#class_group_id option").remove();
+				$("#class_group_id").append('<option value="">-----------</option>');
+				data.forEach(element => {
+					$("#class_group_id").append('<option value="' + element.class_group_id + '">' + element
+						.class_group_name + '</option>');
+				});
+				// console.log(data)
+			}
+		})
+	}
+</script>
+<script src="{% static 'assets/javascript/pages/common-submit-editdata.js' %}"></script>
+{% endblock %}

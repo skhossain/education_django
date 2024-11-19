@@ -1,0 +1,55 @@
+{% load edu_custom_tags %}
+
+<div class="app">
+			<div class="card card-fluid" id="print_result_data">
+				<div class="card-body">
+                    <br>
+                   <h3 class="text-center"><strong>All Students Attendancesheet</strong></h3>
+                    <br>
+                    <br>
+					<table id="dt-table-list" class="table table-bordered">
+						<thead>
+                            <tr>
+
+                                <th>Academic Year</th>
+                                <th>Months</th>
+                                <th>Class</th>
+                                <th>Class Group</th>
+                                <th>Section</th>
+                                <th>Subject</th>
+                            
+							</tr>
+						</thead>
+                        {% for attendance in present_sheet %}
+                            <tr>
+                                
+                                
+                                <td id="year"><a href="/edu-attendance-sheet/{{attendance.present_sheet_info_id}}" type="button" class="btn btn-primary btn-sm">view</a> 
+                                    <button type="button" class="btn btn-primary btn-sm" onclick='generate_pdf("{{attendance.present_sheet_info_id}}","{{ attendance.academic_year }}","{{attendance.month_number | get_month_name}}","{{attendance.class_id}}","{{attendance.class_group_id}}","{{attendance.section_id}}","{{attendance.subject_id}}")'>pdf</button>
+                                {{ attendance.academic_year }}</td>
+                                <td >{{attendance.month_number | get_month_name}}</td>
+                                <td >{{attendance.class_id}}</td>
+                                <td >{{attendance.class_group_id}}</td>
+                                <td >{{attendance.section_id}}</td>
+                                <td >{{attendance.subject_id}}</td>
+                                
+                           
+                            </tr>
+                        {% endfor %}    
+							
+					</table>
+                    </div>
+                    
+			</div>
+            <button type="button" class="btn btn-info my-3 mr-3"  onclick="print_div('print_result_data')">Print</button>
+
+
+		
+        <div class="modal fade" id="edit_model" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			</div>
+		</div>
+
+</div>
+

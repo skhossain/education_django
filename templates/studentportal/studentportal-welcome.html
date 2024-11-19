@@ -1,0 +1,26 @@
+{% extends 'studentportal/studentportal-home.html' %}
+{% block header %}
+
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col m-5 text-center">
+            <h1>Wellcome to <br> <marquee> {{academic_name|upper}}</marquee></h1>
+        </div>
+    </div>
+{% endblock body %}
+{% block js %}
+<script type="module">
+    import { createApp } from 'vue'
+
+    createApp({
+        delimiters: ["${", "}$"],
+        data() {
+            return {
+                message: 'Hello Vue!',
+                i:[1,2,3,4,5,6,7],
+            }
+        }
+    }).mount('#app')
+</script>
+{% endblock js %}

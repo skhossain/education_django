@@ -1,0 +1,35 @@
+{% load edu_custom_tags %}
+<table class="table table-sm">
+	<tr>
+		<th>Year</th>
+		<th>Class</th>
+		<th>Group</th>
+		<th>Shift</th>
+		<th>Section</th>
+		<th>Subject</th>
+		<th>Teacher</th>
+		<th>Room</th>
+		<th>Day</th>
+		<th>Start Time</th>
+		<th>End Time</th>
+		<th>Action</th>
+	</tr>
+	{% for routine in routines %}
+	<tr>
+		<td>{{routine.academic_year}}</td>
+		<td>{{routine.class_id}}</td>
+		<td>{{routine.class_group_id | default:""}}</td>
+		<td>{{routine.shift_id | default:""}}</td>
+		<td>{{routine.section_id | default:""}}</td>
+		<td>{{routine.subject_id}}</td>
+		<td>{{routine.teacher_id}}</td>
+		<td>{{routine.room_id}}</td>
+		<td>{{routine.day | get_week_name}}</td>
+		<td>{{routine.start_time | time:'H:i A'}}</td>
+		<td>{{routine.end_time | time:'H:i A'}}</td>
+		<td class="text-center">
+			<button type="button" onClick='delete_routine("{{routine.routine_details_id}}")' class="btn btn-default"> <i class="fas fa-trash"></i></button>
+		</td>
+	</tr>
+	{% endfor %}
+</table>

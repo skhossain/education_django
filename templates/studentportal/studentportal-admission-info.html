@@ -1,0 +1,73 @@
+{% extends 'studentportal/studentportal-home.html' %}
+{% block header %}
+
+{% endblock %}
+{% block body %}
+<div class="py-5">
+<a class="btn btn-info" href="/student/admission-form">Go Online Admission</a>
+</div>
+{% endblock body %}
+{% block js %}
+<script type="module">
+    import { createApp } from 'vue'
+
+    createApp({
+        delimiters: ["${", "}$"],
+        data() {
+            return {
+                tabs:[
+                    {tab: true},
+                    {tab: false},
+                    {tab: false},
+                    {tab: false},
+                ],
+                activeTab:0,
+                form:{
+                    branch_code:"",
+                }
+            }
+        },
+        methods:{
+            per_tab(tab){
+                this.activeTab=tab-1
+               for (let index = 0; index < this.tabs.length; index++) {
+                   let element = this.tabs[index];
+                if(index== this.activeTab){
+                    element.tab=true
+                }else{
+                    element.tab = false
+                }
+                
+               }
+            },
+            next_tab(tab){
+                this.activeTab=tab+1
+               for (let index = 0; index < this.tabs.length; index++) {
+                   let element = this.tabs[index];
+                if(index== this.activeTab){
+                    element.tab=true
+                }else{
+                    element.tab = false
+                }
+                
+               }
+            },
+            select_tab(tab){
+                this.activeTab=tab
+               for (let index = 0; index < this.tabs.length; index++) {
+                   let element = this.tabs[index];
+                if(index== this.activeTab){
+                    element.tab=true
+                }else{
+                    element.tab = false
+                }
+                
+               }
+            }
+        },
+        mounted(){
+            
+        }
+    }).mount('#app')
+</script>
+{% endblock js %}

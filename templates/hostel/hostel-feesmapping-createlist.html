@@ -1,0 +1,114 @@
+{% extends 'appauth/appauth-home.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+Hostel Fees Mapping | {{ application_title }}
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card card-fluid">
+			<div class="card-body">
+				<div>
+					<form method="post" id="tran_table_data" data-url="{% url 'hostel-feesmapping-insert' %}" 
+						class="update-form">
+						<div class="form-group">
+							<div class="card">
+								<div class="card-body">
+									<div class="form-row">
+										<div class="form-group col-md-10 mb-0">
+											<h3 class="card-title"> Hostel Fees Mapping </h3>
+										</div>
+									</div>
+									<div>
+										{% csrf_token %}
+										<div class="form-row">
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.head_code|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.hall_code|as_crispy_field }}
+											</div> 
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.effective_date|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.fee_amount|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.fine_effective_days|as_crispy_field }}
+											</div> 
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.fine_amount|as_crispy_field }}
+											</div>
+                                            <div class="form-group col-md-3 mb-0">
+												{{ form.pay_freq|as_crispy_field }}
+											</div>
+										</div>
+										<button type="button" id="btnAddRecord" class="btn btn-primary">Create Fees Mapping</button>
+										<button type="button" id="btnSearch" class="btn btn-info pull-right"> Search Fees Mapping</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="app">
+
+			<div class="card card-fluid">
+				<div class="card-body">
+					<table id="dt-table-list" class="table dt-responsive nowrap w-100">
+						<thead>
+							<tr>
+                                <th> Head Code </th>
+								<th> Head Name </th>
+                                <th> Hall Name </th>
+                                <th> Effective Date </th>
+                                <th> Fee Amount </th>
+								<th> Fine After Days </th>
+                                <th> Fine Amount </th>
+								<th> Pay Frequency </th>
+								<th style="text-align:center"> Action</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+                                <th> Head Code </th>
+								<th> Head Name </th>
+                                <th> Hall Name </th>
+                                <th> Effective Date </th>
+                                <th> Fee Amount </th>
+								<th> Fine After Days </th>
+                                <th> Fine Amount </th>
+								<th> Pay Frequency </th>
+								<th style="text-align:center"> Action</th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="edit_model" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			</div>
+		</div>
+	</div>
+
+	{% endblock body %}
+
+	{% block js %}
+	<script src="{% static 'assets/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/dataTables.responsive.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/datatables/extensions/responsive/responsive.bootstrap4.min.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/dataTables.bootstrap.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/hostel/hostel-feesmapping-createlist.js' %}"></script>
+	{% endblock %}
+</div>

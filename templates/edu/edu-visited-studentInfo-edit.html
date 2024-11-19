@@ -1,0 +1,76 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<div class="modal-header"> </div>
+{% csrf_token %}
+<div class="container">
+	<h4 align="center">Update Visited Student Information</h4>
+	<div class="card">
+		<div class="card-body">
+			<div>
+				<form method="post" id="edit_form" data-url="{% url 'edu-visited-studentinfo-edit' id %}" class="update-form">
+					{% csrf_token %}
+					<div class="form-row">
+						<div class="form-group col-md-3 mb-0">
+							{{ form.student_name|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.class_id|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.class_group_id|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.student_father_name|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.father_phone_number|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.student_mother_name|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.mother_phone_number|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.student_marital_status|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.student_present_address|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.student_permanent_address|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.student_phone|as_crispy_field }}
+						</div>
+                        <div class="form-group col-md-3 mb-0">
+							{{ form.student_email|as_crispy_field }}
+						</div>
+					</div>
+					<hr>
+					<div>
+						<!-- student -->
+						<div class="d-none" id="get-education-qualification">{{student.education_qualifications}}</div>
+						<h5>Obtained Certificate</h5>
+						<input type="hidden" name="edu_count" value="" id="id_edu_count-edit">
+						<div id="Edu-qualification-edit"></div>
+						<div>
+							<button type="button" class="btn btn-dark my-2" onClick="new_education_field()" >Add More
+							+</button>
+						</div>
+					</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger btn-default pull-right" data-dismiss="modal">Close</button>
+				<button type="button" id="btnSubmit" class="btn btn-primary">Submit</button>
+			</div>
+			</form>
+			<div>
+			</div>
+		</div>
+	</div>
+</div>
+	{% block js %}
+	<script src="{% static 'assets/javascript/pages/common-submit-editdata.js' %}"></script>
+	<script src="{% static 'assets/javascript/pages/edu/edu-visited-studentInfo-edit.js' %}"></script>
+{% endblock %}
